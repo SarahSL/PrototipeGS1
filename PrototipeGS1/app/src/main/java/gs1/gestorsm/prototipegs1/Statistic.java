@@ -49,42 +49,42 @@ public class Statistic {
      * 
      */
 
-    private int viewedMovies;
+    private int viewedMovies = 1;
 
     /**
      * 
      */
-    private int seriesCompleted;
+    private int seriesCompleted = 2;
 
     /**
      * 
      */
-    private int viewedChapters;
+    private int viewedChapters = 4;
 
     /**
      * 
      */
-    private float hoursViewed;
+    private float hoursViewed = 5.4f;
 
     /**
      * 
      */
-    private int recommendations;
+    private int recommendations= 5;
 
     /**
      * 
      */
-    private float contentAverageScore;
+    private float contentAverageScore = 15f;
 
     /**
      * 
      */
-    private float averageMonthlySeries;
+    private float averageMonthlySeries = 200f;
 
     /**
      * 
      */
-    private float averageMonthlyMovies;
+    private float averageMonthlyMovies=100f;
 
 
 
