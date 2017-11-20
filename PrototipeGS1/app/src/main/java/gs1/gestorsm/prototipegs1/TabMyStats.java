@@ -6,12 +6,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import java.util.ArrayList;
 
-import static gs1.gestorsm.prototipegs1.R.*;
-import static gs1.gestorsm.prototipegs1.R.layout.*;
+
 
 /**
  * Created by Geraldo on 20/11/2017.
@@ -21,8 +21,21 @@ public class TabMyStats extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        createArray();
-        View rootView = inflater.inflate(mystats_tab, container, false);
+        //createArray();
+        View rootView = inflater.inflate(R.layout.mystats_tab, container, false);
+        Statistic statistic = new Statistic();
+        ArrayList<String> arrayList = new ArrayList<>();
+        arrayList.add("Recommendation: " + statistic.getRecommendations());
+        arrayList.add("Viewed Movies: " + statistic.getViewedMovies());
+        arrayList.add("Viewed Series: " + statistic.getViewedChapters());
+        arrayList.add("Monthly Movies: " + statistic.getAverageMonthlyMovies());
+        arrayList.add("Hours Viewed: " + statistic.getHoursViewed());
+        arrayList.add("Content Score: " + statistic.getContentAverageScore());
+        arrayList.add("Series Completed: " + statistic.getSeriesCompleted());
+        ArrayAdapter<String> adapter;
+        adapter = new ArrayAdapter<>(getActivity(), R.layout.list_item_stat, R.id.text_view_stat, arrayList);
+        ListView listView = rootView.findViewById(R.id.list_view_stat);
+        listView.setAdapter(adapter);
         return rootView;
     }
 
@@ -35,8 +48,8 @@ public class TabMyStats extends Fragment {
         arrayList.add("Recomendation" + statistic.getRecommendations());
         arrayList.add("Recomendation" + statistic.getRecommendations());
         ArrayAdapter<String> adapter;
-        //adapter = new ArrayAdapter<String>(this, list_item_stat, id.text_view_stat,arrayList);
-        addTo(arrayList);
+       // adapter = new ArrayAdapter<String>(getActivity(), list_item_stat, id.text_view_stat,arrayList);
+
     }
 
     private void addTo(ArrayList<String> arrayList) {
