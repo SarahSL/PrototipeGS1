@@ -12,6 +12,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         Intent tabActivity = new Intent(getApplicationContext(), TabActivity.class);
         startActivity(tabActivity);
-        
+
+
     }
 }
