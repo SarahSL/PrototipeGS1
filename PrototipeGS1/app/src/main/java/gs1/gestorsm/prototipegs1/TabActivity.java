@@ -125,8 +125,8 @@ public class TabActivity extends AppCompatActivity {
             return 2;
         }
 
-        @Override
-        public CharSequence getPageTitle(int position) {
+        //@Override
+       /* public CharSequence getPageTitle(int position) {
             switch (position){
                 case 0:
                     return "MY Stat";
@@ -134,6 +134,6 @@ public class TabActivity extends AppCompatActivity {
                     return "Contacts Stat";
             }
             return null;
-        }
+        }*/
     }
 }
