@@ -10,8 +10,15 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        Intent tabActivity = new Intent(getApplicationContext(), TabActivity.class);
-        startActivity(tabActivity);
+        boolean sem = true;
+        if (sem) {
+            Intent tabActivity = new Intent(getApplicationContext(), TabActivity.class);
+            startActivity(tabActivity);
+            //System.out.println("as");
+        } else {
+            Intent tabActivity = new Intent(getApplicationContext(), DonationActivity.class);
+            startActivity(tabActivity);
+        }
 
 
     }
