@@ -7,7 +7,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
-import android.widget.TextView;
 
 import java.util.ArrayList;
 
@@ -33,8 +32,8 @@ public class TabMyStats extends Fragment {
         arrayList.add("Content Score: " + statistic.getContentAverageScore());
         arrayList.add("Series Completed: " + statistic.getSeriesCompleted());
         ArrayAdapter<String> adapter;
-        adapter = new ArrayAdapter<>(getActivity(), R.layout.list_item_stat, R.id.text_view_stat, arrayList);
-        ListView listView = rootView.findViewById(R.id.list_view_stat);
+        adapter = new ArrayAdapter<>(getActivity(), R.layout.list_item_my_stat, R.id.text_view_my_stat, arrayList);
+        ListView listView = rootView.findViewById(R.id.list_view_my_stats);
         listView.setAdapter(adapter);
         return rootView;
     }
@@ -48,7 +47,7 @@ public class TabMyStats extends Fragment {
         arrayList.add("Recomendation" + statistic.getRecommendations());
         arrayList.add("Recomendation" + statistic.getRecommendations());
         ArrayAdapter<String> adapter;
-       // adapter = new ArrayAdapter<String>(getActivity(), list_item_stat, id.text_view_stat,arrayList);
+       // adapter = new ArrayAdapter<String>(getActivity(), list_item_my_stat, id.text_view_stat,arrayList);
 
     }
 

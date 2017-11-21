@@ -4,12 +4,13 @@
     android:id="@+id/constraintLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context="gs1.gestorsm.prototipegs1.TabActivity$PlaceholderFragment">
 
     <ListView
-        android:id="@+id/list_view_stat"
-        android:layout_width="368dp"
-        android:layout_height="495dp"
+        android:id="@+id/list_view_my_stats"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         tools:layout_editor_absoluteX="8dp"
         tools:layout_editor_absoluteY="8dp" />
 </LinearLayout>
