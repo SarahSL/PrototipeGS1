@@ -6,4 +6,6 @@
     <string name="title_activity_tab">TabActivity</string>
     <string name="tab_text_1">My Stats</string>
     <string name="tab_text_2">Contact Stats</string>
+    <string name="text_view_donation">Thanks for your extra support!</string>
+    <string name="text_button_donation">Accept</string>
 </resources>
