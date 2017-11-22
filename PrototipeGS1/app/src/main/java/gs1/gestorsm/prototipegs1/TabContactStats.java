@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 /**
@@ -19,7 +20,12 @@ public class TabContactStats extends Fragment{
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.contactstats_tab, container, false);
-        Statistic statistic = new Statistic();
+        Statistic statistic = null;
+        try {
+            statistic = new Statistic();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
         ArrayList<String> arrayList = new ArrayList<>();
         arrayList.add("Recommendation: " + statistic.getRecommendations());
         arrayList.add("Viewed Movies: " + statistic.getViewedMovies());
