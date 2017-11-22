@@ -1,5 +1,9 @@
 package gs1.gestorsm.prototipegs1;
 
+import java.sql.DatabaseMetaData;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.*;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -14,50 +18,82 @@ public class Statistic {
      * Default constructor
      */
     Connection conexionMySQL;
-    public Statistic() {
-/*         conexionMySQL = null;
+    DatabaseMetaData metaData;
+    private Statement statement;
+    private ResultSet resultSet;
+
+    public Statistic() throws SQLException {
+         conexionMySQL = null;
 
         try {
             Class.forName("com.mysql.jdbc.Driver").newInstance ();
+            conexionMySQL = DriverManager.getConnection(
+                    "jdbc:mysql://46.101.178.225:3306/gs1Prototipo",
+                    "explotacion",
+                    "pandeHuevo");
+
+            metaData = conexionMySQL.getMetaData();
         } catch (InstantiationException e) {
             e.printStackTrace();
         } catch (IllegalAccessException e) {
             e.printStackTrace();
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
-        }*/
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        try {
+            calculateStat();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        conexionMySQL.close();
+    }
+
+    private void calculateStat() throws SQLException {
+        statement = conexionMySQL.createStatement();
+        setViewedMovies();
+        /*resultSet = statement.executeQuery("select count(*) from viewlist");
+        System.out.println(resultSet.toString());
+        viewedMovies = Integer.parseInt(resultSet.toString());
+        //ResultSet resultSet = conexionMySQL.setS.getColumns(null,null,"tabla00",null);
+        //resultSet.getMetaData().get*/
 
     }
 
-    public void setViewedMovies(int viewedMovies) {
-        this.viewedMovies = viewedMovies;
+    public void setViewedMovies() throws SQLException {
+        resultSet = statement.executeQuery("select count(*) from viewlist where cod_movie <> null");
+        viewedMovies = viewedMovies;
     }
 
-    public void setSeriesCompleted(int seriesCompleted) {
+    public void setSeriesCompleted(int seriesCompleted) throws SQLException {
+        resultSet = statement.executeQuery("select count(*) from viewlist where cod_chapter <> null");
         this.seriesCompleted = seriesCompleted;
     }
 
-    public void setViewedChapters(int viewedChapters) {
+    public void setViewedChapters(int viewedChapters)  throws SQLException{
+        resultSet = statement.executeQuery("select count(*) from viewlist where cod_chapter <> null");
         this.viewedChapters = viewedChapters;
     }
 
-    public void setHoursViewed(float hoursViewed) {
+    public void setHoursViewed(float hoursViewed) throws SQLException {
         this.hoursViewed = hoursViewed;
     }
 
-    public void setRecommendations(int recommendations) {
+    public void setRecommendations(int recommendations) throws SQLException {
+        resultSet = statement.executeQuery("select count(*) from recommendation ");
         this.recommendations = recommendations;
     }
 
-    public void setContentAverageScore(float contentAverageScore) {
+    public void setContentAverageScore(float contentAverageScore) throws SQLException{
         this.contentAverageScore = contentAverageScore;
     }
 
-    public void setAverageMonthlySeries(float averageMonthlySeries) {
+    public void setAverageMonthlySeries(float averageMonthlySeries) throws SQLException{
         this.averageMonthlySeries = averageMonthlySeries;
     }
 
-    public void setAverageMonthlyMovies(float averageMonthlyMovies) {
+    public void setAverageMonthlyMovies(float averageMonthlyMovies) throws SQLException{
         this.averageMonthlyMovies = averageMonthlyMovies;
     }
 

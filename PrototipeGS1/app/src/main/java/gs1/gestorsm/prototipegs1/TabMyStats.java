@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 
@@ -22,7 +23,12 @@ public class TabMyStats extends Fragment {
                              Bundle savedInstanceState) {
         //createArray();
         View rootView = inflater.inflate(R.layout.mystats_tab, container, false);
-        Statistic statistic = new Statistic();
+        Statistic statistic = null;
+        try {
+            statistic = new Statistic();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
         ArrayList<String> arrayList = new ArrayList<>();
         arrayList.add("Recommendation: " + statistic.getRecommendations());
         arrayList.add("Viewed Movies: " + statistic.getViewedMovies());
@@ -39,7 +45,7 @@ public class TabMyStats extends Fragment {
     }
 
     private void createArray() {
-        Statistic statistic = new Statistic();
+       /* Statistic statistic = new Statistic();
         ArrayList<String> arrayList = new ArrayList<String>();
         arrayList.add("Recomendation" + statistic.getRecommendations());
         arrayList.add("Viewed Movies" + statistic.getViewedMovies());
@@ -48,7 +54,7 @@ public class TabMyStats extends Fragment {
         arrayList.add("Recomendation" + statistic.getRecommendations());
         ArrayAdapter<String> adapter;
        // adapter = new ArrayAdapter<String>(getActivity(), list_item_my_stat, id.text_view_stat,arrayList);
-
+*/
     }
 
     private void addTo(ArrayList<String> arrayList) {
