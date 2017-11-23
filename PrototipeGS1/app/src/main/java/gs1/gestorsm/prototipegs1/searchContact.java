@@ -8,6 +8,8 @@ import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import java.util.ArrayList;
+
 /**
  * Created by Cynthia on 21/11/2017.
  */
@@ -33,11 +35,14 @@ public class searchContact  extends AppCompatActivity {
 
     }
     private void prueba(){
-        ArrayAdapter<String> adaptador;
-        adaptador = new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1);
+
+
+        ArrayList<String>  elemento = new ArrayList<>();
         String [] prueba = {"Cynthia", "Sarah"};
-        adaptador.add(prueba[0]);
-        adaptador.add(prueba[1]);
+        elemento.add(prueba[0]);
+        elemento.add(prueba[1]);
+        ArrayAdapter<String> adaptador;
+        adaptador = new ArrayAdapter<String>(this,R.layout.contact_search,R.id.tituloBuscar);
         lista = (ListView)findViewById(R.id.listaBuscar);
         lista.setAdapter(adaptador);
     }
