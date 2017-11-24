@@ -35,7 +35,6 @@ public class Connect extends AsyncTask<String, Void, String> {
             //UPDATE Y DELETE executeUpdate.
             //SELECT executequery.
             if (mode == 0) {
-                System.out.println("CONSULTA DE SELECCION");
                 ResultSet rs = st.executeQuery(sql);
                 ResultSetMetaData rsmd = rs.getMetaData();
                 while (rs.next()) {
@@ -46,7 +45,6 @@ public class Connect extends AsyncTask<String, Void, String> {
                     data.add(field);
                 }
             } else {
-                System.out.println("CONSULTA DE INSERCION O DELETE");
                 st.executeUpdate(sql);
             }
         } catch (Exception e) {
