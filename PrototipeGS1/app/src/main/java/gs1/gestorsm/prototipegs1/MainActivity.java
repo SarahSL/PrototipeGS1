@@ -27,7 +27,6 @@ public class MainActivity extends AppCompatActivity implements ConnectResponse {
     @Override
     public void processFinish(String str, ArrayList<ArrayList<String>> datos) {
         this.datos = datos;
-        System.out.println("TERMINADO - COSAS");
         //trabajo();
     }
 
