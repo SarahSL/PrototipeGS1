@@ -21,11 +21,11 @@ public class TabContactStats extends Fragment{
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.contactstats_tab, container, false);
         Statistic statistic = null;
-        try {
+
             statistic = new Statistic();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
+
+           
+
         ArrayList<String> arrayList = new ArrayList<>();
         arrayList.add("Recommendation: " + statistic.getRecommendations());
         arrayList.add("Viewed Movies: " + statistic.getViewedMovies());

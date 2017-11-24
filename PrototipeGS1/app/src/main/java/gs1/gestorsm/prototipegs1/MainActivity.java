@@ -16,7 +16,7 @@ public class MainActivity extends AppCompatActivity {
             startActivity(tabActivity);
             //System.out.println("as");
         } else {
-            Intent tabActivity = new Intent(getApplicationContext(), DonationActivity.class);
+            Intent tabActivity = new Intent(getApplicationContext(), ProfileActivity.class);
             startActivity(tabActivity);
         }
 
