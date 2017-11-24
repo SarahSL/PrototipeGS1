@@ -21,14 +21,23 @@ public class TabMyStats extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        //createArray();
+
         View rootView = inflater.inflate(R.layout.mystats_tab, container, false);
-        Statistic statistic = null;
+        /*Statistic statistic = null;
         try {
-            statistic = new Statistic();
         } catch (SQLException e) {
             e.printStackTrace();
-        }
+        }*/
+        ArrayAdapter<String> adapter;
+        adapter = new ArrayAdapter<>(getActivity(), R.layout.list_item_my_stat, R.id.text_view_my_stat, createArray());
+        ListView listView = rootView.findViewById(R.id.list_view_my_stats);
+        listView.setAdapter(adapter);
+        return rootView;
+    }
+
+    private ArrayList createArray() {
+
+        Statistic statistic = new Statistic();
         ArrayList<String> arrayList = new ArrayList<>();
         arrayList.add("Recommendation: " + statistic.getRecommendations());
         arrayList.add("Viewed Movies: " + statistic.getViewedMovies());
@@ -37,24 +46,8 @@ public class TabMyStats extends Fragment {
         arrayList.add("Hours Viewed: " + statistic.getHoursViewed());
         arrayList.add("Content Score: " + statistic.getContentAverageScore());
         arrayList.add("Series Completed: " + statistic.getSeriesCompleted());
-        ArrayAdapter<String> adapter;
-        adapter = new ArrayAdapter<>(getActivity(), R.layout.list_item_my_stat, R.id.text_view_my_stat, arrayList);
-        ListView listView = rootView.findViewById(R.id.list_view_my_stats);
-        listView.setAdapter(adapter);
-        return rootView;
-    }
+        return arrayList;
 
-    private void createArray() {
-       /* Statistic statistic = new Statistic();
-        ArrayList<String> arrayList = new ArrayList<String>();
-        arrayList.add("Recomendation" + statistic.getRecommendations());
-        arrayList.add("Viewed Movies" + statistic.getViewedMovies());
-        arrayList.add("Viewed Series" + statistic.getViewedChapters());
-        arrayList.add("Recomendation" + statistic.getRecommendations());
-        arrayList.add("Recomendation" + statistic.getRecommendations());
-        ArrayAdapter<String> adapter;
-       // adapter = new ArrayAdapter<String>(getActivity(), list_item_my_stat, id.text_view_stat,arrayList);
-*/
     }
 
     private void addTo(ArrayList<String> arrayList) {

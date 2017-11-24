@@ -14,32 +14,28 @@ import java.sql.DriverManager;
  */
 public class Statistic {
 
-    /**
-     * Default constructor
-     */
+
     Connection conexionMySQL;
     DatabaseMetaData metaData;
     private Statement statement;
     private ResultSet resultSet;
 
-    public Statistic() throws SQLException {
-         conexionMySQL = null;
+    public Statistic() /*throws SQLException*/ {
+         /*conexionMySQL = null;
 
         try {
-            Class.forName("com.mysql.jdbc.Driver").newInstance ();
+            Class.forName("com.mysql.jdbc.Driver");
             conexionMySQL = DriverManager.getConnection(
                     "jdbc:mysql://46.101.178.225:3306/gs1Prototipo",
                     "explotacion",
                     "pandeHuevo");
 
-            metaData = conexionMySQL.getMetaData();
-        } catch (InstantiationException e) {
-            e.printStackTrace();
-        } catch (IllegalAccessException e) {
-            e.printStackTrace();
+           // metaData = conexionMySQL.getMetaData();
         } catch (ClassNotFoundException e) {
+            System.out.println("Excepcion 3");
             e.printStackTrace();
         } catch (SQLException e) {
+            System.out.println("Excepcion 4");
             e.printStackTrace();
         }
         try {
@@ -47,15 +43,16 @@ public class Statistic {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        conexionMySQL.close();
+        conexionMySQL.close();*/
     }
 
     private void calculateStat() throws SQLException {
-        statement = conexionMySQL.createStatement();
-        setViewedMovies();
-        /*resultSet = statement.executeQuery("select count(*) from viewlist");
-        System.out.println(resultSet.toString());
-        viewedMovies = Integer.parseInt(resultSet.toString());
+        //statement = conexionMySQL.createStatement();
+        //setViewedMovies();
+        //resultSet = statement.executeQuery("select count(*) from viewlist");
+        //if (resultSet.next()) System.out.println(resultSet.getLong(0) + "coche");
+        //System.out.println(resultSet.toString());
+        //viewedMovies = Integer.parseInt(resultSet.toString());
         //ResultSet resultSet = conexionMySQL.setS.getColumns(null,null,"tabla00",null);
         //resultSet.getMetaData().get*/
 
