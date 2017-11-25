@@ -25,6 +25,7 @@ public class CurrentlyWatchingFragment extends Fragment implements ConnectRespon
 
     ArrayList<ArrayList<String>> datos = new ArrayList<>();
     ArrayList<String> currentlyWatchingElements=new ArrayList<>();
+    ArrayList<String> idContentWatchingElements=new ArrayList<>();
     Connect con;
     View view;
     ListView listView;
@@ -52,7 +53,10 @@ public class CurrentlyWatchingFragment extends Fragment implements ConnectRespon
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                String aux = idContentWatchingElements.get(i);
+                System.out.println(aux);
                 Intent intent = new Intent(getActivity(),ShowPageContent.class);
+                intent.putExtra("aux",aux);
                 startActivity(intent);
             }
         });
@@ -66,7 +70,7 @@ public class CurrentlyWatchingFragment extends Fragment implements ConnectRespon
     private void movieConsult(){
         con = new Connect();
         // TO DO:  HAY QUE AÑADIR EL ID_USER
-        con.setSql("SELECT content.title,contentType.name " +
+        con.setSql("SELECT content.title,contentType.name,content.id_content " +
                 "FROM content,contentType " +
                 "INNER JOIN movie, watchingList " +
                 "WHERE content.id_content = movie.cod_content " +
@@ -78,7 +82,7 @@ public class CurrentlyWatchingFragment extends Fragment implements ConnectRespon
     private void serieConsult(){
         con = new Connect();
         // TO DO:  HAY QUE AÑADIR EL ID_USER
-        con.setSql("SELECT content.title,contentType.name "+
+        con.setSql("SELECT content.title,contentType.name,content.id_content "+
                 "FROM content,contentType "+
                 "INNER JOIN serie,season,chapter, watchingList "+
                 "WHERE content.id_content = serie.cod_content "+
@@ -92,6 +96,7 @@ public class CurrentlyWatchingFragment extends Fragment implements ConnectRespon
     private void AddObjets(){
         for (int i = 0; i < datos.size(); i++) {
             currentlyWatchingElements.add(datos.get(i).get(0)+ "\t\t" + datos.get(i).get(1));
+            idContentWatchingElements.add(datos.get(i).get(2));
         }
 
     }
