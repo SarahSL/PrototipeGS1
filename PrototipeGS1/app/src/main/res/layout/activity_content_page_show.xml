@@ -27,10 +27,24 @@
         tools:scaleType="centerCrop"
         tools:src="@mipmap/braveheart" />
 
+    <TextView
+        android:id="@+id/AddTolist"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Add to the list" />
+
+    <Spinner
+        android:id="@+id/spinner_ContentPage"
+        android:layout_width="237dp"
+        android:layout_height="20dp"
+
+
+        />
+
     <android.support.design.widget.CoordinatorLayout
         android:id="@+id/tabOfContentPage"
         android:layout_width="match_parent"
-        android:layout_height="252dp"
+        android:layout_height="296dp"
         android:paddingTop="10dp"
         tools:layout_editor_absoluteX="0dp"
         tools:layout_editor_absoluteY="173dp">
@@ -55,6 +69,26 @@
                 app:layout_behavior="@string/appbar_scrolling_view_behavior" />
         </android.support.design.widget.AppBarLayout>
     </android.support.design.widget.CoordinatorLayout>
+
+    <TextView
+        android:id="@+id/Platform"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Platform" />
+
+    <TextView
+        android:id="@+id/name_of_platform"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="TextView" />
+
+    <TextView
+        android:id="@+id/link_for_platform"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:clickable="false"
+        android:contextClickable="false"
+        android:text="TextView" />
 
 
 </LinearLayout>

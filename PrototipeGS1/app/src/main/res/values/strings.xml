@@ -6,4 +6,12 @@
     <string name="title_activity_show_content">ShowContent</string>
     <string name="todo">TODO</string>
     <string name="content_title">content.title</string>
+        <string-array name="Add_to_list">
+            <item> </item>
+            <item>Currently watching</item>
+            <item>Plan to watch</item>
+            <item>Completed</item>
+            <item>On hold</item>
+        </string-array>
+
 </resources>
