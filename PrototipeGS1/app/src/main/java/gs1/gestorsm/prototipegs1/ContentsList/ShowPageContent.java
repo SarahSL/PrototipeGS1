@@ -15,6 +15,7 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.Spinner;
 import android.widget.TextView;
 
 import org.w3c.dom.Text;
@@ -31,6 +32,7 @@ import java.util.ArrayList;
 
 import gs1.gestorsm.prototipegs1.Connect;
 import gs1.gestorsm.prototipegs1.ConnectResponse;
+import gs1.gestorsm.prototipegs1.MySession;
 import gs1.gestorsm.prototipegs1.R;
 
 /**
@@ -43,6 +45,7 @@ public class ShowPageContent extends AppCompatActivity implements ConnectRespons
     private ViewPager mViewPager;
     String idContent;
     Connect con;
+    MySession g = MySession.getInstance();
     ArrayList<String> contentDatas=new ArrayList<>();
 
 
@@ -52,14 +55,27 @@ public class ShowPageContent extends AppCompatActivity implements ConnectRespons
         setContentView(R.layout.activity_content_page_show);
         Intent intent = getIntent();
         idContent = intent.getStringExtra("aux");
+        g.setIdContent_PageContent(idContent);
+
+
+//TAB
         mSectionsPageAdapter = new SectionsPageAdapter(getSupportFragmentManager());
         mViewPager = (ViewPager) findViewById(R.id.container);
         setupViewPager(mViewPager);
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
         tabLayout.setupWithViewPager(mViewPager);
+//SIPNNER
+        Spinner spinner = (Spinner) findViewById(R.id.spinner_ContentPage);
 
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
+                R.array.Add_to_list,android.R.layout.simple_spinner_item);
 
-        getContentTitleAndImage();
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
+        spinner.setAdapter(adapter);
+
+        //GETDATAS
+        getDatas();
         //TO DO_ FIX THE IMAGE
     }
 
@@ -79,6 +95,10 @@ public class ShowPageContent extends AppCompatActivity implements ConnectRespons
 
         TextView textView = findViewById(R.id.show_page_content_text);
         textView.setText(contentDatas.get(0));
+        TextView nameP = findViewById(R.id.name_of_platform);
+        nameP.setText(contentDatas.get(2));
+        TextView linkP = findViewById(R.id.link_for_platform);
+        linkP.setText(contentDatas.get(3));
        // new DownloadImageTask((ImageView) findViewById(R.id.imageView_contentPage)).execute(contentDatas.get(1));
 
 
@@ -108,16 +128,21 @@ public class ShowPageContent extends AppCompatActivity implements ConnectRespons
             bmImage.setImageBitmap(result);
         }
     }*/
-    private void getContentTitleAndImage(){
+    private void getDatas(){
         con = new Connect();
-        // TO DO:  HAY QUE AÑADIR EL ID_USER
-        con.setSql("Select content.title,content.image from content where content.id_content="+idContent+"", 0);
+        con.setSql("Select content.title,content.image,platform.name,platform.link " +
+                "from content " +
+                "Inner join platform " +
+                "where platform.id_platform = content.cod_platform " +
+                "and content.id_content="+idContent+"", 0);
         con.delegate = this;
         con.Connect();
     }
     private void setAllDatas(){
         contentDatas.add(datos.get(0).get(0));
         contentDatas.add(datos.get(0).get(1));
+        contentDatas.add(datos.get(0).get(2));
+        contentDatas.add(datos.get(0).get(3));
 
     }
 }
