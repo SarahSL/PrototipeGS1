@@ -8,7 +8,6 @@ public class MySession {
     private static MySession instance;
     private static String test;
 
-
     private MySession() {
     }
 

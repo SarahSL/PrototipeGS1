@@ -24,6 +24,19 @@ public class Login extends AppCompatActivity implements ConnectResponse {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.login);
+    }
+
+    protected void onResume() {
+        super.onResume();
+        g.setId("");
+        cleanEditText();
+    }
+
+    public void cleanEditText() {
+        EditText user = findViewById(R.id.userText);
+        EditText pass = findViewById(R.id.passText);
+        user.setText("");
+        pass.setText("");
 
     }
 
@@ -56,8 +69,8 @@ public class Login extends AppCompatActivity implements ConnectResponse {
         }
     }
 
-    public void register(View view){
-        Intent i = new Intent(this,Register.class);
+    public void register(View view) {
+        Intent i = new Intent(this, Register.class);
         startActivity(i);
     }
 }
