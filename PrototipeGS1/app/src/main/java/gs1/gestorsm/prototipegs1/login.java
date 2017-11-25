@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -14,7 +13,7 @@ import java.util.ArrayList;
  * Created by Jorge on 25/11/2017.
  */
 
-public class login extends AppCompatActivity implements ConnectResponse {
+public class Login extends AppCompatActivity implements ConnectResponse {
 
     ArrayList<ArrayList<String>> datos = new ArrayList<>();
     boolean logued = false;
@@ -31,8 +30,8 @@ public class login extends AppCompatActivity implements ConnectResponse {
     public void processFinish(String str, ArrayList<ArrayList<String>> datos) {
         this.datos = datos;
         if (datos.size() > 0) {
-            System.out.println("aksjlasjdalkdsja");
             logued = true;
+            System.out.println(datos.get(0).get(0));
         }
         prueba();
     }
@@ -42,18 +41,22 @@ public class login extends AppCompatActivity implements ConnectResponse {
         Connect con = new Connect();
         EditText user = findViewById(R.id.userText);
         EditText pass = findViewById(R.id.passText);
-        con.setSql("Select * from user where user.userName='" + user.getText() + "' and user.password='" + pass.getText() + "'", 0);
+        con.setSql("Select user.id_user from user where user.userName='" + user.getText() + "' and user.password='" + pass.getText() + "'", 0);
         con.delegate = this;
         con.Connect();
     }
 
-    // Al presionar el botón de precios saltamos a la activity correspondiente.
     public void prueba() {
         if (logued) {
-            Intent i = new Intent(this, logueado.class);
+            Intent i = new Intent(this, Logued.class);
             startActivity(i);
         } else {
             Toast.makeText(this, "Error en los datos introducidos", Toast.LENGTH_SHORT).show();
         }
+    }
+
+    public void register(View view){
+        Intent i = new Intent(this,Register.class);
+        startActivity(i);
     }
 }
