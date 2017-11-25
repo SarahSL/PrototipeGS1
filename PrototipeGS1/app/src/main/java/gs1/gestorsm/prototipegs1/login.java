@@ -56,8 +56,8 @@ public class Login extends AppCompatActivity implements ConnectResponse {
         }
     }
 
-    public void register(View view){
-        Intent i = new Intent(this,Register.class);
+    public void register(View view) {
+        Intent i = new Intent(this, Register.class);
         startActivity(i);
     }
 }

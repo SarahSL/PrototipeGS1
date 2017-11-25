@@ -24,6 +24,9 @@
             android:theme="@style/AppTheme.NoActionBar"/>
         <activity android:name=".ContentsList.ShowPageContent">
         </activity>
+        <activity android:name=".Login"></activity>
+        <activity android:name=".Logued"></activity>
+        <activity android:name=".Register"></activity>
     </application>
 
 </manifest>
