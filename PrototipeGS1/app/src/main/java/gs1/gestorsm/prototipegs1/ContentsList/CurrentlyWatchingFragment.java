@@ -55,7 +55,8 @@ public class CurrentlyWatchingFragment extends Fragment implements ConnectRespon
                 Intent intent = new Intent(getActivity(),ShowPageContent.class);
                 startActivity(intent);
             }
-        } );
+        });
+
     }
     @Override
     public void onStop() {
