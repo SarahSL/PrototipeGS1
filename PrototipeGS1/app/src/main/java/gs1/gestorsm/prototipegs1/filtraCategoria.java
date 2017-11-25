@@ -4,6 +4,8 @@ import android.content.Context;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MotionEvent;
+import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 import android.widget.ViewFlipper;
 
@@ -14,16 +16,13 @@ import java.util.Iterator;
  * Created by topema on 25/11/2017.
  */
 
-public class filtraCategoria extends AppCompatActivity implements ConnectResponse  {
+public class filtraCategoria extends AppCompatActivity implements ConnectResponse {
     Connect con;
     ArrayList<ArrayList<String>> datos = new ArrayList<>();
-    ArrayList<ArrayList<String>> contents = new ArrayList<>();
-    ArrayList<ArrayList<String>> categories = new ArrayList<>();
+    Button enlace;
     TextView category1, category2, title1,title2,sinopsis1,sinopsis2,results;
-    String[] category = {"Thriller","Romantic","Action","Horror","Scyfi","Western","Anime","Comedy","Drama","Suspense","Documentary"};
-    int punterolocal=0,punteroglobal=0,punterolocal2=1,punteroglobal2=1;
-    int a=0;
-    Iterator<ArrayList<String>> it;
+    String[] category = {"Thriller","Romantic","Action","Horror","Scyfi", "Western","Anime","Comedy","Drama","Suspense","Documentary"};
+    int punteroglobal=0,punteroglobal2=0;
 
     private ViewFlipper mViewFlipper, mViewFlipper2;
     private Context mContext;
@@ -48,38 +47,25 @@ public class filtraCategoria extends AppCompatActivity implements ConnectRespons
 
         results = findViewById(R.id.result);
 
+        enlace = findViewById(R.id.enlaceContenido);
 
+        enlace.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
 
+            }
+        });
 
-        //con.setSql("Select * from user");
-        //Mode 0 - Select
-        //Mode 1 - Update y Delete
-/*        con.setSql("SELECT * from category", 0);
-        con.delegate = this;
-        con.Connect();*/
-
-
-
-        //obtenCategoria();
         printCategories();
 
         TitleAndSinopsis();
-
-        //System.out.println(datos.get(0).get(0));
-
     }
 
     private void TitleAndSinopsis() {
         con = new Connect();
-        con.setSql("Select content.title, content.synopsis from content inner join contentCategory where content.id_content = contentCategory.cod_content AND cod_category ="+(punteroglobal+1), 0);
-        //+datos.get(punteroglobal).get(0)
-        con.delegate = this;
-        con.Connect();
-    }
-
-    private void obtenCategoria() {
-        con = new Connect();
-        con.setSql("Select * from category", 0);
+        con.setSql("Select content.title, content.synopsis from content inner join " +
+                "contentCategory where content.id_content = contentCategory.cod_content " +
+                "AND cod_category ="+(punteroglobal+1), 0);
         con.delegate = this;
         con.Connect();
     }
@@ -105,7 +91,6 @@ public class filtraCategoria extends AppCompatActivity implements ConnectRespons
                             if(punteroglobal==10) punteroglobal=0;
                             switch(mViewFlipper.getDisplayedChild()){
                                 case 0:     //categoria0
-                                    //category2.setText(datos.get(punteroglobal).get(1));
                                     category2.setText(category[punteroglobal]);
                                     punteroglobal++;
                                     break;
@@ -140,44 +125,48 @@ public class filtraCategoria extends AppCompatActivity implements ConnectRespons
                     if (initialX > finalX) {
                         // mViewFlipper.setInAnimation(AnimationUtils.loadAnimation(mContext, R.anim.in_from_left));
                         //mViewFlipper.setOutAnimation(AnimationUtils.loadAnimation(mContext, R.anim.out_from_right));
-/*                        datos.clear();
-                        TitleAndSinopsis();
-                        if(punteroglobal2>=datos.size()) punteroglobal2=0;
-                        switch(mViewFlipper.getDisplayedChild()){
-                            case 0:     //categoria0
-                                //category2.setText(datos.get(punteroglobal).get(1));
-                                category2.setText(datos.get(punteroglobal2).get(0));
-                                category2.setText(datos.get(punteroglobal2).get(1));
-                                punteroglobal++;
-                                break;
-                            case 1:     //categoria1
-                                category1.setText(datos.get(punteroglobal2).get(0));
-                                category1.setText(datos.get(punteroglobal2).get(1));
-                                punteroglobal++;
-                                break;
-                        }*/
-                        mViewFlipper2.showNext();
+                        datos.clear();
+
+                        if(datos.size()>1) {
+                            if (punteroglobal2 > datos.size()) punteroglobal2 = 0;
+                            switch (mViewFlipper2.getDisplayedChild()) {
+                                case 0:     //categoria0
+                                    category2.setText(datos.get(punteroglobal2).get(0));
+                                    category2.setText(datos.get(punteroglobal2).get(1));
+                                    break;
+                                case 1:     //categoria1
+                                    category1.setText(datos.get(punteroglobal2).get(0));
+                                    category1.setText(datos.get(punteroglobal2).get(1));
+                                    break;
+                            }
+                            punteroglobal2++;
+                            mViewFlipper2.showNext();
+                        }else{
+                            mViewFlipper2.showNext();
+                        }
                     } else {
                         //mViewFlipper.setInAnimation(AnimationUtils.loadAnimation(mContext, R.anim.in_from_right));
                         //mViewFlipper.setOutAnimation(AnimationUtils.loadAnimation(mContext, R.anim.out_from_left));
-//
-//                        datos.clear();
-//                        TitleAndSinopsis();
-//
-//                        if(punteroglobal2<=0) punteroglobal2=datos.size();
-//                        switch(mViewFlipper.getDisplayedChild()){
-//                            case 0:     //categoria0
-//                                title2.setText(datos.get(punteroglobal2).get(0));
-//                                sinopsis2.setText(datos.get(punteroglobal2).get(1));
-//                                punteroglobal--;
-//                                break;
-//                            case 1:     //categoria1
-//                                title1.setText(datos.get(punteroglobal2).get(0));
-//                                sinopsis1.setText(datos.get(punteroglobal2).get(1));
-//                                punteroglobal--;
-//                                break;
-//                        }
-                        mViewFlipper2.showPrevious();
+
+                        datos.clear();
+
+                        if(datos.size()>1) {
+                            if (punteroglobal2 < 0) punteroglobal2 = datos.size();
+                            switch (mViewFlipper2.getDisplayedChild()) {
+                                case 0:     //categoria0
+                                    title2.setText(datos.get(punteroglobal2).get(0));
+                                    sinopsis2.setText(datos.get(punteroglobal2).get(1));
+                                    break;
+                                case 1:     //categoria1
+                                    title1.setText(datos.get(punteroglobal2).get(0));
+                                    sinopsis1.setText(datos.get(punteroglobal2).get(1));
+                                    break;
+                            }
+                            punteroglobal2--;
+                            mViewFlipper2.showPrevious();
+                        }else{
+                            mViewFlipper2.showPrevious();
+                        }
                     }
                 }
                 break;

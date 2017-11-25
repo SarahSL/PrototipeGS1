@@ -19,6 +19,12 @@
             android:id="@+id/commentButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Comentar" />
+            android:text="comment" />
+
+        <Button
+            android:id="@+id/buttonBack"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="GO BACK" />
     </LinearLayout>
 </android.support.constraint.ConstraintLayout>
