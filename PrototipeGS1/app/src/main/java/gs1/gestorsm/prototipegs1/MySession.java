@@ -5,13 +5,25 @@ package gs1.gestorsm.prototipegs1;
  */
 
 public class MySession {
-    private int idUser;
+    private static MySession instance;
+    private static String test;
 
-    public int getId() {
-        return idUser;
+
+    private MySession() {
     }
 
-    public void setId(int id) {
-        this.idUser = id;
+    public void setId(String t) {
+        MySession.test = t;
+    }
+
+    public String getId() {
+        return MySession.test;
+    }
+
+    public static synchronized MySession getInstance() {
+        if (instance == null) {
+            instance = new MySession();
+        }
+        return instance;
     }
 }

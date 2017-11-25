@@ -16,6 +16,7 @@ import java.util.ArrayList;
 public class Login extends AppCompatActivity implements ConnectResponse {
 
     ArrayList<ArrayList<String>> datos = new ArrayList<>();
+    MySession g = MySession.getInstance();
     boolean logued = false;
 
 
@@ -31,7 +32,7 @@ public class Login extends AppCompatActivity implements ConnectResponse {
         this.datos = datos;
         if (datos.size() > 0) {
             logued = true;
-            System.out.println(datos.get(0).get(0));
+            g.setId(String.valueOf(datos.get(0).get(0)));
         }
         prueba();
     }
