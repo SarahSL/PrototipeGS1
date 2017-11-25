@@ -42,7 +42,8 @@ public class ShowPageContent extends AppCompatActivity {
         SectionsPageAdapter adapter = new SectionsPageAdapter(getSupportFragmentManager());
         //AÑADIR TODOS LOS FRAGMENTS
         adapter.addFragment(new SinopsisFragment(),"Sinopsis");
-
+        adapter.addFragment(new EpisodesFragment(),"Episodes");
+        adapter.addFragment(new SocialFragment(),"Social");
         viewPager.setAdapter(adapter);
     }
 }
