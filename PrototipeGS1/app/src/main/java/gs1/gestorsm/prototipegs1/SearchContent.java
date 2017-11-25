@@ -6,6 +6,8 @@ import android.webkit.WebView;
 import android.widget.ListView;
 import android.widget.SearchView;
 import android.widget.SearchView.OnQueryTextListener;
+import android.widget.Toast;
+import android.widget.Toolbar;
 
 import java.util.ArrayList;
 
@@ -33,6 +35,12 @@ public class SearchContent extends AppCompatActivity implements ConnectResponse 
         search = findViewById(R.id.searchView);
         results = findViewById(R.id.searchResult);
     }
+
+    public boolean onQueryTextSubmit(String text) {
+        Toast.makeText(this, "Searching for " + text, Toast.LENGTH_LONG).show();
+        return false;
+    }
+
 
     @Override
     public void processFinish(String output, ArrayList<ArrayList<String>> datos) {

@@ -18,6 +18,12 @@
             tools:layout_editor_absoluteX="83dp"
             tools:layout_editor_absoluteY="62dp" />
 
+        <TextView
+            android:id="@+id/result"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Results: " />
+
         <ViewFlipper
             android:layout_width="match_parent"
             android:layout_height="132dp"
@@ -49,18 +55,6 @@
 
             </LinearLayout>
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical">
-
-                <TextView
-                    android:id="@+id/category3"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="category3"/>
-
-            </LinearLayout>
 
 
         </ViewFlipper>
@@ -110,24 +104,6 @@
 
             </LinearLayout>
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical">
-
-                <TextView
-                    android:id="@+id/title3"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="title3"/>
-
-                <TextView
-                    android:id="@+id/sinopsis3"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="sinopsis3"/>
-
-            </LinearLayout>
 
         </ViewFlipper>
 
