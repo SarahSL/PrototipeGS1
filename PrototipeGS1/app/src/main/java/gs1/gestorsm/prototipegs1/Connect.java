@@ -42,7 +42,7 @@ public class Connect extends AsyncTask<String, Void, String> {
                     for (int i = 1; i <= rsmd.getColumnCount(); i++) {
                         field.add(rs.getString(i));
                     }
-                    data.add(field);
+                    data.add(new ArrayList<String>(field));
                 }
             } else {
                 st.executeUpdate(sql);
@@ -57,7 +57,6 @@ public class Connect extends AsyncTask<String, Void, String> {
     protected void onPostExecute(String result) {
         delegate.processFinish(result, data);
     }
-
 
     public void Connect() {
         this.execute();
