@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:layout_editor_absoluteX="190dp"
+        tools:layout_editor_absoluteY="64dp">
+
+        <TextView
+            android:id="@+id/nameFriend"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/verEstadisticas"
+            android:layout_alignStart="@+id/borrarContacto"
+            android:layout_marginBottom="123dp"
+            android:layout_marginStart="44dp"
+            android:text="hol"
+            android:textSize="24sp"
+            tools:layout_editor_absoluteX="164dp"
+            tools:layout_editor_absoluteY="51dp" />
+
+        <Button
+            android:id="@+id/verEstadisticas"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/borrarContacto"
+            android:layout_alignEnd="@+id/nameFriend"
+            android:layout_marginBottom="63dp"
+            android:text="Ver Estadísticas" />
+
+        <Button
+            android:id="@+id/verListas"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@+id/verEstadisticas"
+            android:layout_alignBottom="@+id/verEstadisticas"
+            android:layout_marginStart="44dp"
+            android:layout_toEndOf="@+id/verEstadisticas"
+            android:text="Ver listas" />
+
+        <Button
+            android:id="@+id/borrarContacto"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="42dp"
+            android:text="Borrar Contacto" />
+
+        <TextView
+            android:id="@+id/name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginEnd="21dp"
+            android:layout_toStartOf="@+id/borrarContacto"
+            android:text="nombre"
+            android:textSize="18sp" />
+
+        <TextView
+            android:id="@+id/birth"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignStart="@+id/name"
+            android:layout_below="@+id/name"
+            android:layout_marginTop="10dp"
+            android:text="cumple"
+            android:textSize="18sp" />
+
+        <ImageView
+            android:id="@+id/imagen"
+            android:layout_width="200dp"
+            android:layout_height="200dp"
+            android:layout_alignParentTop="true"
+            android:layout_marginTop="23dp"
+            android:layout_toEndOf="@+id/birth"
+            app:srcCompat="@mipmap/ic_launcher_round" />
+    </RelativeLayout>
+
+</android.support.constraint.ConstraintLayout>
