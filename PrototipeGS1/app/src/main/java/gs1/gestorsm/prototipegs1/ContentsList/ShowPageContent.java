@@ -4,11 +4,13 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Rect;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
@@ -42,7 +44,7 @@ public class ShowPageContent extends AppCompatActivity implements ConnectRespons
     String idContent;
     Connect con;
     ArrayList<String> contentDatas=new ArrayList<>();
-    ImageView img;
+
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -58,7 +60,7 @@ public class ShowPageContent extends AppCompatActivity implements ConnectRespons
 
 
         getContentTitleAndImage();
-
+        //TO DO_ FIX THE IMAGE
     }
 
 
@@ -75,38 +77,37 @@ public class ShowPageContent extends AppCompatActivity implements ConnectRespons
         this.datos = datos;
         setAllDatas();
 
-        //SET ALL DATAS
-
-       //
-        System.out.println(contentDatas.get(0) + contentDatas.get(1));
         TextView textView = findViewById(R.id.show_page_content_text);
         textView.setText(contentDatas.get(0));
+       // new DownloadImageTask((ImageView) findViewById(R.id.imageView_contentPage)).execute(contentDatas.get(1));
 
-        loadConntentImage(contentDatas.get(1));
+
 
     }
-    private void loadConntentImage(String url){
-        URL imageUrl;
-        HttpURLConnection conn;
-        img = findViewById(R.id.imageView_contentPage);
-        try {
+    /*private class DownloadImageTask extends AsyncTask<String, Void, Bitmap> {
+        ImageView bmImage;
 
-            imageUrl = new URL(url);
-            conn = (HttpURLConnection) imageUrl.openConnection();
-            conn.connect();
-
-            BitmapFactory.Options options = new BitmapFactory.Options();
-            options.inSampleSize = 2; // el factor de escala a minimizar la imagen, siempre es potencia de 2
-
-            Bitmap imagen = BitmapFactory.decodeStream(conn.getInputStream(), new Rect(0, 0, 0, 0), options);
-            img.setImageBitmap(imagen);
-
-        } catch (IOException e) {
-
-            e.printStackTrace();
-
+        public DownloadImageTask(ImageView bmImage) {
+            this.bmImage = bmImage;
         }
-    }
+
+        protected Bitmap doInBackground(String... urls) {
+            String urldisplay = urls[0];
+            Bitmap mIcon11 = null;
+            try {
+                InputStream in = new java.net.URL(urldisplay).openStream();
+                mIcon11 = BitmapFactory.decodeStream(in);
+            } catch (Exception e) {
+                Log.e("Error", e.getMessage());
+                e.printStackTrace();
+            }
+            return mIcon11;
+        }
+
+        protected void onPostExecute(Bitmap result) {
+            bmImage.setImageBitmap(result);
+        }
+    }*/
     private void getContentTitleAndImage(){
         con = new Connect();
         // TO DO:  HAY QUE AÑADIR EL ID_USER
@@ -115,8 +116,8 @@ public class ShowPageContent extends AppCompatActivity implements ConnectRespons
         con.Connect();
     }
     private void setAllDatas(){
-        for (int i = 0; i < datos.size(); i++) {
-            contentDatas.add(datos.get(0).get(i));
-        }
+        contentDatas.add(datos.get(0).get(0));
+        contentDatas.add(datos.get(0).get(1));
+
     }
 }

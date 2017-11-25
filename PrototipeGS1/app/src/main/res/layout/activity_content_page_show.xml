@@ -12,7 +12,7 @@
         android:id="@+id/show_page_content_text"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="content.title"
+        android:text="@string/content_title"
         android:paddingTop="10dp"
         tools:layout_editor_absoluteX="169dp"
         tools:layout_editor_absoluteY="93dp" />
@@ -20,16 +20,17 @@
     <ImageView
         android:id="@+id/imageView_contentPage"
         android:layout_width="match_parent"
-        android:layout_height="42dp"
-        android:paddingTop="10dp"
-        app:srcCompat="@color/colorPrimary"
+        android:layout_height="74dp"
+        android:contentDescription="@string/todo"
         tools:layout_editor_absoluteX="36dp"
-        tools:layout_editor_absoluteY="76dp" />
+        tools:layout_editor_absoluteY="76dp"
+        tools:scaleType="centerCrop"
+        tools:src="@mipmap/braveheart" />
 
     <android.support.design.widget.CoordinatorLayout
         android:id="@+id/tabOfContentPage"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="252dp"
         android:paddingTop="10dp"
         tools:layout_editor_absoluteX="0dp"
         tools:layout_editor_absoluteY="173dp">
@@ -46,6 +47,7 @@
                 android:id="@+id/tabs"
                 android:layout_width="match_parent"
                 android:layout_height="38dp" />
+
             <android.support.v4.view.ViewPager
                 android:id="@+id/container"
                 android:layout_width="match_parent"
