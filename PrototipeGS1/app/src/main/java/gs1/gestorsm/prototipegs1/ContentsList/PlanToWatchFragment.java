@@ -8,7 +8,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
-import android.widget.TextView;
 
 import java.util.ArrayList;
 
@@ -26,10 +25,12 @@ public class PlanToWatchFragment extends Fragment implements ConnectResponse{
     ArrayList<String> planToWatchElements=new ArrayList<>();
     Connect con;
     View view;
+    ArrayAdapter<String> adapter;
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_watch_to_plan,container,false);
+        view = inflater.inflate(R.layout.fragment_watch_to_plan,container,false);
         movieConsult();
         serieConsult();
         return view;
@@ -40,41 +41,46 @@ public class PlanToWatchFragment extends Fragment implements ConnectResponse{
         this.datos = datos;
         AddObjets();
         // CREATE DE ADAPTER WITH ALL THE DATA FROM ALL THE CONSULTS
-        ArrayAdapter<String> adapter=new ArrayAdapter<>(getActivity(),R.layout.fragment_watch_to_plan,R.id.textView2
+        adapter = new ArrayAdapter<>(getActivity(),R.layout.fragment_watch_to_plan,R.id.textView2
                 ,planToWatchElements);
         ListView listView = view.findViewById(R.id.plan_to_watch_list);
-
         listView.setAdapter(adapter);
+
+    }
+    @Override
+    public void onStop(){
+        super.onStop();
+        adapter.clear();
     }
     private void movieConsult(){
         con = new Connect();
         // TO DO:  HAY QUE AÑADIR EL ID_USER
-        con.setSql("SELECT content.title " +
-                "FROM content " +
+        con.setSql("SELECT content.title,contentType.name " +
+                "FROM content,contentType " +
                 "INNER JOIN movie, desiredList " +
                 "WHERE content.id_content = movie.cod_content " +
                 "AND desiredList.cod_movie = movie.id_movie " +
-                "AND desiredList.cod_user =1 ", 0);
+                "AND desiredList.cod_user =1 AND contentType.id_contentType=content.cod_contentType ", 0);
         con.delegate = this;
         con.Connect();
     }
     private void serieConsult(){
         con = new Connect();
         // TO DO:  HAY QUE AÑADIR EL ID_USER
-        con.setSql("SELECT content.title "+
-                "FROM content "+
+        con.setSql("SELECT content.title,contentType.name "+
+                "FROM content,contentType "+
                 "INNER JOIN serie,season,chapter, desiredList "+
                 "WHERE content.id_content = serie.cod_content "+
                 "AND serie.id_serie=season.cod_serie "+
                 "AND season.id_season=chapter.cod_season "+
                 "AND desiredList.cod_chapter = chapter.id_chapter "+
-                "AND desiredList.cod_user =1", 0);
+                "AND desiredList.cod_user =1 AND contentType.id_contentType=content.cod_contentType", 0);
         con.delegate = this;
         con.Connect();
     }
     private void AddObjets(){
         for (int i = 0; i < datos.size(); i++) {
-            planToWatchElements.add(datos.get(i).get(0));
+            planToWatchElements.add(datos.get(i).get(0)+ "\t\t" + datos.get(i).get(1));
         }
 
     }
