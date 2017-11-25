@@ -140,34 +140,43 @@ public class filtraCategoria extends AppCompatActivity implements ConnectRespons
                     if (initialX > finalX) {
                         // mViewFlipper.setInAnimation(AnimationUtils.loadAnimation(mContext, R.anim.in_from_left));
                         //mViewFlipper.setOutAnimation(AnimationUtils.loadAnimation(mContext, R.anim.out_from_right));
-                       /* if(datos.size()>mViewFlipper2.getDisplayedChild()) {
-                            if(punterolocal2==2){
-                                if(punteroglobal2>datos.size()) punteroglobal=1;
-                                switch(mViewFlipper.getDisplayedChild()){
-                                    case 0:
-                                        title2.setText(datos.get(punteroglobal2).get(0));
-                                        sinopsis2.setText(datos.get(punteroglobal2).get(1));
-                                        break;
-                                    case 1:
-                                        title3.setText(datos.get(punteroglobal2).get(0));
-                                        sinopsis3.setText(datos.get(punteroglobal2).get(1));
-                                        break;
-                                    case 2:
-                                        title1.setText(datos.get(punteroglobal2).get(0));
-                                        sinopsis1.setText(datos.get(punteroglobal2).get(1));
-                                        break;
-                                }
-                            }else{
-                                punterolocal2++;
-                            }
-                            punteroglobal2++;
-
+/*                        datos.clear();
+                        TitleAndSinopsis();
+                        if(punteroglobal2>=datos.size()) punteroglobal2=0;
+                        switch(mViewFlipper.getDisplayedChild()){
+                            case 0:     //categoria0
+                                //category2.setText(datos.get(punteroglobal).get(1));
+                                category2.setText(datos.get(punteroglobal2).get(0));
+                                category2.setText(datos.get(punteroglobal2).get(1));
+                                punteroglobal++;
+                                break;
+                            case 1:     //categoria1
+                                category1.setText(datos.get(punteroglobal2).get(0));
+                                category1.setText(datos.get(punteroglobal2).get(1));
+                                punteroglobal++;
+                                break;
                         }*/
                         mViewFlipper2.showNext();
                     } else {
                         //mViewFlipper.setInAnimation(AnimationUtils.loadAnimation(mContext, R.anim.in_from_right));
                         //mViewFlipper.setOutAnimation(AnimationUtils.loadAnimation(mContext, R.anim.out_from_left));
-
+//
+//                        datos.clear();
+//                        TitleAndSinopsis();
+//
+//                        if(punteroglobal2<=0) punteroglobal2=datos.size();
+//                        switch(mViewFlipper.getDisplayedChild()){
+//                            case 0:     //categoria0
+//                                title2.setText(datos.get(punteroglobal2).get(0));
+//                                sinopsis2.setText(datos.get(punteroglobal2).get(1));
+//                                punteroglobal--;
+//                                break;
+//                            case 1:     //categoria1
+//                                title1.setText(datos.get(punteroglobal2).get(0));
+//                                sinopsis1.setText(datos.get(punteroglobal2).get(1));
+//                                punteroglobal--;
+//                                break;
+//                        }
                         mViewFlipper2.showPrevious();
                     }
                 }
