@@ -1,4 +1,4 @@
-package gs1.gestorsm.prototipegs1;
+package gs1.gestorsm.prototipegs1.ContentsList;
 
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
