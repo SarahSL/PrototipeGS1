@@ -27,6 +27,8 @@
         <activity android:name=".Login"></activity>
         <activity android:name=".Logued"></activity>
         <activity android:name=".Register"></activity>
+        <activity android:name=".filtraCategoria"></activity>
+        <activity android:name=".SearchContent"></activity>
     </application>
 
 </manifest>
