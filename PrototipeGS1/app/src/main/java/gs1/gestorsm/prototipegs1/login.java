@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -13,38 +14,25 @@ import java.util.ArrayList;
  * Created by Jorge on 25/11/2017.
  */
 
-public class Login extends AppCompatActivity implements ConnectResponse {
+public class login extends AppCompatActivity implements ConnectResponse {
 
     ArrayList<ArrayList<String>> datos = new ArrayList<>();
-    MySession g = MySession.getInstance();
     boolean logued = false;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_login);
-    }
+        setContentView(R.layout.login);
 
-    protected void onResume() {
-        super.onResume();
-        g.setId("");
-        cleanEditText();
-    }
-
-    public void cleanEditText() {
-        EditText user = findViewById(R.id.userText);
-        EditText pass = findViewById(R.id.passText);
-        user.setText("");
-        pass.setText("");
     }
 
     @Override
     public void processFinish(String str, ArrayList<ArrayList<String>> datos) {
         this.datos = datos;
         if (datos.size() > 0) {
+            System.out.println("aksjlasjdalkdsja");
             logued = true;
-            g.setId(String.valueOf(datos.get(0).get(0)));
         }
         prueba();
     }
@@ -54,22 +42,18 @@ public class Login extends AppCompatActivity implements ConnectResponse {
         Connect con = new Connect();
         EditText user = findViewById(R.id.userText);
         EditText pass = findViewById(R.id.passText);
-        con.setSql("Select user.id_user from user where user.userName='" + user.getText() + "' and user.password='" + pass.getText() + "'", 0);
+        con.setSql("Select * from user where user.userName='" + user.getText() + "' and user.password='" + pass.getText() + "'", 0);
         con.delegate = this;
         con.Connect();
     }
 
+    // Al presionar el botón de precios saltamos a la activity correspondiente.
     public void prueba() {
         if (logued) {
-            Intent i = new Intent(this, Logued.class);
+            Intent i = new Intent(this, logueado.class);
             startActivity(i);
         } else {
             Toast.makeText(this, "Error en los datos introducidos", Toast.LENGTH_SHORT).show();
         }
-    }
-
-    public void register(View view) {
-        Intent i = new Intent(this, Register.class);
-        startActivity(i);
     }
 }
