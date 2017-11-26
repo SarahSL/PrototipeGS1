@@ -28,6 +28,7 @@ public class Register extends AppCompatActivity implements ConnectResponse {
     String path;
     byte[] bArray;
     Bitmap bitmap = null;
+    ImageView a;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,6 +39,7 @@ public class Register extends AppCompatActivity implements ConnectResponse {
     @Override
     public void processFinish(String output, ArrayList<ArrayList<String>> datos) {
         System.out.println(output);
+        onBackPressed();
     }
 
     public void imgButton(View view) {
@@ -74,13 +76,17 @@ public class Register extends AppCompatActivity implements ConnectResponse {
         EditText pass1 = findViewById(R.id.passReg1);
         EditText pass2 = findViewById(R.id.passReg2);
         EditText name = findViewById(R.id.nameReg);
-        if (pass1.getText().toString().equals(pass2.getText().toString())) {
-            //con.setSql("INSERT INTO user(userName,password,name) values('" + user.getText() + "','" + pass1.getText().toString() + "','" + name.getText() + "')", 1);
-            con.setSql("INSERT INTO user(userName,password,name,userImage) values('" + user.getText() + "','" + pass1.getText().toString() + "','" + name.getText() + "','" + converBitmapToBlob(bitmap) + "')", 1);
-            con.delegate = this;
-            con.Connect();
-        } else {
-            Toast.makeText(this, "La contraseñas introducidas no coinciden.", Toast.LENGTH_SHORT).show();
+        if(bitmap!=null) {
+            if (pass1.getText().toString().equals(pass2.getText().toString())) {
+                //con.setSql("INSERT INTO user(userName,password,name) values('" + user.getText() + "','" + pass1.getText().toString() + "','" + name.getText() + "')", 1);
+                con.setSql("INSERT INTO user(userName,password,name,userImage) values('" + user.getText() + "','" + pass1.getText().toString() + "','" + name.getText() + "','" + converBitmapToBlob(bitmap) + "')", 1);
+                con.delegate = this;
+                con.Connect();
+            } else {
+                Toast.makeText(this, "La contraseñas introducidas no coinciden.", Toast.LENGTH_SHORT).show();
+            }
+        }else{
+            Toast.makeText(this, "Debe de elegir una imagen de usuario.", Toast.LENGTH_SHORT).show();
         }
     }
 
