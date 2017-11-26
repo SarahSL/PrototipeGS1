@@ -17,9 +17,11 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".login">
+        <activity android:name=".Login">
         </activity>
-        <activity android:name=".logueado">
+        <activity android:name=".Logued">
+        </activity>
+        <activity android:name=".Register">
         </activity>
     </application>
 

@@ -7,7 +7,7 @@ import android.support.v7.app.AppCompatActivity;
  * Created by Jorge on 25/11/2017.
  */
 
-public class logueado extends AppCompatActivity {
+public class Logued extends AppCompatActivity {
 
 
     @Override
