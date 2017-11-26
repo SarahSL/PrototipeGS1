@@ -57,7 +57,6 @@ public class ShowPageContent extends AppCompatActivity implements ConnectRespons
         idContent = intent.getStringExtra("aux");
         g.setIdContent_PageContent(idContent);
 
-
 //TAB
         mSectionsPageAdapter = new SectionsPageAdapter(getSupportFragmentManager());
         mViewPager = (ViewPager) findViewById(R.id.container);
