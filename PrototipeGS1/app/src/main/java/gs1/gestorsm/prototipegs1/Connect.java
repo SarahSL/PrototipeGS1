@@ -58,7 +58,6 @@ public class Connect extends AsyncTask<String, Void, String> {
         delegate.processFinish(result, data);
     }
 
-
     public void Connect() {
         this.execute();
     }
