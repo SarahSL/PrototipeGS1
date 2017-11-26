@@ -3,20 +3,14 @@ package gs1.gestorsm.prototipegs1;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
-import android.webkit.WebView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
-import android.widget.SearchView;
-import android.widget.SearchView.OnQueryTextListener;
-import android.widget.Toast;
-import android.widget.Toolbar;
 
 import java.util.ArrayList;
 import java.util.Iterator;
 
-import static android.widget.SearchView.*;
 
 /**
  * Created by topema on 25/11/2017.
@@ -52,10 +46,11 @@ public class SearchContent extends AppCompatActivity implements ConnectResponse 
         search.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                llamada1();
-                llamada2();
-                llamada3();
-                rellenaLista();
+                llamada();
+                adaptador.addAll(result);
+                results.setAdapter(adaptador);
+                adaptador.clear();
+                result.clear();
             }
         });
     }
@@ -65,29 +60,15 @@ public class SearchContent extends AppCompatActivity implements ConnectResponse 
         while(it.hasNext()){
             adaptador.add(it.toString());
         }
+
     }
 
-    private void llamada3() {
+    private void llamada() {
         con = new Connect();
-        con.setSql("SELECT content.title FROM platform WHERE content.title LIKE '%"+texto.getText()+"%'", 0);
+        con.setSql("SELECT content.title FROM content WHERE content.title LIKE '%"+texto.getText()+"%'", 0);
         con.delegate = this;
         con.Connect();
     }
-
-    private void llamada2() {
-        con = new Connect();
-        con.setSql("SELECT platform.name FROM platform WHERE platform.name LIKE '%"+texto.getText()+"%'", 0);
-        con.delegate = this;
-        con.Connect();
-    }
-
-    private void llamada1() {
-        con = new Connect();
-        con.setSql("SELECT cast.name FROM cast WHERE cast.name LIKE '%"+texto.getText()+"%'", 0);
-        con.delegate = this;
-        con.Connect();
-    }
-
 
     @Override
     public void processFinish(String output, ArrayList<ArrayList<String>> datos) {
