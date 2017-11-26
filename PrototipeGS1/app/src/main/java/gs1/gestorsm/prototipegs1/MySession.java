@@ -8,7 +8,16 @@ public class MySession {
     private static MySession instance;
     private static String test;
 
+
     private MySession() {
+    }
+
+    public void setId(String t) {
+        MySession.test = t;
+    }
+
+    public String getId() {
+        return MySession.test;
     }
 
     public static synchronized MySession getInstance() {
@@ -16,13 +25,5 @@ public class MySession {
             instance = new MySession();
         }
         return instance;
-    }
-
-    public String getId() {
-        return MySession.test;
-    }
-
-    public void setId(String t) {
-        MySession.test = t;
     }
 }
