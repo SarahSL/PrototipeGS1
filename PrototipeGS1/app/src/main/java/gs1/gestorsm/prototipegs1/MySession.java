@@ -9,8 +9,11 @@ public class MySession {
     private static String idUserLogged;
     private static String idContent_PageContent;
 
+
+
     private MySession() {
     }
+
 
     public  String getIdContent_PageContent() {
         return idContent_PageContent;
