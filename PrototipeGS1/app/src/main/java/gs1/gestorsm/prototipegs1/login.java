@@ -23,7 +23,7 @@ public class Login extends AppCompatActivity implements ConnectResponse {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.login);
+        setContentView(R.layout.activity_login);
     }
 
     protected void onResume() {
@@ -37,7 +37,6 @@ public class Login extends AppCompatActivity implements ConnectResponse {
         EditText pass = findViewById(R.id.passText);
         user.setText("");
         pass.setText("");
-
     }
 
     @Override

@@ -14,7 +14,7 @@ public class Logued extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.logueado);
+        setContentView(R.layout.activity_logued);
         //EJEMPLO DONDE RECOGEMOS LA VARIABLE GLOBAL QUE TIENE EL NUMERO
         MySession g = MySession.getInstance();
         System.out.println(g.getId() + " - USER LOGUED");

@@ -11,18 +11,18 @@ public class MySession {
     private MySession() {
     }
 
-    public void setId(String t) {
-        MySession.test = t;
+    public static synchronized MySession getInstance() {
+        if (instance == null) {
+            instance = new MySession();
+        }
+        return instance;
     }
 
     public String getId() {
         return MySession.test;
     }
 
-    public static synchronized MySession getInstance() {
-        if (instance == null) {
-            instance = new MySession();
-        }
-        return instance;
+    public void setId(String t) {
+        MySession.test = t;
     }
 }
