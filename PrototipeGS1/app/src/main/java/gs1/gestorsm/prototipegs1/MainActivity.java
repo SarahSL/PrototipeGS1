@@ -17,6 +17,8 @@ import android.widget.RelativeLayout;
 
 import java.util.ArrayList;
 
+import gs1.gestorsm.prototipegs1.ContentsList.ShowContent;
+
 public class MainActivity extends AppCompatActivity  {
 
     ArrayList<ArrayList<String>> datos = new ArrayList<>();
@@ -30,12 +32,12 @@ public class MainActivity extends AppCompatActivity  {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        layout = (RelativeLayout) findViewById(R.id.layout);
-        configureNavigationDrawer();
-        configureToolbar();
+        //layout = (RelativeLayout) findViewById(R.id.layout);
+      //  configureNavigationDrawer();
+      //  configureToolbar();
 
-        /*Intent intent = new Intent(this,SearchContent.class);
-        startActivity(intent);*/
+        Intent intent = new Intent(this,filtraCategoria.class);
+        startActivity(intent);
 
 /*        toolbar= (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
