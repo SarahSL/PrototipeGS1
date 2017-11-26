@@ -17,9 +17,7 @@ import gs1.gestorsm.prototipegs1.Connect;
 import gs1.gestorsm.prototipegs1.ConnectResponse;
 import gs1.gestorsm.prototipegs1.R;
 
-/**
- * Created by Javier on 25/11/2017.
- */
+
 
 public class CurrentlyWatchingFragment extends Fragment implements ConnectResponse {
 
@@ -44,7 +42,6 @@ public class CurrentlyWatchingFragment extends Fragment implements ConnectRespon
     public void processFinish(String str, ArrayList<ArrayList<String>> datos) {
         this.datos = datos;
         AddObjets();
-        // CREATE DE ADAPTER WITH ALL THE DATA FROM ALL THE CONSULTS
          adapter=new ArrayAdapter<>(getActivity(),R.layout.fragment_watching_currently,R.id.textView2
                 ,currentlyWatchingElements);
         listView= view.findViewById(R.id.currently_watching_list);
@@ -62,10 +59,11 @@ public class CurrentlyWatchingFragment extends Fragment implements ConnectRespon
         });
 
     }
+
     @Override
-    public void onStop() {
-        super.onStop();
-        adapter.clear();
+    public void onResume() {
+        super.onResume();
+        currentlyWatchingElements.clear();
     }
     private void movieConsult(){
         con = new Connect();
