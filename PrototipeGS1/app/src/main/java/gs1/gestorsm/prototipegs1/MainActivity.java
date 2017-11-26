@@ -36,7 +36,7 @@ public class MainActivity extends AppCompatActivity  {
       //  configureNavigationDrawer();
       //  configureToolbar();
 
-        Intent intent = new Intent(this,filtraCategoria.class);
+        Intent intent = new Intent(this,Login.class);
         startActivity(intent);
 
 /*        toolbar= (Toolbar) findViewById(R.id.toolbar);
