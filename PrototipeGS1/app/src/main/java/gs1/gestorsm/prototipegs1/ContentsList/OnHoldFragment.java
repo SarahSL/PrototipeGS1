@@ -9,7 +9,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.BaseAdapter;
+import android.widget.ImageButton;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 
@@ -30,7 +33,6 @@ public class OnHoldFragment extends Fragment implements ConnectResponse{
     String idUser;
     MySession g=MySession.getInstance();
 
-    ArrayAdapter<String> adapter;
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -45,22 +47,9 @@ public class OnHoldFragment extends Fragment implements ConnectResponse{
     public void processFinish(String str, ArrayList<ArrayList<String>> datos) {
         this.datos = datos;
         AddObjets();
-        adapter = new ArrayAdapter<>(getActivity(),R.layout.fragment_hold_on,R.id.textView2
-                , onHoldElements);
         ListView listView = view.findViewById(R.id.on_hold_list);
+        CustomAdapter adapter=new CustomAdapter();
         listView.setAdapter(adapter);
-
-
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                String aux = idContentOnHold.get(i);
-
-                Intent intent = new Intent(getActivity(),ShowPageContent.class);
-                intent.putExtra("aux",aux);
-                startActivity(intent);
-            }
-        });
 
     }
 
@@ -72,7 +61,6 @@ public class OnHoldFragment extends Fragment implements ConnectResponse{
     }
     private void movieConsult(){
         con = new Connect();
-        // TO DO:  HAY QUE AÑADIR EL ID_USER
         con.setSql("SELECT content.title,contentType.name,content.id_content " +
                 "FROM content,contentType " +
                 "INNER JOIN movie, waitingList " +
@@ -84,7 +72,6 @@ public class OnHoldFragment extends Fragment implements ConnectResponse{
     }
     private void serieConsult(){
         con = new Connect();
-        // TO DO:  HAY QUE AÑADIR EL ID_USER
         con.setSql("SELECT content.title,contentType.name,content.id_content "+
                 "FROM content,contentType "+
                 "INNER JOIN serie,season,chapter, waitingList "+
@@ -102,5 +89,51 @@ public class OnHoldFragment extends Fragment implements ConnectResponse{
             idContentOnHold.add(datos.get(i).get(2));
         }
 
+    }
+    class CustomAdapter extends BaseAdapter {
+
+        @Override
+        public int getCount() {
+            return onHoldElements.size();
+        }
+
+        @Override
+        public Object getItem(int i) {
+            return null;
+        }
+
+        @Override
+        public long getItemId(int i) {
+            return 0;
+        }
+
+        @Override
+        public View getView(final int i, View view, ViewGroup viewGroup) {
+            view = getLayoutInflater().inflate(R.layout.activity_content_list_buttons, null);
+
+            TextView name_of_content_list = view.findViewById(R.id.name_of_content_list);
+            ImageButton delete = view.findViewById(R.id.delete_content_in_list);
+            ImageButton ver = view.findViewById(R.id.go_to_content);
+            name_of_content_list.setText(onHoldElements.get(i));
+            System.out.println("AAAAA" + onHoldElements.get(i));
+
+            ver.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    String aux = idContentOnHold.get(i);
+                    Intent intent = new Intent(getActivity(), ShowPageContent.class);
+                    intent.putExtra("aux", aux);
+                    startActivity(intent);
+                }
+            });
+            delete.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+
+                }
+            });
+            return view;
+
+        }
     }
 }

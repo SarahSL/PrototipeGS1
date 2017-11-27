@@ -9,7 +9,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.BaseAdapter;
+import android.widget.ImageButton;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 
@@ -28,7 +31,6 @@ public class PlanToWatchFragment extends Fragment implements ConnectResponse{
     ArrayList<String> planToWatchElements=new ArrayList<>();
     Connect con;
     View view;
-    ArrayAdapter<String> adapter;
     ArrayList<String> idContentPlantowatch = new ArrayList<>();
     String idUser;
     MySession g = MySession.getInstance();
@@ -46,21 +48,9 @@ public class PlanToWatchFragment extends Fragment implements ConnectResponse{
     public void processFinish(String str, ArrayList<ArrayList<String>> datos) {
         this.datos = datos;
         AddObjets();
-        adapter = new ArrayAdapter<>(getActivity(),R.layout.fragment_watch_to_plan,R.id.textView2
-                ,planToWatchElements);
         ListView listView = view.findViewById(R.id.plan_to_watch_list);
+        CustomAdapter adapter = new CustomAdapter();
         listView.setAdapter(adapter);
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                String aux = idContentPlantowatch.get(i);
-
-                Intent intent = new Intent(getActivity(),ShowPageContent.class);
-                intent.putExtra("aux",aux);
-                startActivity(intent);
-            }
-        });
-
     }
 
     @Override
@@ -100,5 +90,51 @@ public class PlanToWatchFragment extends Fragment implements ConnectResponse{
             idContentPlantowatch.add(datos.get(i).get(2));
         }
 
+    }
+    class CustomAdapter extends BaseAdapter {
+
+        @Override
+        public int getCount() {
+            return planToWatchElements.size();
+        }
+
+        @Override
+        public Object getItem(int i) {
+            return null;
+        }
+
+        @Override
+        public long getItemId(int i) {
+            return 0;
+        }
+
+        @Override
+        public View getView(final int i, View view, ViewGroup viewGroup) {
+            view = getLayoutInflater().inflate(R.layout.activity_content_list_buttons, null);
+
+            TextView name_of_content_list = view.findViewById(R.id.name_of_content_list);
+            ImageButton delete = view.findViewById(R.id.delete_content_in_list);
+            ImageButton ver = view.findViewById(R.id.go_to_content);
+            name_of_content_list.setText(planToWatchElements.get(i));
+            System.out.println("AAAAA" + planToWatchElements.get(i));
+
+            ver.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    String aux = idContentPlantowatch.get(i);
+                    Intent intent = new Intent(getActivity(), ShowPageContent.class);
+                    intent.putExtra("aux", aux);
+                    startActivity(intent);
+                }
+            });
+            delete.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+
+                }
+            });
+            return view;
+
+        }
     }
 }

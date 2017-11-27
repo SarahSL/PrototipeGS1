@@ -9,7 +9,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.BaseAdapter;
+import android.widget.ImageButton;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 
@@ -27,7 +30,6 @@ public class CompletedFragment extends Fragment implements ConnectResponse{
     Connect con;
     ArrayList<String> idContentCompleted=new ArrayList<>();
     View view;
-    ArrayAdapter<String> adapter;
     String idUser;
     MySession g = MySession.getInstance();
     @Nullable
@@ -44,19 +46,10 @@ public class CompletedFragment extends Fragment implements ConnectResponse{
     public void processFinish(String str, ArrayList<ArrayList<String>> datos) {
         this.datos = datos;
         AddObjets();
-        adapter=new ArrayAdapter<>(getActivity(),R.layout.fragment_completed,R.id.textView2
-                , completedElements);
         ListView listView = view.findViewById(R.id.completed_list);
+
+        CustomAdapter adapter = new CustomAdapter();
         listView.setAdapter(adapter);
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                String aux = idContentCompleted.get(i);
-                Intent intent = new Intent(getActivity(),ShowPageContent.class);
-                intent.putExtra("aux",aux);
-                startActivity(intent);
-            }
-        });
     }
 
 
@@ -96,5 +89,51 @@ public class CompletedFragment extends Fragment implements ConnectResponse{
             idContentCompleted.add(datos.get(i).get(2));
         }
 
+    }
+    class CustomAdapter extends BaseAdapter {
+
+        @Override
+        public int getCount() {
+            return completedElements.size();
+        }
+
+        @Override
+        public Object getItem(int i) {
+            return null;
+        }
+
+        @Override
+        public long getItemId(int i) {
+            return 0;
+        }
+
+        @Override
+        public View getView(final int i, View view, ViewGroup viewGroup) {
+            view = getLayoutInflater().inflate(R.layout.activity_content_list_buttons, null);
+
+            TextView name_of_content_list = view.findViewById(R.id.name_of_content_list);
+            ImageButton delete = view.findViewById(R.id.delete_content_in_list);
+            ImageButton ver = view.findViewById(R.id.go_to_content);
+            name_of_content_list.setText(completedElements.get(i));
+            System.out.println("AAAAA" + completedElements.get(i));
+
+            ver.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    String aux = idContentCompleted.get(i);
+                    Intent intent = new Intent(getActivity(), ShowPageContent.class);
+                    intent.putExtra("aux", aux);
+                    startActivity(intent);
+                }
+            });
+            delete.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+
+                }
+            });
+            return view;
+
+        }
     }
 }
