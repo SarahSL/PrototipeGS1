@@ -29,7 +29,6 @@ public class CompletedFragment extends Fragment implements ConnectResponse{
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_completed,container,false);
-
         movieConsult();
         serieConsult();
         return view;
@@ -49,7 +48,7 @@ public class CompletedFragment extends Fragment implements ConnectResponse{
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 String aux = idContentCompleted.get(i);
-                System.out.println(aux);
+
                 Intent intent = new Intent(getActivity(),ShowPageContent.class);
                 intent.putExtra("aux",aux);
                 startActivity(intent);
@@ -57,12 +56,12 @@ public class CompletedFragment extends Fragment implements ConnectResponse{
         });
     }
 
+
     @Override
-    public void onResume() {
-        super.onResume();
+    public void onStop() {
+        super.onStop();
         completedElements.clear();
     }
-
     private void movieConsult(){
         con = new Connect();
         con.setSql("SELECT content.title,contentType.name,content.id_content  "+

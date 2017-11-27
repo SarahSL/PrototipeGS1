@@ -9,6 +9,8 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 
+import gs1.gestorsm.prototipegs1.ContentsList.ShowContent;
+
 /**
  * Created by Jorge on 25/11/2017.
  */
@@ -24,6 +26,9 @@ public class Login extends AppCompatActivity implements ConnectResponse {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.login);
+        //quitar despues
+        Intent intent = new Intent(this, ShowContent.class);
+        startActivity(intent);
 
     }
 

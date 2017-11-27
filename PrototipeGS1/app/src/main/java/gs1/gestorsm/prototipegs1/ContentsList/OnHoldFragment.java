@@ -49,7 +49,7 @@ public class OnHoldFragment extends Fragment implements ConnectResponse{
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 String aux = idContentOnHold.get(i);
-                System.out.println(aux);
+
                 Intent intent = new Intent(getActivity(),ShowPageContent.class);
                 intent.putExtra("aux",aux);
                 startActivity(intent);
@@ -58,12 +58,12 @@ public class OnHoldFragment extends Fragment implements ConnectResponse{
 
     }
 
+
     @Override
-    public void onResume() {
-        super.onResume();
+    public void onStop() {
+        super.onStop();
         onHoldElements.clear();
     }
-
     private void movieConsult(){
         con = new Connect();
         // TO DO:  HAY QUE AÑADIR EL ID_USER

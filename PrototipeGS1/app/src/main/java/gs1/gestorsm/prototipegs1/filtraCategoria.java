@@ -1,16 +1,21 @@
 package gs1.gestorsm.prototipegs1;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 import android.widget.ViewFlipper;
 
 import java.util.ArrayList;
 import java.util.Iterator;
+
+import gs1.gestorsm.prototipegs1.ContentsList.ShowContent;
+import gs1.gestorsm.prototipegs1.ContentsList.ShowPageContent;
 
 /**
  * Created by topema on 25/11/2017.
@@ -52,13 +57,23 @@ public class filtraCategoria extends AppCompatActivity implements ConnectRespons
         enlace.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+               /* //IDCONTENT
+                String aux;
+                Intent intent = new Intent(v.getContext(), ShowPageContent.class);
+                intent.putExtra("aux",aux);
+                startActivity(intent);*/
             }
         });
 
         printCategories();
 
         TitleAndSinopsis();
+    }
+
+    @Override
+    public void onBackPressed() {
+        Toast to = Toast.makeText(this,"Logout first please",Toast.LENGTH_LONG);
+        to.show();
     }
 
     private void TitleAndSinopsis() {

@@ -51,7 +51,7 @@ public class PlanToWatchFragment extends Fragment implements ConnectResponse{
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 String aux = idContentPlantowatch.get(i);
-                System.out.println(aux);
+
                 Intent intent = new Intent(getActivity(),ShowPageContent.class);
                 intent.putExtra("aux",aux);
                 startActivity(intent);
@@ -61,8 +61,8 @@ public class PlanToWatchFragment extends Fragment implements ConnectResponse{
     }
 
     @Override
-    public void onResume() {
-        super.onResume();
+    public void onStop() {
+        super.onStop();
         planToWatchElements.clear();
     }
     private void movieConsult(){
