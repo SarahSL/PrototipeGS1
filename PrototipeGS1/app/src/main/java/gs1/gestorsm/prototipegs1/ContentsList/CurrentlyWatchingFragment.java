@@ -15,9 +15,12 @@ import java.util.ArrayList;
 
 import gs1.gestorsm.prototipegs1.Connect;
 import gs1.gestorsm.prototipegs1.ConnectResponse;
+import gs1.gestorsm.prototipegs1.MySession;
 import gs1.gestorsm.prototipegs1.R;
 
-
+/**
+ * Created by Sarah on 25/11/2017.
+ */
 
 public class CurrentlyWatchingFragment extends Fragment implements ConnectResponse {
 
@@ -26,12 +29,15 @@ public class CurrentlyWatchingFragment extends Fragment implements ConnectRespon
     ArrayList<String> idContentWatchingElements=new ArrayList<>();
     Connect con;
     View view;
+    String idUser;
     ListView listView;
     ArrayAdapter<String> adapter;
+    MySession g = MySession.getInstance();
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         view= inflater.inflate(R.layout.fragment_watching_currently,container,false);
+        idUser= g.getId();
         movieConsult();
         serieConsult();
         return view;
@@ -51,7 +57,6 @@ public class CurrentlyWatchingFragment extends Fragment implements ConnectRespon
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 String aux = idContentWatchingElements.get(i);
-
                 Intent intent = new Intent(getActivity(),ShowPageContent.class);
                 intent.putExtra("aux",aux);
                 startActivity(intent);
@@ -67,19 +72,18 @@ public class CurrentlyWatchingFragment extends Fragment implements ConnectRespon
     }
     private void movieConsult(){
         con = new Connect();
-        // TO DO:  HAY QUE AÑADIR EL ID_USER
         con.setSql("SELECT content.title,contentType.name,content.id_content " +
                 "FROM content,contentType " +
                 "INNER JOIN movie, watchingList " +
                 "WHERE content.id_content = movie.cod_content " +
                 "AND watchingList.cod_movie = movie.id_movie " +
-                "AND watchingList.cod_user =1 AND contentType.id_contentType=content.cod_contentType ", 0);
+                "AND watchingList.cod_user ="+idUser+
+                " AND contentType.id_contentType=content.cod_contentType ", 0);
         con.delegate = this;
         con.Connect();
     }
     private void serieConsult(){
         con = new Connect();
-        // TO DO:  HAY QUE AÑADIR EL ID_USER
         con.setSql("SELECT content.title,contentType.name,content.id_content "+
                 "FROM content,contentType "+
                 "INNER JOIN serie,season,chapter, watchingList "+
@@ -87,7 +91,8 @@ public class CurrentlyWatchingFragment extends Fragment implements ConnectRespon
                 "AND serie.id_serie=season.cod_serie "+
                 "AND season.id_season=chapter.cod_season "+
                 "AND watchingList.cod_chapter = chapter.id_chapter "+
-                "AND watchingList.cod_user =1 AND contentType.id_contentType=content.cod_contentType", 0);
+                "AND watchingList.cod_user ="+idUser+
+                " AND contentType.id_contentType=content.cod_contentType", 0);
         con.delegate = this;
         con.Connect();
     }

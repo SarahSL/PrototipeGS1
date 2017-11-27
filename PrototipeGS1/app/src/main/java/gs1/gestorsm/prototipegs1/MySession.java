@@ -7,13 +7,19 @@ package gs1.gestorsm.prototipegs1;
 public class MySession {
     private static MySession instance;
     private static String idUserLogged;
-    private static String idContent_PageContent;
-
+    private static String idContent_PageContent,usernameLoged;
 
 
     private MySession() {
     }
 
+    public  String getUsernameLoged() {
+        return usernameLoged;
+    }
+
+    public  void setUsernameLoged(String usernameLoged) {
+        MySession.usernameLoged = usernameLoged;
+    }
 
     public  String getIdContent_PageContent() {
         return idContent_PageContent;

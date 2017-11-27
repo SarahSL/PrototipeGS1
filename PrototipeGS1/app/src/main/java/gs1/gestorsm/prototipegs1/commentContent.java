@@ -12,7 +12,7 @@ import java.util.ArrayList;
  * Created by topema on 25/11/2017.
  */
 
-public class commentContent extends AppCompatActivity implements ConnectResponse {
+public class CommentContent extends AppCompatActivity implements ConnectResponse {
 
     Connect con;
     EditText editText;

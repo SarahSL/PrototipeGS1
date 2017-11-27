@@ -36,7 +36,7 @@ import gs1.gestorsm.prototipegs1.MySession;
 import gs1.gestorsm.prototipegs1.R;
 
 /**
- * Created by Javier on 25/11/2017.
+ * Created by Sarah on 25/11/2017.
  */
 
 public class ShowPageContent extends AppCompatActivity implements ConnectResponse{
@@ -90,6 +90,7 @@ public class ShowPageContent extends AppCompatActivity implements ConnectRespons
     @Override
     public void processFinish(String str, ArrayList<ArrayList<String>> datos) {
         this.datos = datos;
+
         setAllDatas();
 
         TextView textView = findViewById(R.id.show_page_content_text);
@@ -128,14 +129,16 @@ public class ShowPageContent extends AppCompatActivity implements ConnectRespons
         }
     }*/
     private void getDatas(){
-        con = new Connect();
-        con.setSql("Select content.title,content.image,platform.name,platform.link " +
-                "from content " +
-                "Inner join platform " +
-                "where platform.id_platform = content.cod_platform " +
-                "and content.id_content="+idContent+"", 0);
-        con.delegate = this;
-        con.Connect();
+        if(idContent!=null) {
+            con = new Connect();
+            con.setSql("Select content.title,content.image,platform.name,platform.link " +
+                    "from content " +
+                    "Inner join platform " +
+                    "where platform.id_platform = content.cod_platform " +
+                    "and content.id_content=" + idContent + "", 0);
+            con.delegate = this;
+            con.Connect();
+        }
     }
     private void setAllDatas(){
         contentDatas.add(datos.get(0).get(0));

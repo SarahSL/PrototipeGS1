@@ -15,8 +15,11 @@ import java.util.ArrayList;
 
 import gs1.gestorsm.prototipegs1.Connect;
 import gs1.gestorsm.prototipegs1.ConnectResponse;
+import gs1.gestorsm.prototipegs1.MySession;
 import gs1.gestorsm.prototipegs1.R;
-
+/**
+ * Created by Sarah on 25/11/2017.
+ */
 public class CompletedFragment extends Fragment implements ConnectResponse{
 
     ArrayList<ArrayList<String>> datos = new ArrayList<>();
@@ -25,10 +28,14 @@ public class CompletedFragment extends Fragment implements ConnectResponse{
     ArrayList<String> idContentCompleted=new ArrayList<>();
     View view;
     ArrayAdapter<String> adapter;
+    String idUser;
+    MySession g = MySession.getInstance();
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_completed,container,false);
+        idUser = g.getId();
+
         movieConsult();
         serieConsult();
         return view;
@@ -65,7 +72,7 @@ public class CompletedFragment extends Fragment implements ConnectResponse{
                 "INNER JOIN movie, viewList "+
                 "WHERE content.id_content = movie.cod_content "+
                 "AND viewList.cod_movie = movie.id_movie "+
-                "AND viewList.cod_user =1 AND contentType.id_contentType = content.cod_contentType", 0);
+                "AND viewList.cod_user ="+idUser+" AND contentType.id_contentType = content.cod_contentType", 0);
         con.delegate = this;
         con.Connect();
     }
@@ -78,7 +85,7 @@ public class CompletedFragment extends Fragment implements ConnectResponse{
                 "AND serie.id_serie=season.cod_serie " +
                 "AND season.id_season=chapter.cod_season " +
                 "AND viewList.cod_chapter = chapter.id_chapter " +
-                "AND viewList.cod_user =1 AND contentType.id_contentType=content.cod_contentType", 0);
+                "AND viewList.cod_user ="+idUser+" AND contentType.id_contentType=content.cod_contentType", 0);
         con.delegate = this;
         con.Connect();
     }

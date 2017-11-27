@@ -22,13 +22,10 @@ import java.util.ArrayList;
 
 public class Register extends AppCompatActivity implements ConnectResponse {
 
-    ArrayList<ArrayList<String>> datos = new ArrayList<>();
+
     public static final int PICK_IMAGE = 1;
     Uri uri = null;
-    String path;
-    byte[] bArray;
     Bitmap bitmap = null;
-    ImageView a;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

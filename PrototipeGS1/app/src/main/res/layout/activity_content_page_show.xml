@@ -12,7 +12,6 @@
         android:id="@+id/show_page_content_text"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/content_title"
         android:paddingTop="10dp"
         tools:layout_editor_absoluteX="169dp"
         tools:layout_editor_absoluteY="93dp" />
@@ -21,7 +20,6 @@
         android:id="@+id/imageView_contentPage"
         android:layout_width="match_parent"
         android:layout_height="74dp"
-        android:contentDescription="@string/todo"
         tools:layout_editor_absoluteX="36dp"
         tools:layout_editor_absoluteY="76dp"
         tools:scaleType="centerCrop"
@@ -44,7 +42,7 @@
             android:id="@+id/appbar"
             android:layout_width="match_parent"
             android:layout_height="47dp"
-            android:paddingTop="@dimen/appbar_padding_top"
+            android:paddingTop="10dp"
             android:theme="@style/AppTheme.AppBarOverlay"
             tools:layout_editor_absoluteY="2dp">
 
@@ -66,22 +64,18 @@
     <TextView
         android:id="@+id/Platform"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Platform" />
+        android:layout_height="wrap_content"/>
 
     <TextView
         android:id="@+id/name_of_platform"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="TextView" />
+        android:layout_height="wrap_content" />
 
     <TextView
         android:id="@+id/link_for_platform"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:clickable="false"
-        android:contextClickable="false"
-        android:text="TextView" />
+        android:contextClickable="true"/>
 
 
 </LinearLayout>

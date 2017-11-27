@@ -7,7 +7,9 @@ import android.support.v4.view.ViewPager;
 import android.os.Bundle;
 
 import gs1.gestorsm.prototipegs1.R;
-
+/**
+ * Created by Sarah on 25/11/2017.
+ */
 public class ShowContent extends AppCompatActivity {
 
     private SectionsPageAdapter mSectionsPageAdapter;

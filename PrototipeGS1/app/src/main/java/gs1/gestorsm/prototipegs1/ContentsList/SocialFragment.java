@@ -10,7 +10,7 @@ import android.view.ViewGroup;
 import gs1.gestorsm.prototipegs1.R;
 
 /**
- * Created by Javier on 25/11/2017.
+ * Created by Sarah on 25/11/2017.
  */
 
 public class SocialFragment extends Fragment {

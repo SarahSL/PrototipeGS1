@@ -24,9 +24,8 @@
             android:theme="@style/AppTheme.NoActionBar"/>
         <activity android:name=".ContentsList.ShowPageContent">
         </activity>
-        <activity android:name=".Logued" />
         <activity android:name=".Register" />
-        <activity android:name=".filtraCategoria" />
+        <activity android:name=".FiltrarCategoria" />
         <activity android:name=".SearchContent" />
     </application>
 

@@ -16,7 +16,7 @@ import gs1.gestorsm.prototipegs1.MySession;
 import gs1.gestorsm.prototipegs1.R;
 
 /**
- * Created by Javier on 25/11/2017.
+ * Created by Sarah on 25/11/2017.
  */
 
 public class EpisodesFragment extends Fragment implements ConnectResponse {
@@ -35,7 +35,7 @@ public class EpisodesFragment extends Fragment implements ConnectResponse {
         view = inflater.inflate(R.layout.fragment_episodes, container, false);
         idContent = g.getIdContent_PageContent();
 
-        getType();
+       if(idContent!=null) getType();
 
         return view;
 
