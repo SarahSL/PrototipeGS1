@@ -27,8 +27,8 @@ public class Login extends AppCompatActivity implements ConnectResponse {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.login);
         //quitar despues
-        Intent intent = new Intent(this, ShowContent.class);
-        startActivity(intent);
+       // Intent intent = new Intent(this, ShowContent.class);
+      //  startActivity(intent);
 
     }
 

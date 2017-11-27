@@ -54,7 +54,6 @@ public class ShowPageContent extends AppCompatActivity implements ConnectRespons
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_content_page_show);
         Intent intent = getIntent();
-        //COMPROBACION si viene por buscar o por la lista
         idContent = intent.getStringExtra("aux");
         g.setIdContent_PageContent(idContent);
 

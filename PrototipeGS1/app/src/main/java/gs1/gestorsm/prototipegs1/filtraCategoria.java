@@ -26,6 +26,7 @@ public class filtraCategoria extends AppCompatActivity implements ConnectRespons
     ArrayList<ArrayList<String>> datos = new ArrayList<>();
     Button enlace;
     TextView category1, category2, title1,title2,sinopsis1,sinopsis2,results;
+    String aux;
     String[] category = {"Thriller","Romantic","Action","Horror","Scyfi", "Western","Anime","Comedy","Drama","Suspense","Documentary"};
     int punteroglobal=0,punteroglobal2=0;
 
@@ -57,11 +58,10 @@ public class filtraCategoria extends AppCompatActivity implements ConnectRespons
         enlace.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-               /* //IDCONTENT
-                String aux;
+               ///IDCONTENT
                 Intent intent = new Intent(v.getContext(), ShowPageContent.class);
                 intent.putExtra("aux",aux);
-                startActivity(intent);*/
+                startActivity(intent);
             }
         });
 
@@ -78,7 +78,7 @@ public class filtraCategoria extends AppCompatActivity implements ConnectRespons
 
     private void TitleAndSinopsis() {
         con = new Connect();
-        con.setSql("Select content.title, content.synopsis from content inner join " +
+        con.setSql("Select content.title, content.synopsis,content.id_content from content inner join " +
                 "contentCategory where content.id_content = contentCategory.cod_content " +
                 "AND cod_category ="+(punteroglobal+1), 0);
         con.delegate = this;
@@ -216,6 +216,8 @@ public class filtraCategoria extends AppCompatActivity implements ConnectRespons
                     while(mViewFlipper2.getDisplayedChild()!=0){
                         mViewFlipper2.showNext();
                     }
+
+                    aux = datos.get(0).get(2);
                     break;
                 case 2:
                     title1.setText(datos.get(0).get(0));
@@ -225,6 +227,8 @@ public class filtraCategoria extends AppCompatActivity implements ConnectRespons
                     while(mViewFlipper2.getDisplayedChild()!=0){
                         mViewFlipper2.showNext();
                     }
+
+                    aux = datos.get(0).get(2);
                     break;
             }
 
@@ -236,6 +240,8 @@ public class filtraCategoria extends AppCompatActivity implements ConnectRespons
         }
 
         results.setText("results: " + Integer.toString(datos.size()));
+
+
     }
 
 

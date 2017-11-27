@@ -40,15 +40,11 @@ public class CompletedFragment extends Fragment implements ConnectResponse{
         adapter=new ArrayAdapter<>(getActivity(),R.layout.fragment_completed,R.id.textView2
                 , completedElements);
         ListView listView = view.findViewById(R.id.completed_list);
-
         listView.setAdapter(adapter);
-
-
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 String aux = idContentCompleted.get(i);
-
                 Intent intent = new Intent(getActivity(),ShowPageContent.class);
                 intent.putExtra("aux",aux);
                 startActivity(intent);
