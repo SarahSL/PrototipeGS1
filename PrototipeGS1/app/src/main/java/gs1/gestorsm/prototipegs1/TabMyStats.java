@@ -29,7 +29,7 @@ public class TabMyStats extends Fragment {
             e.printStackTrace();
         }*/
         ArrayAdapter<String> adapter;
-        adapter = new ArrayAdapter<>(getActivity(), R.layout.list_item_my_stat, R.id.text_view_my_stat, createArray());
+        adapter = new ArrayAdapter<String>(getActivity(),R.layout.list_item_my_stat,R.id.text_view_my_stat,createArray());
         ListView listView = rootView.findViewById(R.id.list_view_my_stats);
         listView.setAdapter(adapter);
         return rootView;
@@ -38,6 +38,7 @@ public class TabMyStats extends Fragment {
     private ArrayList createArray() {
 
         Statistic statistic = new Statistic();
+        //statistic.calculateStat();
         ArrayList<String> arrayList = new ArrayList<>();
         arrayList.add("Recommendation: " + statistic.getRecommendations());
         arrayList.add("Viewed Movies: " + statistic.getViewedMovies());
