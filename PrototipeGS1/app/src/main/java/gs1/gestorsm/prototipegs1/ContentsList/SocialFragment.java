@@ -1,5 +1,6 @@
 package gs1.gestorsm.prototipegs1.ContentsList;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -16,6 +17,7 @@ import java.util.ArrayList;
 import gs1.gestorsm.prototipegs1.Comment;
 import gs1.gestorsm.prototipegs1.Connect;
 import gs1.gestorsm.prototipegs1.ConnectResponse;
+import gs1.gestorsm.prototipegs1.ContentScore;
 import gs1.gestorsm.prototipegs1.MySession;
 import gs1.gestorsm.prototipegs1.R;
 
@@ -28,7 +30,7 @@ public class SocialFragment extends Fragment implements ConnectResponse {
     Connect con;
     EditText editText;
     TextView content;
-    Button comenta;
+    Button comenta,valoration;
     String usuario, contenido, comentario;
     MySession g = MySession.getInstance();
     @Nullable
@@ -38,7 +40,7 @@ public class SocialFragment extends Fragment implements ConnectResponse {
 
         editText = view.findViewById(R.id.editText);
         comenta = view.findViewById(R.id.commentButton);
-
+        valoration = view.findViewById(R.id.valoration);
         comenta.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -57,6 +59,14 @@ public class SocialFragment extends Fragment implements ConnectResponse {
                                     "Content commented", Toast.LENGTH_SHORT);
                     toast1.show();
                 }
+            }
+        });
+        valoration.setOnClickListener(new View.OnClickListener(){
+
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(view.getContext(), ContentScore.class);
+                startActivity(intent);
             }
         });
         return view;
