@@ -43,7 +43,6 @@ public class EditProfile extends AppCompatActivity implements ConnectResponse {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_profile);
         declareControls();
-        g.setId("1");
         Connect con = new Connect();
         con.setSql("Select userName, name, userImage from user where id_user =" + g.getId(), 0);
         con.delegate = this;
