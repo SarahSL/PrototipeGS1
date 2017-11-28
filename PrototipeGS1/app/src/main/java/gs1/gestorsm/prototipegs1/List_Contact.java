@@ -9,6 +9,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -60,7 +61,6 @@ public class List_Contact  extends AppCompatActivity implements AdapterView.OnIt
 
 
 
-
         searchFriend.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -70,13 +70,37 @@ public class List_Contact  extends AppCompatActivity implements AdapterView.OnIt
                 if(filtro.length()<=0){
                         Toast toast1 =
                                 Toast.makeText(getApplicationContext(),
-                                        "No contact name has been written", Toast.LENGTH_SHORT);
+                                        "No se ha escrito ningun nombre de contacto", Toast.LENGTH_SHORT);
 
                         toast1.show();
                 }else {
                     filtrado();
                 }
                }
+        });
+        //BOTON LOGOUT Y USERNAME
+        TextView username = findViewById(R.id.username_text);
+        username.setText(g.getUsernameLoged());
+
+        ImageButton search = findViewById(R.id.search);
+        search.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(v.getContext(),SearchContent.class);
+                startActivity(intent);
+            }
+        });
+
+        Button logout = findViewById(R.id.logout_button);
+        logout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                g.setId(null);
+                g.setUsernameLoged("");
+                System.out.println(g.getId());
+                Intent intent = new Intent(v.getContext(), Login.class);
+                startActivity(intent);
+            }
         });
     }
 

@@ -53,7 +53,7 @@ public class Login extends AppCompatActivity implements ConnectResponse {
 
     public void prueba() {
         if (logued) {
-            Intent i = new Intent(this, List_Contact.class);
+            Intent i = new Intent(this, FiltrarCategoria.class);
             startActivity(i);
         } else {
             Toast.makeText(this, "Error en los datos introducidos", Toast.LENGTH_SHORT).show();
