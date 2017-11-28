@@ -6,18 +6,35 @@ package gs1.gestorsm.prototipegs1;
 
 public class MySession {
     private static MySession instance;
-    private static String test;
+    private static String idUserLogged;
+    private static String idContent_PageContent,usernameLoged;
 
 
     private MySession() {
     }
 
+    public  String getUsernameLoged() {
+        return usernameLoged;
+    }
+
+    public  void setUsernameLoged(String usernameLoged) {
+        MySession.usernameLoged = usernameLoged;
+    }
+
+    public  String getIdContent_PageContent() {
+        return idContent_PageContent;
+    }
+
+    public  void setIdContent_PageContent(String idContent_PageContent) {
+        MySession.idContent_PageContent = idContent_PageContent;
+    }
+
     public void setId(String t) {
-        MySession.test = t;
+        MySession.idUserLogged = t;
     }
 
     public String getId() {
-        return MySession.test;
+        return MySession.idUserLogged;
     }
 
     public static synchronized MySession getInstance() {

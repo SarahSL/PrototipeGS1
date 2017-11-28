@@ -1,14 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="gs1.gestorsm.prototipegs1">
-
     <uses-permission android:name="android.permission.INTERNET" />
-
-    <!-- To auto-complete the email text field in the login form with the user's emails -->
-    <uses-permission android:name="android.permission.GET_ACCOUNTS" />
-    <uses-permission android:name="android.permission.READ_PROFILE" />
-    <uses-permission android:name="android.permission.READ_CONTACTS" />
-
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -16,17 +9,37 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".MainActivity">
+
+        <activity android:name=".Login">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".Login"></activity>
-        <activity android:name=".Logued"></activity>
-        <activity android:name=".Register"></activity>
-        <activity android:name=".MySession"></activity>
+        <activity
+            android:name=".ContentsList.ShowContent"
+            android:label="@string/title_activity_show_content"
+            android:theme="@style/AppTheme.NoActionBar"/>
+        <activity android:name=".ContentsList.ShowPageContent">
+        </activity>
+        <activity android:name=".ProfileFriend"></activity>
+        <activity android:name=".List_Contact"></activity>
+        <activity android:name=".SearchContact"></activity>
+        <activity android:name=".Register" />
+        <activity android:name=".FiltrarCategoria" />
+        <activity android:name=".SearchContent" />
+        <activity android:name=".Comment"></activity>
+        <activity android:name=".ContentScore"></activity>
+        <activity
+            android:name=".TabActivity"
+            android:label="@string/title_activity_tab"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".DonationActivity" />
+        <activity android:name=".EditProfile"></activity>
+        <activity android:name=".NavigationDrawer"
+            android:label="@string/title_activity_navigation_drawer"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
 </manifest>

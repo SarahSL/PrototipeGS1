@@ -14,6 +14,7 @@ import java.util.ArrayList;
  */
 
 public class Connect extends AsyncTask<String, Void, String> {
+    public ConnectResponse delegate = null;
     String url = "jdbc:mysql://46.101.178.225:3306/gs1Prototipo";
     String user = "explotacion";
     String pass = "pandeHuevo";
@@ -21,8 +22,6 @@ public class Connect extends AsyncTask<String, Void, String> {
     int mode = 0;
     private ArrayList<String> field = new ArrayList<>();
     private ArrayList<ArrayList<String>> data = new ArrayList<>();
-    public ConnectResponse delegate = null;
-
 
     @Override
     protected String doInBackground(String... urls) {
@@ -44,6 +43,7 @@ public class Connect extends AsyncTask<String, Void, String> {
                     }
                     data.add(new ArrayList<String>(field));
                 }
+
             } else {
                 st.executeUpdate(sql);
             }

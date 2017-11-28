@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_start"
+            android:icon="@android:drawable/ic_dialog_alert"
+            android:title="Start" />
+        <item
+            android:id="@+id/nav_edit_profile"
+            android:icon="@android:drawable/ic_dialog_alert"
+            android:title="Edit Profile" />
+        <item
+            android:id="@+id/nav_view_list"
+            android:icon="@android:drawable/ic_dialog_alert"
+            android:title="View List" />
+        <item
+            android:id="@+id/nav_stadistics"
+            android:icon="@android:drawable/ic_dialog_alert"
+            android:title="Stadistics" />
+        <item
+            android:id="@+id/nav_contacts"
+            android:icon="@android:drawable/ic_dialog_alert"
+            android:title="Contacts" />
+        <item
+            android:id="@+id/nav_donative"
+            android:icon="@android:drawable/ic_dialog_alert"
+            android:title="Donative" />
+        <item
+            android:id="@+id/nav_subscriptions"
+            android:icon="@android:drawable/ic_dialog_alert"
+            android:title="Subscriptions" />
+        <item
+            android:id="@id/nav_searchContacts"
+            android:icon="@android:drawable/ic_dialog_alert"
+            android:title="Search Contact"></item>
+    </group>
+
+</menu>
