@@ -1,7 +1,7 @@
 package gs1.gestorsm.prototipegs1;
 
-import android.support.v4.app.Fragment;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,7 +10,6 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Spinner;
 
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -25,8 +24,9 @@ public class TabContactStats extends Fragment implements ConnectResponse{
     View rootView;
     private int flag= 0;
     private ArrayList<String> arrayList;
+    private ArrayList<String> arrayList2;
     private Spinner spinner;
-    private Map<String, Integer> map;
+    private Map<String, Integer> map = new HashMap<>();
     private int idContact;
 
     @Override
@@ -34,10 +34,6 @@ public class TabContactStats extends Fragment implements ConnectResponse{
                              Bundle savedInstanceState) {
         rootView = inflater.inflate(R.layout.contactstats_tab, container, false);
         getContact();
-       // doSpinner();
-        //getIdContact();
-        //setActionSpinner();
-
         return rootView;
     }
 
@@ -45,15 +41,13 @@ public class TabContactStats extends Fragment implements ConnectResponse{
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int pos, long l) {
-               idContact = map.get((String) spinner.getAdapter().getItem(pos));
-               Statistic statistic = new Statistic(idContact,2, rootView, getActivity());
+               idContact = map.get(spinner.getAdapter().getItem(pos));
                calculateStat();
-
-
             }
 
             @Override
             public void onNothingSelected(AdapterView<?> adapterView) {
+
 
             }
         });
@@ -62,8 +56,9 @@ public class TabContactStats extends Fragment implements ConnectResponse{
     private void calculateStat() {
         setViewedMovies();
     }
+
     private void setViewedMovies() {
-        flag = 2;
+        flag = 1;
         con = new Connect();
         con.setSql("select count(*) from viewList where cod_user = "+ idContact +" and cod_movie is not null", 0);
         con.delegate = this;
@@ -72,7 +67,7 @@ public class TabContactStats extends Fragment implements ConnectResponse{
 
     public void setViewedChapters() {
         con = new Connect();
-        con.setSql("select duration from chapter inner join viewList where  cod_user = "+ idContact +"and id_chapter = cod_chapter", 0);
+        con.setSql("select count(*) from viewList where cod_user = "+ idContact +" and cod_chapter is not null", 0);
         con.delegate = this;
         con.Connect();
 
@@ -80,7 +75,7 @@ public class TabContactStats extends Fragment implements ConnectResponse{
 
     public void setHoursViewed() {
         con = new Connect();
-        con.setSql("select count(*) from viewList where cod_user = "+ idContact +" and cod_chapter <> null", 0);
+        con.setSql("select duration from chapter inner join viewList where  cod_user = "+ idContact +" and id_chapter = cod_chapter", 0);
         con.delegate = this;
         con.Connect();
 
@@ -89,7 +84,7 @@ public class TabContactStats extends Fragment implements ConnectResponse{
 
     public void setRecommendations() {
         con = new Connect();
-        con.setSql("select count(*) from recomendation where cod_user= " + idContact, 0);
+        con.setSql("select count(*) from recommendation where cod_user= " + idContact, 0);
         con.delegate = this;
         con.Connect();
     }
@@ -110,31 +105,28 @@ public class TabContactStats extends Fragment implements ConnectResponse{
             case 0:
                 flag=1;
                 doSpinner();
-                getIdContact();
+                setActionSpinner();
 
             break;
+
             case 1:
-                doMap();
-                setActionSpinner();
-                break;
-            case 2:
-                arrayList.clear();
+                arrayList2 = new ArrayList<>();
                 if (datos.size() == 0 || datos.get(0).size() == 0) res = 0;
                 else res = Integer.parseInt(datos.get(0).get(0));
-                arrayList.add("Viewed Movies: " + res);
+                arrayList2.add("Viewed Movies: " + res);
                 flag++;
                 setViewedChapters();
                 break;
 
-            case 3:
+            case 2:
                 if (datos.size() == 0 || datos.get(0).size() == 0) res = 0;
                 else res = Integer.parseInt(datos.get(0).get(0));
-                arrayList.add("Viewed Chapters: " + res);
+                arrayList2.add("Viewed Chapters: " + res);
                 flag++;
                 setHoursViewed();
                 break;
 
-            case 4:
+            case 3:
 
                 float duration = 0;
                 if (datos.size() == 0 || datos.get(0).size() == 0) {
@@ -149,19 +141,19 @@ public class TabContactStats extends Fragment implements ConnectResponse{
                     }
                     duration = duration / 60f;
                 }
-                arrayList.add("Hours Viewed: " + duration);
+                arrayList2.add("Hours Viewed: " + duration);
                 flag ++;
                 setRecommendations();
                 break;
-            case 5:
+            case 4:
                 if (datos.size() == 0 || datos.get(0).size() == 0) res = 0;
                 else res = Integer.parseInt(datos.get(0).get(0));
 
-                arrayList.add("Recommendations: " + res);
+                arrayList2.add("Recommendations: " + res);
                 flag ++;
                 setContentAverageScore();
                 break;
-            case 6:
+            case 5:
                 float averageScore;
                 if (datos.size() == 0 || datos.get(0).size() == 0) {
                     averageScore = 0;
@@ -172,7 +164,7 @@ public class TabContactStats extends Fragment implements ConnectResponse{
                             datos) {
                         for (String string :
                                 j) {
-                            score = Float.parseFloat(string);
+                            score += Float.parseFloat(string);
                             i++;
                         }
                     }
@@ -182,67 +174,37 @@ public class TabContactStats extends Fragment implements ConnectResponse{
                         averageScore = 0;
                     }
                 }
-                arrayList.add("Content Score : " + averageScore);
-                arrayList.add("Monthly Series: " + 15);
-                arrayList.add("Monthly Movies: " + 10);
+                arrayList2.add("Content Score : " + averageScore);
+                arrayList2.add("Monthly Series: " + 15);
+                arrayList2.add("Monthly Movies: " + 10);
                 generateListView();
-
-
         }
-
     }
+
     private void generateListView() {
         ArrayAdapter<String> adapter;
         ListView listView;
+        adapter = new ArrayAdapter<>(getActivity(),R.layout.list_item_contact_stat,R.id.text_view_contact_stat,arrayList2);
 
-
-
-            adapter = new ArrayAdapter<String>(getActivity(),R.layout.list_item_contact_stat,R.id.text_view_contact_stat,arrayList);
-            listView = rootView.findViewById(R.id.list_view_contact_stats);
-
-
+        listView = rootView.findViewById(R.id.list_view_contact_stats);
         listView.setAdapter(adapter);
-        System.out.println("Amor");
     }
 
-
-    private void doMap() {
-         map = new HashMap<>();
-                int i=0;
-        for (ArrayList<String> j:
-        datos){
-            for (String string :
-                    j) {
-                map.put(arrayList.get(i),Integer.parseInt(string));
-                i++;
-            }
-        }
-    }
 
     private void doSpinner() {
         spinner = rootView.findViewById(R.id.contact_spinner);
         arrayList = new ArrayList<>();
-        for (ArrayList<String> j:
-        datos){
-            for (String string :
-                    j) {
-                arrayList.add(string);
-            }
+        for (ArrayList<String> aL :
+                datos) {
+            arrayList.add(aL.get(0));
+            map.put(aL.get(0),Integer.parseInt(aL.get(1)));
         }
-        ArrayAdapter<String>adapter= new ArrayAdapter<String>(getActivity(),R.layout.list_item_name_contact_stat,R.id.text_view_name_contact_stat,arrayList);
+        ArrayAdapter<String>adapter= new ArrayAdapter<>(getActivity(),R.layout.list_item_name_contact_stat,R.id.text_view_name_contact_stat,arrayList);
         spinner.setAdapter(adapter);
     }
 
     public void getContact() {
-        con.setSql("Select userName from user inner join contact where id_user = cod_contact and cod_user = 1",0);
-        con.delegate = this;
-        con.Connect();
-
-    }
-
-    public void getIdContact() {
-        con = new Connect();
-        con.setSql("Select id_user from user inner join contact where id_user = cod_contact and cod_user = 1",0);
+        con.setSql("Select userName,id_user from user inner join contact where id_user = cod_contact and cod_user = 2 ",0);
         con.delegate = this;
         con.Connect();
 

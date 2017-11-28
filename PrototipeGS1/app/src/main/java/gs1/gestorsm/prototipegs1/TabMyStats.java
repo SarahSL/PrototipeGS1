@@ -8,7 +8,6 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
-import java.sql.SQLException;
 import java.util.ArrayList;
 
 
@@ -46,7 +45,7 @@ public class TabMyStats extends Fragment implements ConnectResponse {
 
     public void setViewedChapters() {
         con = new Connect();
-        con.setSql("select duration from chapter inner join viewList where  cod_user = 1 and id_chapter = cod_chapter", 0);
+        con.setSql( "select count(*) from viewList where cod_user = 1 and cod_chapter is not null", 0);
         con.delegate = this;
         con.Connect();
 
@@ -54,7 +53,7 @@ public class TabMyStats extends Fragment implements ConnectResponse {
 
     public void setHoursViewed() {
         con = new Connect();
-        con.setSql("select count(*) from viewList where cod_user = 1 and cod_chapter <> null", 0);
+        con.setSql("select duration from chapter inner join viewList where  cod_user = 1 and id_chapter = cod_chapter", 0);
         con.delegate = this;
         con.Connect();
 
@@ -98,8 +97,7 @@ public class TabMyStats extends Fragment implements ConnectResponse {
                 break;
 
             case 2:
-
-                    float duration = 0;
+                float duration = 0;
                 if (datos.size() == 0 || datos.get(0).size() == 0) {
                     duration = 0;
                 } else {
@@ -112,7 +110,7 @@ public class TabMyStats extends Fragment implements ConnectResponse {
                     }
                     duration = duration / 60f;
                 }
-                    arrayList.add("Hours Viewed: " + duration);
+                arrayList.add("Hours Viewed: " + duration);
                 flag = 3;
                 setRecommendations();
                 break;
@@ -135,12 +133,13 @@ public class TabMyStats extends Fragment implements ConnectResponse {
                             datos) {
                         for (String string :
                                 j) {
-                            score = Float.parseFloat(string);
+                            score += Float.parseFloat(string);
                             i++;
                         }
                     }
                     if (score != 0) {
                         averageScore = score / i;
+                        System.out.println("Hombre "+ score +" " + i);
                     } else {
                         averageScore = 0;
                     }
@@ -157,8 +156,9 @@ public class TabMyStats extends Fragment implements ConnectResponse {
         ArrayAdapter<String> adapter;
         ListView listView;
 
-            adapter = new ArrayAdapter<String>(getActivity(),R.layout.list_item_my_stat,R.id.text_view_my_stat,arrayList);
-            listView = rootView.findViewById(R.id.list_view_my_stats);
+        adapter = new ArrayAdapter<>(getActivity(),R.layout.list_item_my_stat,R.id.text_view_my_stat,arrayList);
+
+        listView = rootView.findViewById(R.id.list_view_my_stats);
 
         listView.setAdapter(adapter);
 

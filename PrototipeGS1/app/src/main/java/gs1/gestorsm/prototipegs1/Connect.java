@@ -38,20 +38,20 @@ public class Connect extends AsyncTask<String, Void, String> {
 
 
                 ResultSet rs = st.executeQuery(sql);
-                        System.out.println("moto");
                 ResultSetMetaData rsmd = rs.getMetaData();
+
                 while (rs.next()) {
                     field.clear();
                     for (int i = 1; i <= rsmd.getColumnCount(); i++) {
                         field.add(rs.getString(i));
                     }
-                    data.add(field);
+                    data.add(new ArrayList<String>(field));
+
                 }
             } else {
                 st.executeUpdate(sql);
             }
         } catch (Exception e) {
-            System.out.println("Bici " + e.getMessage() );
             e.printStackTrace();
         }
         return response;
