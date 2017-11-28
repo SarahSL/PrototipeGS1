@@ -29,6 +29,12 @@
         <activity android:name=".Register" />
         <activity android:name=".FiltrarCategoria" />
         <activity android:name=".SearchContent" />
+        <activity
+            android:name=".TabActivity"
+            android:label="@string/title_activity_tab"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".DonationActivity" />
+
     </application>
 
 </manifest>
