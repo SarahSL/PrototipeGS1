@@ -19,7 +19,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        Intent intent = new Intent(this, ContentScore.class);
+        Intent intent = new Intent(this, filtraCategoria.class);
         startActivity(intent);
 /*        toolbar= (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
