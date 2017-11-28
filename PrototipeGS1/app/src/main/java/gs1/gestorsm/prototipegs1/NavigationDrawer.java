@@ -2,9 +2,6 @@ package gs1.gestorsm.prototipegs1;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
-import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -108,7 +105,7 @@ public class NavigationDrawer extends AppCompatActivity
         } else if (id == R.id.nav_subscriptions) {
             Toast.makeText(this,"No time to added,sorry",Toast.LENGTH_SHORT).show();
         }else if ( id== R.id.nav_searchContacts){
-            Intent i = new Intent(this, searchContact.class);
+            Intent i = new Intent(this, SearchContact.class);
             startActivity(i);
         }
 

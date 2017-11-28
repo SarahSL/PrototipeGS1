@@ -23,7 +23,7 @@ import java.util.List;
  * Created by Cynthia on 21/11/2017.
  */
 
-public class searchContact  extends AppCompatActivity implements ConnectResponse {
+public class SearchContact extends AppCompatActivity implements ConnectResponse {
     Button buscar;
     EditText cuadro;
 

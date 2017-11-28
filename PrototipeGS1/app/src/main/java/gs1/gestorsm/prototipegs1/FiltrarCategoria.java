@@ -16,7 +16,7 @@ import java.util.Iterator;
  * Created by topema on 25/11/2017.
  */
 
-public class filtraCategoria extends AppCompatActivity implements ConnectResponse {
+public class FiltrarCategoria extends AppCompatActivity implements ConnectResponse {
     Connect con;
     ArrayList<ArrayList<String>> datos = new ArrayList<>();
     Button enlace;
@@ -32,7 +32,7 @@ public class filtraCategoria extends AppCompatActivity implements ConnectRespons
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.categoryfilter);
+        setContentView(R.layout.activity_categoria_filtrar);
         mContext = this;
         mViewFlipper = findViewById(R.id.flipper1);
         mViewFlipper2 = findViewById(R.id.flipper2);
