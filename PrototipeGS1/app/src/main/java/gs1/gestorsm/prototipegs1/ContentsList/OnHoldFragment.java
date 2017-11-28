@@ -115,7 +115,6 @@ public class OnHoldFragment extends Fragment implements ConnectResponse{
             ImageButton delete = view.findViewById(R.id.delete_content_in_list);
             ImageButton ver = view.findViewById(R.id.go_to_content);
             name_of_content_list.setText(onHoldElements.get(i));
-            System.out.println("AAAAA" + onHoldElements.get(i));
 
             ver.setOnClickListener(new View.OnClickListener() {
                 @Override

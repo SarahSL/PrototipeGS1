@@ -116,7 +116,6 @@ public class PlanToWatchFragment extends Fragment implements ConnectResponse{
             ImageButton delete = view.findViewById(R.id.delete_content_in_list);
             ImageButton ver = view.findViewById(R.id.go_to_content);
             name_of_content_list.setText(planToWatchElements.get(i));
-            System.out.println("AAAAA" + planToWatchElements.get(i));
 
             ver.setOnClickListener(new View.OnClickListener() {
                 @Override

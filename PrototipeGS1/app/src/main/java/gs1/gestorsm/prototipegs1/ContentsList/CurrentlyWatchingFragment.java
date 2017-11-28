@@ -68,9 +68,9 @@ public class CurrentlyWatchingFragment extends Fragment implements ConnectRespon
 
     private void movieConsult() {
         con = new Connect();
-        con.setSql("SELECT content.title,contentType.name,content.id_content " +
-                "FROM content,contentType " +
-                "INNER JOIN movie, watchingList " +
+        con.setSql("SELECT content.title,contentType.name,content.id_content,watchingList.id_watchingList " +
+                "FROM content,contentType,watchingList " +
+                "INNER JOIN movie  " +
                 "WHERE content.id_content = movie.cod_content " +
                 "AND watchingList.cod_movie = movie.id_movie " +
                 "AND watchingList.cod_user =" + idUser +
@@ -80,10 +80,11 @@ public class CurrentlyWatchingFragment extends Fragment implements ConnectRespon
     }
 
     private void serieConsult() {
+
         con = new Connect();
-        con.setSql("SELECT content.title,contentType.name,content.id_content " +
-                "FROM content,contentType " +
-                "INNER JOIN serie,season,chapter, watchingList " +
+        con.setSql("SELECT content.title,contentType.name,content.id_content,watchingList.id_watchingList " +
+                "FROM content,contentType,watchingList " +
+                "INNER JOIN serie,season,chapter " +
                 "WHERE content.id_content = serie.cod_content " +
                 "AND serie.id_serie=season.cod_serie " +
                 "AND season.id_season=chapter.cod_season " +
@@ -102,7 +103,7 @@ public class CurrentlyWatchingFragment extends Fragment implements ConnectRespon
 
     }
 
-    class CustomAdapter extends BaseAdapter {
+    class CustomAdapter extends BaseAdapter implements ConnectResponse{
 
         @Override
         public int getCount() {
@@ -127,7 +128,6 @@ public class CurrentlyWatchingFragment extends Fragment implements ConnectRespon
             ImageButton delete = view.findViewById(R.id.delete_content_in_list);
             ImageButton ver = view.findViewById(R.id.go_to_content);
             name_of_content_list.setText(currentlyWatchingElements.get(i));
-            System.out.println("AAAAA" + currentlyWatchingElements.get(i));
 
             ver.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -141,11 +141,23 @@ public class CurrentlyWatchingFragment extends Fragment implements ConnectRespon
             delete.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-
+                  // borrarContenido(currentlyWatchingElements.get(i));
+                    System.out.println("MAGOPERRETO-"+datos.get(i).get(3));
                 }
             });
             return view;
 
+        }
+
+        @Override
+        public void processFinish(String output, ArrayList<ArrayList<String>> datos) {
+
+        }
+        public void borrarContenido(String typeContent){
+            con = new Connect();
+            con.setSql("Delete from watchingList where cod_user="+idUser+" and", 1);
+            con.delegate = this;
+            con.Connect();
         }
     }
 }
