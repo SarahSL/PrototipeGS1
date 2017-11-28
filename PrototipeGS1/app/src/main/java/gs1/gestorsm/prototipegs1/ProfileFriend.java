@@ -11,6 +11,8 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 
+import gs1.gestorsm.prototipegs1.ContentsList.ShowContent;
+
 /**
  * Created by Cynthia on 24/11/2017.
  */
@@ -28,9 +30,9 @@ public class ProfileFriend extends AppCompatActivity implements ConnectResponse{
     ArrayList<ArrayList<String>>datos = new ArrayList<>();
     ArrayList<String> todo = new ArrayList<>();
     String nombreCompleto;
-
+    MySession g = MySession.getInstance();
     //ID del usuario que está logueado
-    int idUser=2;
+    int idUser=Integer.parseInt(g.getId());
 
     //ID DEL CONTACTO QUE ESTAMOS VIENDO
     String id;
@@ -68,7 +70,8 @@ public class ProfileFriend extends AppCompatActivity implements ConnectResponse{
         verLista.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view){
-
+                Intent  intent = new Intent(view.getContext(), ShowContent.class);
+                startActivity(intent);
             }
         });
 

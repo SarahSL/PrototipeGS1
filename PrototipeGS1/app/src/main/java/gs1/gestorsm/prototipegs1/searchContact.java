@@ -27,8 +27,8 @@ public class searchContact  extends AppCompatActivity implements ConnectResponse
     EditText cuadro;
 
     String filtrado;
-    //Supongo que el USUARIO CONECTADO ES 2 (porque Sarah no tiene amigos :D)
-    final int idUser=2;
+    MySession g = MySession.getInstance();
+    final int idUser=Integer.parseInt(g.getId());
     Connect con;
     ArrayList<ArrayList<String>>datos = new ArrayList<>();
 
@@ -53,7 +53,7 @@ public class searchContact  extends AppCompatActivity implements ConnectResponse
             if(filtrado.length()<=0){
                 Toast toast1 =
                         Toast.makeText(getApplicationContext(),
-                                "No se ha escrito ningun nombre de usuario", Toast.LENGTH_SHORT);
+                                "NNo contact name has been written", Toast.LENGTH_SHORT);
 
                 toast1.show();
             }else{
@@ -93,7 +93,7 @@ public class searchContact  extends AppCompatActivity implements ConnectResponse
         if(misDatos.size()<=0){
             Toast toast1 =
                     Toast.makeText(getApplicationContext(),
-                            "No hay usuarios para mostrar", Toast.LENGTH_SHORT);
+                            "No users to show", Toast.LENGTH_SHORT);
 
             toast1.show();
         }

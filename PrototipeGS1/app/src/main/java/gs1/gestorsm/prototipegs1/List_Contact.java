@@ -33,9 +33,9 @@ public class List_Contact  extends AppCompatActivity implements AdapterView.OnIt
 
     Connect con;
     ArrayList<ArrayList<String>>datos = new ArrayList<>();
+    MySession g = MySession.getInstance();
 
-    //Supongo que el usuario logueado es el 1
-    final int idUser=2;
+    final int idUser=Integer.parseInt(g.getId());
 
 
 
@@ -53,7 +53,7 @@ public class List_Contact  extends AppCompatActivity implements AdapterView.OnIt
         myFriends.setOnItemClickListener((AdapterView.OnItemClickListener) this);
 
         con = new Connect();
-        //USO AQUI EL ID DEL USUARIO
+
         con.setSql("select userName from user inner join contact where user.id_user!="+ idUser+" and contact.cod_user="+idUser+" and user.id_user=contact.cod_contact", 0 );
         con.delegate= this;
         con.Connect();
@@ -70,7 +70,7 @@ public class List_Contact  extends AppCompatActivity implements AdapterView.OnIt
                 if(filtro.length()<=0){
                         Toast toast1 =
                                 Toast.makeText(getApplicationContext(),
-                                        "No se ha escrito ningun nombre de contacto", Toast.LENGTH_SHORT);
+                                        "No contact name has been written", Toast.LENGTH_SHORT);
 
                         toast1.show();
                 }else {
@@ -108,7 +108,7 @@ public class List_Contact  extends AppCompatActivity implements AdapterView.OnIt
         if(myFriend.size()<=0) {
             Toast toast1 =
                     Toast.makeText(getApplicationContext(),
-                           "No hay usuarios que mostrar", Toast.LENGTH_SHORT);
+                           "No users to show", Toast.LENGTH_SHORT);
 
             toast1.show();
             adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, myFriend);

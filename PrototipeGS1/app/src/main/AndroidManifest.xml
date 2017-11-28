@@ -25,6 +25,7 @@
         </activity>
         <activity android:name=".ProfileFriend"></activity>
         <activity android:name=".List_Contact"></activity>
+        <activity android:name=".searchContact"></activity>
         <activity android:name=".Register" />
         <activity android:name=".FiltrarCategoria" />
         <activity android:name=".SearchContent" />
