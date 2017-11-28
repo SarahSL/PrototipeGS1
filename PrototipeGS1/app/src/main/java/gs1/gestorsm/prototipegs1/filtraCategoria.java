@@ -63,7 +63,7 @@ public class filtraCategoria extends AppCompatActivity implements ConnectRespons
 
     private void TitleAndSinopsis() {
         con = new Connect();
-        con.setSql("Select content.title, content.synopsis from content inner join " +
+        con.setSql("Select content.title, content.synopsis,content.id_content from content inner join " +
                 "contentCategory where content.id_content = contentCategory.cod_content " +
                 "AND cod_category ="+(punteroglobal+1), 0);
         con.delegate = this;
@@ -121,27 +121,38 @@ public class filtraCategoria extends AppCompatActivity implements ConnectRespons
                         mViewFlipper.showPrevious();
 
                     }
-                }else if(initialY > 609){
+                }else if(initialY > 609) {
                     if (initialX > finalX) {
                         // mViewFlipper.setInAnimation(AnimationUtils.loadAnimation(mContext, R.anim.in_from_left));
                         //mViewFlipper.setOutAnimation(AnimationUtils.loadAnimation(mContext, R.anim.out_from_right));
                         datos.clear();
 
-                        if(datos.size()>1) {
+                        if (datos.size() > 1) {
                             if (punteroglobal2 > datos.size()) punteroglobal2 = 0;
                             switch (mViewFlipper2.getDisplayedChild()) {
-                                case 0:     //categoria0
-                                    category2.setText(datos.get(punteroglobal2).get(0));
-                                    category2.setText(datos.get(punteroglobal2).get(1));
+                                case 0:
+                                    title1.setText(datos.get(punteroglobal2).get(0));
+                                    sinopsis1.setText(datos.get(punteroglobal2).get(1));
                                     break;
-                                case 1:     //categoria1
-                                    category1.setText(datos.get(punteroglobal2).get(0));
-                                    category1.setText(datos.get(punteroglobal2).get(1));
+                                case 1:
+                                    title2.setText(datos.get(punteroglobal2).get(0));
+                                    sinopsis2.setText(datos.get(punteroglobal2).get(1));
+                                    //filaactual=punteroglobal2;
                                     break;
                             }
                             punteroglobal2++;
                             mViewFlipper2.showNext();
                         }else{
+                            switch (mViewFlipper2.getDisplayedChild()) {
+                                case 0:     //categoria0
+                                    System.out.println(datos.get(1).get(2));
+                                    //filaactual=0;
+                                    break;
+                                case 1:     //categoria1
+                                    System.out.println(datos.get(0).get(2));
+                                    //filaactual=1;
+                                    break;
+                            }
                             mViewFlipper2.showNext();
                         }
                     } else {
@@ -150,30 +161,41 @@ public class filtraCategoria extends AppCompatActivity implements ConnectRespons
 
                         datos.clear();
 
-                        if(datos.size()>1) {
+                        if (datos.size() > 1) {
                             if (punteroglobal2 < 0) punteroglobal2 = datos.size();
                             switch (mViewFlipper2.getDisplayedChild()) {
                                 case 0:     //categoria0
                                     title2.setText(datos.get(punteroglobal2).get(0));
                                     sinopsis2.setText(datos.get(punteroglobal2).get(1));
+                                    //filaactual=punteroglobal2;
                                     break;
                                 case 1:     //categoria1
                                     title1.setText(datos.get(punteroglobal2).get(0));
                                     sinopsis1.setText(datos.get(punteroglobal2).get(1));
+                                    //filaactual=punteroglobal2;
                                     break;
                             }
                             punteroglobal2--;
                             mViewFlipper2.showPrevious();
                         }else{
+                            switch (mViewFlipper2.getDisplayedChild()) {
+                                case 0:     //categoria0
+                                    System.out.println(datos.get(1).get(2));
+                                    // System.out.println(datos.get(0).get(0));
+                                    break;
+                                case 1:     //categoria1
+                                    System.out.println(datos.get(0).get(2));
+                                    //filaactual=1;
+  //                                  System.out.println(datos.get(1).get(0));
+                                    break;
+                            }
                             mViewFlipper2.showPrevious();
                         }
                     }
                 }
-                break;
         }
         return false;
     }
-
 
 
     @Override
@@ -203,6 +225,15 @@ public class filtraCategoria extends AppCompatActivity implements ConnectRespons
                     }
                     break;
                 case 2:
+                    title1.setText(datos.get(0).get(0));
+                    sinopsis1.setText(datos.get(0).get(1));
+                    title2.setText(datos.get(1).get(0));
+                    sinopsis2.setText(datos.get(1).get(1));
+                    while(mViewFlipper2.getDisplayedChild()!=0){
+                        mViewFlipper2.showNext();
+                    }
+                    break;
+                default:
                     title1.setText(datos.get(0).get(0));
                     sinopsis1.setText(datos.get(0).get(1));
                     title2.setText(datos.get(1).get(0));

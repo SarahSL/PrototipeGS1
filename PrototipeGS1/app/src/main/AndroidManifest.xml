@@ -23,6 +23,14 @@
 
         <activity android:name=".SearchContent">
         </activity>
+
+        <activity android:name=".Comment">
+        </activity>
+
+        <activity android:name=".ContentScore">
+        </activity>
+
+
     </application>
 
 </manifest>
