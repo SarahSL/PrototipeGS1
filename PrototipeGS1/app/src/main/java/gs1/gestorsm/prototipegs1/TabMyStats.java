@@ -10,7 +10,7 @@ import android.widget.ListView;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.concurrent.ExecutionException;
+
 
 
 /**
@@ -23,22 +23,14 @@ public class TabMyStats extends Fragment {
                              Bundle savedInstanceState) {
 
         View rootView = inflater.inflate(R.layout.mystats_tab, container, false);
-        ArrayList<String> arrayList = new ArrayList<>();
-        try {
-             arrayList = createArray();
-        } catch (ExecutionException e) {
-            e.printStackTrace();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
         ArrayAdapter<String> adapter;
-        adapter = new ArrayAdapter<String>(getActivity(),R.layout.list_item_my_stat,R.id.text_view_my_stat,arrayList);
+        adapter = new ArrayAdapter<String>(getActivity(),R.layout.list_item_my_stat,R.id.text_view_my_stat,createArray());
         ListView listView = rootView.findViewById(R.id.list_view_my_stats);
         listView.setAdapter(adapter);
         return rootView;
     }
 
-    private ArrayList createArray() throws ExecutionException, InterruptedException {
+    private ArrayList createArray() {
 
         Statistic statistic = new Statistic(1);
         statistic.calculateStat();

@@ -7,7 +7,6 @@ import java.sql.Statement;
 import java.util.*;
 import java.sql.Connection;
 import java.sql.DriverManager;
-import java.util.concurrent.ExecutionException;
 
 
 /**
@@ -191,9 +190,9 @@ public class Statistic implements ConnectResponse {
     }
 
 
-    public void calculateStat() throws ExecutionException, InterruptedException {
+    public void calculateStat() {
         flag = 0;
         setViewedMovies();
-        con.get();
+        
     }
 }
