@@ -79,7 +79,8 @@ public class ProfileFriend extends AppCompatActivity implements ConnectResponse{
         verEstadistica.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view){
-
+                Intent intent = new Intent(view.getContext(), TabActivity.class);
+                startActivity(intent);
             }
         });
         borrar.setOnClickListener(new View.OnClickListener() {

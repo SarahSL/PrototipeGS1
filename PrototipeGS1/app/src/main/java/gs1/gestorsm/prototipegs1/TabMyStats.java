@@ -24,7 +24,8 @@ public class TabMyStats extends Fragment implements ConnectResponse {
     int flag;
     private ArrayList<String> arrayList = new ArrayList<>();
     private View rootView;
-    private int idUser = 1; //Variable global
+    MySession g = MySession.getInstance();
+    private int idUser = Integer.parseInt(g.getId()); //Variable global
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {

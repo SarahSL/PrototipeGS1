@@ -32,7 +32,8 @@ public class TabContactStats extends Fragment implements ConnectResponse {
     private Spinner spinner;
     private Map<String, Integer> map = new HashMap<>();
     private int idContact;
-    private int idUser = 2; // Variable global
+    MySession g = MySession.getInstance();
+    private int idUser = Integer.parseInt(g.getId()); // Variable global
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
