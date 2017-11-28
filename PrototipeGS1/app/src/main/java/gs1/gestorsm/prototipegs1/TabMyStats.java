@@ -22,6 +22,7 @@ public class TabMyStats extends Fragment implements ConnectResponse {
     int flag;
     private ArrayList<String> arrayList = new ArrayList<>();
     private View rootView;
+    private int idUser = 1; //Variable global
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -30,10 +31,7 @@ public class TabMyStats extends Fragment implements ConnectResponse {
         calculateStat();
         return rootView;
     }
-
-    /*
-    * La variable global en todos los setter
-    * */
+    
     private void calculateStat() {
         setViewedMovies();
     }
@@ -41,14 +39,14 @@ public class TabMyStats extends Fragment implements ConnectResponse {
 
     private void setViewedMovies() {
 
-        con.setSql("select count(*) from viewList where cod_user = 1 and cod_movie is not null", 0);
+        con.setSql("select count(*) from viewList where cod_user = "+ idUser +" and cod_movie is not null", 0);
         con.delegate = this;
         con.Connect();
     }
 
     public void setViewedChapters() {
         con = new Connect();
-        con.setSql( "select count(*) from viewList where cod_user = 1 and cod_chapter is not null", 0);
+        con.setSql( "select count(*) from viewList where cod_user = "+ idUser +" and cod_chapter is not null", 0);
         con.delegate = this;
         con.Connect();
 
@@ -56,7 +54,7 @@ public class TabMyStats extends Fragment implements ConnectResponse {
 
     public void setHoursViewed() {
         con = new Connect();
-        con.setSql("select duration from chapter inner join viewList where  cod_user = 1 and id_chapter = cod_chapter", 0);
+        con.setSql("select duration from chapter inner join viewList where cod_user = "+ idUser +" and id_chapter = cod_chapter", 0);
         con.delegate = this;
         con.Connect();
 
@@ -65,14 +63,14 @@ public class TabMyStats extends Fragment implements ConnectResponse {
 
     public void setRecommendations() {
         con = new Connect();
-        con.setSql("select count(*) from recommendation where cod_user=1 ", 0);
+        con.setSql("select count(*) from recommendation where cod_user= " + idUser, 0);
         con.delegate = this;
         con.Connect();
     }
 
     public void setContentAverageScore() {
         con = new Connect();
-        con.setSql("select score from evaluation where cod_user = 1", 0);
+        con.setSql("select score from evaluation where cod_user = " + idUser, 0);
         con.delegate = this;
         con.Connect();
     }
@@ -151,7 +149,6 @@ public class TabMyStats extends Fragment implements ConnectResponse {
                 arrayList.add("Monthly Series: " + 15);
                 arrayList.add("Monthly Movies: " + 10);
                 generateListView();
-
         }
     }
 

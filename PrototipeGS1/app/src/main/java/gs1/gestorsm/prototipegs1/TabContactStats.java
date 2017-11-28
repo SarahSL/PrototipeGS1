@@ -28,19 +28,18 @@ public class TabContactStats extends Fragment implements ConnectResponse{
     private Spinner spinner;
     private Map<String, Integer> map = new HashMap<>();
     private int idContact;
+    private int idUser = 2; // Variable global
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         rootView = inflater.inflate(R.layout.contactstats_tab, container, false);
-        getContact();
+        getContacts();
         return rootView;
     }
-    /*
-    * La variable global donde esta cod_user en este metodo nada mas
-    * */
-    public void getContact() {
-        con.setSql("Select userName,id_user from user inner join contact where id_user = cod_contact and cod_user = 2 ",0);
+
+    public void getContacts() {
+        con.setSql("Select userName,id_user from user inner join contact where id_user = cod_contact and cod_user = "+idUser,0);
         con.delegate = this;
         con.Connect();
 
