@@ -14,6 +14,8 @@ import android.widget.ViewFlipper;
 import java.util.ArrayList;
 import java.util.Iterator;
 
+import gs1.gestorsm.prototipegs1.ContentsList.ShowPageContent;
+
 /**
  * Created by topema on 25/11/2017.
  */
@@ -25,6 +27,7 @@ public class FiltrarCategoria extends AppCompatActivity implements ConnectRespon
     TextView category1, category2, title1,title2,sinopsis1,sinopsis2,results;
     String[] category = {"Thriller","Romantic","Action","Horror","Scyfi", "Western","Anime","Comedy","Drama","Suspense","Documentary"};
     String cod_Contenido="1";   //getCod_Contenido()
+    String aux;
     int punteroglobal=0,punteroglobal2=0;
 MySession g = MySession.getInstance();
     private ViewFlipper mViewFlipper, mViewFlipper2;
@@ -56,7 +59,8 @@ MySession g = MySession.getInstance();
         enlace.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                Intent intent = new Intent(v.getContext(),ShowPageContent.class);
+                intent.putExtra("aux",aux);
             }
         });
         //PARTE DE ARRIBA
@@ -242,6 +246,7 @@ MySession g = MySession.getInstance();
                     sinopsis1.setText("No existe contenido en esta categoría, más adelante se incluirá más contenido");
                     title2.setText("No existe contenido");
                     sinopsis2.setText("No existe contenido en esta categoría, más adelante se incluirá más contenido");
+                    aux = null;
                     break;
                 case 1:
                     title1.setText(datos.get(0).get(0)+": "+datos.get(0).get(2));
@@ -252,6 +257,7 @@ MySession g = MySession.getInstance();
                     while(mViewFlipper2.getDisplayedChild()!=0){
                         mViewFlipper2.showNext();
                     }
+                    aux = getCod_Contenido();
                     break;
                 case 2:
                     title1.setText(datos.get(0).get(0)+": "+datos.get(0).get(2));
@@ -262,6 +268,7 @@ MySession g = MySession.getInstance();
                     while(mViewFlipper2.getDisplayedChild()!=0){
                         mViewFlipper2.showNext();
                     }
+                    aux=getCod_Contenido();
                     break;
                 default:
                     title1.setText(datos.get(0).get(0)+": "+datos.get(0).get(2));
@@ -272,6 +279,7 @@ MySession g = MySession.getInstance();
                     while(mViewFlipper2.getDisplayedChild()!=0){
                         mViewFlipper2.showNext();
                     }
+                    aux = getCod_Contenido();
                     break;
             }
 
@@ -280,6 +288,7 @@ MySession g = MySession.getInstance();
             sinopsis1.setText("No existe contenido en esta categoría, más adelante se incluirá más contenido");
             title2.setText("No existe contenido");
             sinopsis2.setText("No existe contenido en esta categoría, más adelante se incluirá más contenido");
+            aux = null;
         }
 
         results.setText("results: " + Integer.toString(datos.size()));

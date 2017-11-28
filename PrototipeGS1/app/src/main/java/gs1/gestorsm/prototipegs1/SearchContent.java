@@ -55,7 +55,7 @@ public class SearchContent extends AppCompatActivity implements ConnectResponse 
                 adaptador.addAll(result);
                 results.setAdapter(adaptador);
                 adaptador.clear();
-               // result.clear();
+                result.clear();
             }
         });
         results.setOnItemClickListener(new AdapterView.OnItemClickListener() {
