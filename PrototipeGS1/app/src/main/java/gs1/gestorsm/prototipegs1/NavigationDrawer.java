@@ -13,8 +13,11 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import java.util.ArrayList;
+
+import gs1.gestorsm.prototipegs1.ContentsList.ShowContent;
 
 public class NavigationDrawer extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener,ConnectResponse {
@@ -85,19 +88,25 @@ public class NavigationDrawer extends AppCompatActivity
 
         if (id == R.id.nav_start){
             // Handle the camera action
+            Intent i = new Intent(this, FiltrarCategoria.class);
+            startActivity(i);
         } else if (id == R.id.nav_edit_profile) {
             Intent i = new Intent(this, EditProfile.class);
             startActivity(i);
         } else if (id == R.id.nav_view_list) {
-
+            Intent i = new Intent(this, ShowContent.class);
+            startActivity(i);
         } else if (id == R.id.nav_stadistics) {
-
+            Intent i = new Intent(this, TabActivity.class);
+            startActivity(i);
         } else if (id == R.id.nav_contacts) {
-
+            Intent i = new Intent(this, List_Contact.class);
+            startActivity(i);
         } else if (id == R.id.nav_donative) {
-
+            Intent i = new Intent(this, DonationActivity.class);
+            startActivity(i);
         } else if (id == R.id.nav_subscriptions) {
-
+            Toast.makeText(this,"No time to added,sorry",Toast.LENGTH_SHORT).show();
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
