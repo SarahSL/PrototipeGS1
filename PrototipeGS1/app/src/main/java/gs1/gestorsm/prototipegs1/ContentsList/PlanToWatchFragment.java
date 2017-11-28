@@ -13,6 +13,7 @@ import android.widget.BaseAdapter;
 import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -31,9 +32,11 @@ public class PlanToWatchFragment extends Fragment implements ConnectResponse{
     ArrayList<String> planToWatchElements=new ArrayList<>();
     Connect con;
     View view;
+    CustomAdapter adapter;
     ArrayList<String> idContentPlantowatch = new ArrayList<>();
     String idUser;
     MySession g = MySession.getInstance();
+    ArrayList<String> idLista = new ArrayList<>();
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -49,7 +52,7 @@ public class PlanToWatchFragment extends Fragment implements ConnectResponse{
         this.datos = datos;
         AddObjets();
         ListView listView = view.findViewById(R.id.plan_to_watch_list);
-        CustomAdapter adapter = new CustomAdapter();
+        adapter = new CustomAdapter();
         listView.setAdapter(adapter);
     }
 
@@ -61,9 +64,9 @@ public class PlanToWatchFragment extends Fragment implements ConnectResponse{
     private void movieConsult(){
         con = new Connect();
         // TO DO:  HAY QUE AÑADIR EL ID_USER
-        con.setSql("SELECT content.title,contentType.name,content.id_content " +
-                "FROM content,contentType " +
-                "INNER JOIN movie, desiredList " +
+        con.setSql("SELECT content.title,contentType.name,content.id_content,desiredList.id_desiredList " +
+                "FROM content,contentType,desiredList " +
+                "INNER JOIN movie  " +
                 "WHERE content.id_content = movie.cod_content " +
                 "AND desiredList.cod_movie = movie.id_movie " +
                 "AND desiredList.cod_user ="+idUser+" AND contentType.id_contentType=content.cod_contentType ", 0);
@@ -73,9 +76,9 @@ public class PlanToWatchFragment extends Fragment implements ConnectResponse{
     private void serieConsult(){
         con = new Connect();
         // TO DO:  HAY QUE AÑADIR EL ID_USER
-        con.setSql("SELECT content.title,contentType.name,content.id_content "+
-                "FROM content,contentType "+
-                "INNER JOIN serie,season,chapter, desiredList "+
+        con.setSql("SELECT content.title,contentType.name,content.id_content,desiredList.id_desiredList,chapter.title "+
+                "FROM content,contentType,chapter, desiredList "+
+                "INNER JOIN serie,season "+
                 "WHERE content.id_content = serie.cod_content "+
                 "AND serie.id_serie=season.cod_serie "+
                 "AND season.id_season=chapter.cod_season "+
@@ -86,12 +89,17 @@ public class PlanToWatchFragment extends Fragment implements ConnectResponse{
     }
     private void AddObjets(){
         for (int i = 0; i < datos.size(); i++) {
-            planToWatchElements.add(datos.get(i).get(0)+ "\t\t" + datos.get(i).get(1));
+            if (datos.get(i).get(1).equals("serie")) {
+                planToWatchElements.add(datos.get(i).get(0) + "-" + datos.get(i).get(4) + "\t\t" + datos.get(i).get(1));
+            } else {
+                planToWatchElements.add(datos.get(i).get(0) + "\t\t" + datos.get(i).get(1));
+            }
             idContentPlantowatch.add(datos.get(i).get(2));
+            idLista.add(datos.get(i).get(3));
         }
 
     }
-    class CustomAdapter extends BaseAdapter {
+    class CustomAdapter extends BaseAdapter implements ConnectResponse {
 
         @Override
         public int getCount() {
@@ -126,14 +134,30 @@ public class PlanToWatchFragment extends Fragment implements ConnectResponse{
                     startActivity(intent);
                 }
             });
-            delete.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
+                    delete.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            if (!idLista.isEmpty()) {
+                                borrarContenido(i);
+                            }
+                            adapter.notifyDataSetChanged();
 
-                }
-            });
+                        }
+                    });
             return view;
 
+        }
+
+        @Override
+        public void processFinish(String output, ArrayList<ArrayList<String>> datos) {
+            Toast.makeText(getContext(), "Element was deleted from the list", Toast.LENGTH_LONG);
+        }
+        public void borrarContenido(int typeContent) {
+            con = new Connect();
+            planToWatchElements.remove(typeContent);
+            con.setSql("Delete from desiredList where cod_user=" + idUser + " and id_desiredList=" + idLista.get(typeContent), 1);
+            con.delegate = this;
+            con.Connect();
         }
     }
 }

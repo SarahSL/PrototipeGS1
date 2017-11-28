@@ -13,6 +13,7 @@ import android.widget.BaseAdapter;
 import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -29,6 +30,8 @@ public class CompletedFragment extends Fragment implements ConnectResponse{
     ArrayList<String> completedElements =new ArrayList<>();
     Connect con;
     ArrayList<String> idContentCompleted=new ArrayList<>();
+    ArrayList<String> idLista = new ArrayList<>();
+    CustomAdapter adapter;
     View view;
     String idUser;
     MySession g = MySession.getInstance();
@@ -48,7 +51,7 @@ public class CompletedFragment extends Fragment implements ConnectResponse{
         AddObjets();
         ListView listView = view.findViewById(R.id.completed_list);
 
-        CustomAdapter adapter = new CustomAdapter();
+        adapter = new CustomAdapter();
         listView.setAdapter(adapter);
     }
 
@@ -60,9 +63,9 @@ public class CompletedFragment extends Fragment implements ConnectResponse{
     }
     private void movieConsult(){
         con = new Connect();
-        con.setSql("SELECT content.title,contentType.name,content.id_content  "+
-                "FROM content,contentType "+
-                "INNER JOIN movie, viewList "+
+        con.setSql("SELECT content.title,contentType.name,content.id_content,viewList.id_viewList  "+
+                "FROM content,contentType,viewList "+
+                "INNER JOIN movie  "+
                 "WHERE content.id_content = movie.cod_content "+
                 "AND viewList.cod_movie = movie.id_movie "+
                 "AND viewList.cod_user ="+idUser+" AND contentType.id_contentType = content.cod_contentType", 0);
@@ -71,9 +74,9 @@ public class CompletedFragment extends Fragment implements ConnectResponse{
     }
     private void serieConsult(){
         con = new Connect();
-        con.setSql("SELECT content.title, contentType.name,content.id_content " +
-                "FROM content,contentType " +
-                "INNER JOIN serie,season,chapter, viewList " +
+        con.setSql("SELECT content.title, contentType.name,content.id_content,viewList.id_viewList,chapter.title " +
+                "FROM content,contentType,chapter, viewList " +
+                "INNER JOIN serie,season " +
                 "WHERE content.id_content = serie.cod_content " +
                 "AND serie.id_serie=season.cod_serie " +
                 "AND season.id_season=chapter.cod_season " +
@@ -84,13 +87,16 @@ public class CompletedFragment extends Fragment implements ConnectResponse{
     }
     private void AddObjets(){
         for (int i = 0; i < datos.size(); i++) {
-            completedElements.add(datos.get(i).get(0)+ "\t\t" + datos.get(i).get(1));
-
+            if (datos.get(i).get(1).equals("serie")) {
+                completedElements.add(datos.get(i).get(0) + "-" + datos.get(i).get(4) + "\t" + datos.get(i).get(1));
+            } else {
+                completedElements.add(datos.get(i).get(0) + "\t\t" + datos.get(i).get(1));
+            }
             idContentCompleted.add(datos.get(i).get(2));
+            idLista.add(datos.get(i).get(3));
         }
-
     }
-    class CustomAdapter extends BaseAdapter {
+    class CustomAdapter extends BaseAdapter implements  ConnectResponse {
 
         @Override
         public int getCount() {
@@ -128,11 +134,26 @@ public class CompletedFragment extends Fragment implements ConnectResponse{
             delete.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-
+                    if (!idLista.isEmpty()) {
+                        borrarContenido(i);
+                    }
+                    adapter.notifyDataSetChanged();
                 }
             });
             return view;
 
+        }
+
+        @Override
+        public void processFinish(String output, ArrayList<ArrayList<String>> datos) {
+            Toast.makeText(getContext(), "Element was deleted from the list", Toast.LENGTH_LONG);
+        }
+        public void borrarContenido(int typeContent) {
+            con = new Connect();
+            completedElements.remove(typeContent);
+            con.setSql("Delete from viewList where cod_user=" + idUser + " and id_viewList=" + idLista.get(typeContent), 1);
+            con.delegate = this;
+            con.Connect();
         }
     }
 }
