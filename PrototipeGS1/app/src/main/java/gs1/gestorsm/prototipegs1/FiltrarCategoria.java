@@ -1,5 +1,6 @@
 package gs1.gestorsm.prototipegs1;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -8,10 +9,10 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
-import android.widget.Toast;
 import android.widget.ViewFlipper;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 
 import gs1.gestorsm.prototipegs1.ContentsList.ShowPageContent;
 
@@ -22,22 +23,23 @@ import gs1.gestorsm.prototipegs1.ContentsList.ShowPageContent;
 public class FiltrarCategoria extends AppCompatActivity implements ConnectResponse {
     Connect con;
     ArrayList<ArrayList<String>> datos = new ArrayList<>();
-    Button enlace, logout;
-    TextView category1, category2, title1, title2, sinopsis1, sinopsis2, results;
+    Button enlace;
+    TextView category1, category2, title1,title2,sinopsis1,sinopsis2,results;
+    String[] category = {"Thriller","Romantic","Action","Horror","Scyfi", "Western","Anime","Comedy","Drama","Suspense","Documentary"};
+    String cod_Contenido="1";   //getCod_Contenido()
     String aux;
-
-    String[] category = {"Thriller", "Romantic", "Action", "Horror", "Scyfi", "Western", "Anime", "Comedy", "Drama", "Suspense", "Documentary"};
-    int punteroglobal = 0, punteroglobal2 = 0;
-
-    MySession g = MySession.getInstance();
-
+    int punteroglobal=0,punteroglobal2=0;
+MySession g = MySession.getInstance();
     private ViewFlipper mViewFlipper, mViewFlipper2;
-    private float initialX, initialY;
+    private Context mContext;
+    private float initialX,initialY;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_categoria_filtrar);
+
+        mContext = this;
         mViewFlipper = findViewById(R.id.flipper1);
         mViewFlipper2 = findViewById(R.id.flipper2);
 
@@ -57,12 +59,12 @@ public class FiltrarCategoria extends AppCompatActivity implements ConnectRespon
         enlace.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(v.getContext(), ShowPageContent.class);
-                intent.putExtra("aux", aux);
+                Intent intent = new Intent(v.getContext(),ShowPageContent.class);
+                intent.putExtra("aux",aux);
                 startActivity(intent);
             }
         });
-//BOTON LOGOUT Y USERNAME
+        //PARTE DE ARRIBA
         TextView username = findViewById(R.id.username_text);
         username.setText(g.getUsernameLoged());
 
@@ -75,7 +77,7 @@ public class FiltrarCategoria extends AppCompatActivity implements ConnectRespon
             }
         });
 
-        logout = findViewById(R.id.logout_button);
+        Button logout = findViewById(R.id.logout_button);
         logout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -87,23 +89,16 @@ public class FiltrarCategoria extends AppCompatActivity implements ConnectRespon
             }
         });
 
-
         printCategories();
 
         TitleAndSinopsis();
-    }
-
-    @Override
-    public void onBackPressed() {
-        Toast to = Toast.makeText(this, "Logout first please", Toast.LENGTH_LONG);
-        to.show();
     }
 
     private void TitleAndSinopsis() {
         con = new Connect();
         con.setSql("Select content.title, content.synopsis,content.id_content from content inner join " +
                 "contentCategory where content.id_content = contentCategory.cod_content " +
-                "AND cod_category =" + (punteroglobal + 1), 0);
+                "AND cod_category ="+(punteroglobal+1), 0);
         con.delegate = this;
         con.Connect();
     }
@@ -163,56 +158,77 @@ public class FiltrarCategoria extends AppCompatActivity implements ConnectRespon
                     if (initialX > finalX) {
                         // mViewFlipper.setInAnimation(AnimationUtils.loadAnimation(mContext, R.anim.in_from_left));
                         //mViewFlipper.setOutAnimation(AnimationUtils.loadAnimation(mContext, R.anim.out_from_right));
-                        datos.clear();
 
-                        if (datos.size() > 1) {
+                        if (datos.size() > 2) {
                             if (punteroglobal2 > datos.size()) punteroglobal2 = 0;
                             switch (mViewFlipper2.getDisplayedChild()) {
-                                case 0:     //categoria0
-                                    category2.setText(datos.get(punteroglobal2).get(0));
-                                    category2.setText(datos.get(punteroglobal2).get(1));
-
+                                case 0:
+                                    title1.setText(datos.get(punteroglobal2).get(0));
+                                    sinopsis1.setText(datos.get(punteroglobal2).get(1));
+                                    cod_Contenido = datos.get(punteroglobal2).get(2);
                                     break;
-                                case 1:     //categoria1
-                                    category1.setText(datos.get(punteroglobal2).get(0));
-                                    category1.setText(datos.get(punteroglobal2).get(1));
+                                case 1:
+                                    title2.setText(datos.get(punteroglobal2).get(0));
+                                    sinopsis2.setText(datos.get(punteroglobal2).get(1));
+                                    cod_Contenido = datos.get(punteroglobal2).get(2);
                                     break;
                             }
                             punteroglobal2++;
                             mViewFlipper2.showNext();
+                        } else if (datos.size() == 2) {
+                            switch (mViewFlipper2.getDisplayedChild()) {
+                                case 0:
+                                    cod_Contenido = datos.get(0).get(2);
+                                    break;
+                                case 1:
+                                    cod_Contenido = datos.get(1).get(2);
+                                    break;
+                            }
+                            mViewFlipper2.showNext();
                         } else {
+                            cod_Contenido = datos.get(0).get(2);
                             mViewFlipper2.showNext();
                         }
                     } else {
                         //mViewFlipper.setInAnimation(AnimationUtils.loadAnimation(mContext, R.anim.in_from_right));
                         //mViewFlipper.setOutAnimation(AnimationUtils.loadAnimation(mContext, R.anim.out_from_left));
-
-                        datos.clear();
-
-                        if (datos.size() > 1) {
+                        if (datos.size() > 2) {
                             if (punteroglobal2 < 0) punteroglobal2 = datos.size();
                             switch (mViewFlipper2.getDisplayedChild()) {
-                                case 0:     //categoria0
+                                case 0:
                                     title2.setText(datos.get(punteroglobal2).get(0));
                                     sinopsis2.setText(datos.get(punteroglobal2).get(1));
-
+                                    cod_Contenido = datos.get(punteroglobal2).get(2);
                                     break;
-                                case 1:     //categoria1
+                                case 1:
                                     title1.setText(datos.get(punteroglobal2).get(0));
                                     sinopsis1.setText(datos.get(punteroglobal2).get(1));
+                                    cod_Contenido = datos.get(punteroglobal2).get(2);
                                     break;
                             }
                             punteroglobal2--;
                             mViewFlipper2.showPrevious();
+                        } else if (datos.size() == 2) {
+                            switch (mViewFlipper2.getDisplayedChild()) {
+                                case 0:
+                                    cod_Contenido = datos.get(0).get(2);
+                                    break;
+                                case 1:
+                                    cod_Contenido = datos.get(1).get(2);
+                                    break;
+                            }
+                            mViewFlipper2.showPrevious();
                         } else {
+                            cod_Contenido = datos.get(0).get(2);
                             mViewFlipper2.showPrevious();
                         }
                     }
                 }
-                break;
         }
         return false;
     }
+
+
 
 
     @Override
@@ -222,10 +238,10 @@ public class FiltrarCategoria extends AppCompatActivity implements ConnectRespon
     }
 
     public void printTitleSinopsis() {
-        if (!datos.isEmpty()) {
-            //    title1.setText(datos.get(0).get(0));
-            //  sinopsis1.setText(datos.get(0).get(1));
-            switch (datos.size()) {
+        if(!datos.isEmpty()){
+        //    title1.setText(datos.get(0).get(0));
+          //  sinopsis1.setText(datos.get(0).get(1));
+            switch(datos.size()){
                 case 0:
                     title1.setText("No existe contenido");
                     sinopsis1.setText("No existe contenido en esta categoría, más adelante se incluirá más contenido");
@@ -234,39 +250,41 @@ public class FiltrarCategoria extends AppCompatActivity implements ConnectRespon
                     aux = null;
                     break;
                 case 1:
-                    title1.setText(datos.get(0).get(0));
+                    title1.setText(datos.get(0).get(0)+": "+datos.get(0).get(2));
                     sinopsis1.setText(datos.get(0).get(1));
-                    title2.setText(datos.get(0).get(0));
+                    cod_Contenido=datos.get(0).get(2);
+                    title2.setText(datos.get(0).get(0)+": "+datos.get(0).get(2));
                     sinopsis2.setText(datos.get(0).get(1));
-                    while (mViewFlipper2.getDisplayedChild() != 0) {
+                    while(mViewFlipper2.getDisplayedChild()!=0){
                         mViewFlipper2.showNext();
                     }
-                    aux = datos.get(0).get(2);
+                    aux = getCod_Contenido();
                     break;
                 case 2:
-                    title1.setText(datos.get(0).get(0));
+                    title1.setText(datos.get(0).get(0)+": "+datos.get(0).get(2));
                     sinopsis1.setText(datos.get(0).get(1));
-                    title2.setText(datos.get(1).get(0));
+                    cod_Contenido=datos.get(0).get(2);
+                    title2.setText(datos.get(1).get(0)+": "+datos.get(1).get(2));
                     sinopsis2.setText(datos.get(1).get(1));
-                    while (mViewFlipper2.getDisplayedChild() != 0) {
+                    while(mViewFlipper2.getDisplayedChild()!=0){
                         mViewFlipper2.showNext();
-
                     }
-                    aux = datos.get(1).get(2);
+                    aux=getCod_Contenido();
                     break;
                 default:
-                    title1.setText(datos.get(0).get(0));
+                    title1.setText(datos.get(0).get(0)+": "+datos.get(0).get(2));
                     sinopsis1.setText(datos.get(0).get(1));
-                    title2.setText(datos.get(1).get(0));
+                    cod_Contenido=datos.get(0).get(2);
+                    title2.setText(datos.get(1).get(0)+": "+datos.get(1).get(2));
                     sinopsis2.setText(datos.get(1).get(1));
-                    while (mViewFlipper2.getDisplayedChild() != 0) {
+                    while(mViewFlipper2.getDisplayedChild()!=0){
                         mViewFlipper2.showNext();
                     }
-                    aux = datos.get(1).get(2);
+                    aux = getCod_Contenido();
                     break;
             }
 
-        } else {
+        }else{
             title1.setText("No existe contenido");
             sinopsis1.setText("No existe contenido en esta categoría, más adelante se incluirá más contenido");
             title2.setText("No existe contenido");
@@ -275,15 +293,16 @@ public class FiltrarCategoria extends AppCompatActivity implements ConnectRespon
         }
 
         results.setText("results: " + Integer.toString(datos.size()));
-
-
     }
 
+    public String getCod_Contenido(){
+        return cod_Contenido;
+    }
 
     public void printCategories() {
         category1.setText(category[0]);
         category2.setText(category[1]);
-        punteroglobal = 0;
+        punteroglobal=0;
     }
 }
 

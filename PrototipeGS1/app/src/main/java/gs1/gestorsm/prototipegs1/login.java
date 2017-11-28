@@ -53,6 +53,7 @@ public class Login extends AppCompatActivity implements ConnectResponse {
 
     public void prueba() {
         if (logued) {
+            g.setUsernameLoged(usuario);
             Intent i = new Intent(this, NavigationDrawer.class);
             startActivity(i);
         } else {

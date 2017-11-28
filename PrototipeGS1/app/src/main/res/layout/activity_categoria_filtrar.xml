@@ -1,18 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
     <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="585dp"
+        android:layout_width="match_parent"
+        android:layout_height="528dp"
         android:orientation="vertical"
         tools:ignore="MissingConstraints"
         tools:layout_editor_absoluteX="0dp"
-        tools:layout_editor_absoluteY="0dp">
+        tools:layout_editor_absoluteY="1dp">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -47,7 +46,7 @@
         <TextView
             android:id="@+id/textView"
             android:layout_width="match_parent"
-            android:layout_height="33dp"
+            android:layout_height="wrap_content"
             android:text="Categories"
             tools:layout_editor_absoluteX="83dp"
             tools:layout_editor_absoluteY="62dp" />
@@ -55,7 +54,7 @@
         <TextView
             android:id="@+id/result"
             android:layout_width="match_parent"
-            android:layout_height="35dp"
+            android:layout_height="wrap_content"
             android:text="Results: " />
 
         <ViewFlipper
@@ -95,7 +94,7 @@
         <ViewFlipper
             android:id="@+id/flipper2"
             android:layout_width="426dp"
-            android:layout_height="247dp">
+            android:layout_height="309dp">
 
             <LinearLayout
                 android:layout_width="wrap_content"
@@ -140,15 +139,16 @@
 
         </ViewFlipper>
 
-        <Button
-            android:id="@+id/enlaceContenido"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Ver contenido"
-            android:visibility="visible"
-            tools:layout_editor_absoluteY="206dp" />
-
     </LinearLayout>
 
+    <Button
+        android:id="@+id/enlaceContenido"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:text="Ver contenido"
+        android:visibility="visible"
+        tools:layout_editor_absoluteX="115dp"
+        tools:layout_editor_absoluteY="522dp"
+        tools:ignore="MissingConstraints" />
 
 </android.support.constraint.ConstraintLayout>
