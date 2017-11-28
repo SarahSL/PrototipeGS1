@@ -107,6 +107,9 @@ public class NavigationDrawer extends AppCompatActivity
             startActivity(i);
         } else if (id == R.id.nav_subscriptions) {
             Toast.makeText(this,"No time to added,sorry",Toast.LENGTH_SHORT).show();
+        }else if ( id== R.id.nav_searchContacts){
+            Intent i = new Intent(this, searchContact.class);
+            startActivity(i);
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);

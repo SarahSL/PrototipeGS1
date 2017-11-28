@@ -32,6 +32,10 @@
             android:id="@+id/nav_subscriptions"
             android:icon="@android:drawable/ic_dialog_alert"
             android:title="Subscriptions" />
+        <item
+            android:id="@id/nav_searchContacts"
+            android:icon="@android:drawable/ic_dialog_alert"
+            android:title="Search Contact"></item>
     </group>
 
 </menu>
