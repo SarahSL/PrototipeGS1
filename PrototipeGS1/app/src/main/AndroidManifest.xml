@@ -10,34 +10,27 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
 
-        <activity android:name=".Login">
+        <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity
-            android:name=".ContentsList.ShowContent"
-            android:label="@string/title_activity_show_content"
-            android:theme="@style/AppTheme.NoActionBar"/>
-        <activity android:name=".ContentsList.ShowPageContent">
+
+        <activity android:name=".filtraCategoria">
         </activity>
-        <activity android:name=".ProfileFriend"></activity>
-        <activity android:name=".List_Contact"></activity>
-        <activity android:name=".searchContact"></activity>
-        <activity android:name=".Register" />
-        <activity android:name=".FiltrarCategoria" />
-        <activity android:name=".SearchContent" />
-        <activity
-            android:name=".TabActivity"
-            android:label="@string/title_activity_tab"
-            android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".DonationActivity" />
-        <activity android:name=".EditProfile"></activity>
-        <activity android:name=".NavigationDrawer"
-            android:label="@string/title_activity_navigation_drawer"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+
+        <activity android:name=".SearchContent">
+        </activity>
+
+        <activity android:name=".Comment">
+        </activity>
+
+        <activity android:name=".ContentScore">
+        </activity>
+
+
     </application>
 
 </manifest>
