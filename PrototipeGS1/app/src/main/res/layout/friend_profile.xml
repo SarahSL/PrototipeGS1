@@ -28,10 +28,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_above="@+id/borrarContacto"
-            android:layout_alignEnd="@+id/textView2"
-            android:layout_marginBottom="43dp"
-            android:layout_marginEnd="14dp"
-            android:text="Ver Estadísticas" />
+            android:layout_alignParentStart="true"
+            android:layout_marginBottom="23dp"
+            android:layout_marginStart="12dp"
+            android:text="Show stadistics" />
 
         <Button
             android:id="@+id/verListas"
@@ -41,7 +41,7 @@
             android:layout_alignBottom="@+id/verEstadisticas"
             android:layout_marginStart="44dp"
             android:layout_toEndOf="@+id/verEstadisticas"
-            android:text="Ver listas" />
+            android:text="View contents lists" />
 
         <Button
             android:id="@+id/borrarContacto"
@@ -50,7 +50,7 @@
             android:layout_alignParentBottom="true"
             android:layout_centerHorizontal="true"
             android:layout_marginBottom="42dp"
-            android:text="Borrar Contacto" />
+            android:text="Delete contact" />
 
         <TextView
             android:id="@+id/name"

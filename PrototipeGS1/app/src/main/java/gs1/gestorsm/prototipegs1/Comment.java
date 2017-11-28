@@ -22,8 +22,12 @@ public class Comment  extends AppCompatActivity implements ConnectResponse{
         Button comenta, back;
         String usuario, contenido, comentario;
 
+    public Comment(String usuario, String contenido) {
+        this.usuario = usuario;
+        this.contenido = contenido;
+    }
 
-        @Override
+    @Override
         protected void onCreate(Bundle savedInstanceState) {
             super.onCreate(savedInstanceState);
             setContentView(R.layout.commentary);
@@ -57,6 +61,7 @@ public class Comment  extends AppCompatActivity implements ConnectResponse{
                 @Override
                 public void onClick(View view) {
                     //ENLACE PARA VOLVER A DONDE SEA
+
 
                 }
             });
