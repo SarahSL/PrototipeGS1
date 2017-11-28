@@ -31,6 +31,9 @@ public class TabMyStats extends Fragment implements ConnectResponse {
         return rootView;
     }
 
+    /*
+    * La variable global en todos los setter
+    * */
     private void calculateStat() {
         setViewedMovies();
     }

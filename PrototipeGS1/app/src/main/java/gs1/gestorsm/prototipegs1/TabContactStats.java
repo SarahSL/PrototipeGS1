@@ -36,18 +36,25 @@ public class TabContactStats extends Fragment implements ConnectResponse{
         getContact();
         return rootView;
     }
+    /*
+    * La variable global donde esta cod_user en este metodo nada mas
+    * */
+    public void getContact() {
+        con.setSql("Select userName,id_user from user inner join contact where id_user = cod_contact and cod_user = 2 ",0);
+        con.delegate = this;
+        con.Connect();
 
+    }
     private void setActionSpinner() {
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int pos, long l) {
-               idContact = map.get(spinner.getAdapter().getItem(pos));
-               calculateStat();
+                    idContact = map.get(spinner.getAdapter().getItem(pos));
+                    calculateStat();
             }
 
             @Override
             public void onNothingSelected(AdapterView<?> adapterView) {
-
 
             }
         });
@@ -199,14 +206,23 @@ public class TabContactStats extends Fragment implements ConnectResponse{
             arrayList.add(aL.get(0));
             map.put(aL.get(0),Integer.parseInt(aL.get(1)));
         }
+        generateListViewAnything();
         ArrayAdapter<String>adapter= new ArrayAdapter<>(getActivity(),R.layout.list_item_name_contact_stat,R.id.text_view_name_contact_stat,arrayList);
         spinner.setAdapter(adapter);
     }
 
-    public void getContact() {
-        con.setSql("Select userName,id_user from user inner join contact where id_user = cod_contact and cod_user = 2 ",0);
-        con.delegate = this;
-        con.Connect();
+    private void generateListViewAnything() {
+        if(map.isEmpty()){
+            ArrayAdapter<String> adapter;
+            ListView listView;
+            ArrayList<String>arrayList = new ArrayList<>();
+            arrayList.add(" Nada que mostrar");
+            adapter = new ArrayAdapter<>(getActivity(),R.layout.list_item_contact_stat,R.id.text_view_contact_stat,arrayList);
+
+            listView = rootView.findViewById(R.id.list_view_contact_stats);
+            listView.setAdapter(adapter);
+        }
 
     }
+
 }
