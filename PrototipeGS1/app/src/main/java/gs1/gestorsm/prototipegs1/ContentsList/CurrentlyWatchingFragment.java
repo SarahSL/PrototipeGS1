@@ -143,8 +143,10 @@ public class CurrentlyWatchingFragment extends Fragment implements ConnectRespon
             delete.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    if(!idLista.isEmpty())borrarContenido(idLista.get(i));
-                    
+                    if(!idLista.isEmpty()){
+                        borrarContenido(idLista.get(i));
+                    }
+                    notifyDataSetChanged();
 
                 }
             });
