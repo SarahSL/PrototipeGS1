@@ -15,7 +15,9 @@ import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.Spinner;
@@ -37,8 +39,10 @@ import java.util.ArrayList;
 
 import gs1.gestorsm.prototipegs1.Connect;
 import gs1.gestorsm.prototipegs1.ConnectResponse;
+import gs1.gestorsm.prototipegs1.Login;
 import gs1.gestorsm.prototipegs1.MySession;
 import gs1.gestorsm.prototipegs1.R;
+import gs1.gestorsm.prototipegs1.SearchContent;
 
 /**
  * Created by Sarah on 25/11/2017.
@@ -62,6 +66,32 @@ public class ShowPageContent extends AppCompatActivity implements ConnectRespons
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_content_page_show);
+//PARTE DE ARRIBA
+        TextView username = findViewById(R.id.username_text);
+        username.setText(g.getUsernameLoged());
+
+        ImageButton search = findViewById(R.id.search);
+        search.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(v.getContext(),SearchContent.class);
+                startActivity(intent);
+            }
+        });
+
+        Button logout = findViewById(R.id.logout_button);
+        logout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                g.setId(null);
+                g.setUsernameLoged("");
+                System.out.println(g.getId());
+                Intent intent = new Intent(v.getContext(), Login.class);
+                startActivity(intent);
+            }
+        });
+
+
         Intent intent = getIntent();
         idContent = intent.getStringExtra("aux");
         g.setIdContent_PageContent(idContent);

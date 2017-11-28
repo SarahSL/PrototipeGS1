@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -20,8 +21,10 @@ import java.util.ArrayList;
 
 import gs1.gestorsm.prototipegs1.Connect;
 import gs1.gestorsm.prototipegs1.ConnectResponse;
+import gs1.gestorsm.prototipegs1.Login;
 import gs1.gestorsm.prototipegs1.MySession;
 import gs1.gestorsm.prototipegs1.R;
+import gs1.gestorsm.prototipegs1.SearchContent;
 
 /**
  * Created by Sarah on 25/11/2017.
@@ -44,6 +47,7 @@ public class CurrentlyWatchingFragment extends Fragment implements ConnectRespon
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_watching_currently, container, false);
+
         idUser = g.getId();
         movieConsult();
         serieConsult();

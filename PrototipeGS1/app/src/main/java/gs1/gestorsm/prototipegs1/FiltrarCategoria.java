@@ -6,6 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.ViewFlipper;
@@ -64,6 +65,15 @@ public class FiltrarCategoria extends AppCompatActivity implements ConnectRespon
 //BOTON LOGOUT Y USERNAME
         TextView username = findViewById(R.id.username_text);
         username.setText(g.getUsernameLoged());
+
+        ImageButton search = findViewById(R.id.search);
+        search.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(v.getContext(),SearchContent.class);
+                startActivity(intent);
+            }
+        });
 
         logout = findViewById(R.id.logout_button);
         logout.setOnClickListener(new View.OnClickListener() {

@@ -82,7 +82,6 @@ public class SearchContent extends AppCompatActivity implements ConnectResponse 
             for (String num : list)
             {
                 result.add(num);
-                System.out.println(num);
             }
         }
 
