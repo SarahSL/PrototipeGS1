@@ -63,7 +63,6 @@ public class PlanToWatchFragment extends Fragment implements ConnectResponse{
     }
     private void movieConsult(){
         con = new Connect();
-        // TO DO:  HAY QUE AÑADIR EL ID_USER
         con.setSql("SELECT content.title,contentType.name,content.id_content,desiredList.id_desiredList " +
                 "FROM content,contentType,desiredList " +
                 "INNER JOIN movie  " +
@@ -75,7 +74,6 @@ public class PlanToWatchFragment extends Fragment implements ConnectResponse{
     }
     private void serieConsult(){
         con = new Connect();
-        // TO DO:  HAY QUE AÑADIR EL ID_USER
         con.setSql("SELECT content.title,contentType.name,content.id_content,desiredList.id_desiredList,chapter.title "+
                 "FROM content,contentType,chapter, desiredList "+
                 "INNER JOIN serie,season "+

@@ -4,7 +4,7 @@
     <string name="app_name">Gestor .tv</string>
     <string name="title_activity_show_content">showContent</string>
     <string-array name="Add_to_list">
-        <item> </item>
+        <item></item>
         <item>Currently watching</item>
         <item>Plan to watch</item>
         <item>Completed</item>
