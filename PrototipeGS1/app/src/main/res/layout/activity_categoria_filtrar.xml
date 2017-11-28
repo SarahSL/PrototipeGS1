@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="528dp"
+        android:orientation="vertical"
+        tools:ignore="MissingConstraints"
+        tools:layout_editor_absoluteX="0dp"
+        tools:layout_editor_absoluteY="1dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="right"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/username_text"
+                android:layout_width="90dp"
+                android:layout_height="wrap_content"
+                android:text="Username"
+                android:textAlignment="viewEnd" />
+
+            <Button
+                android:id="@+id/logout_button"
+                android:layout_width="wrap_content"
+                android:layout_height="29dp"
+                android:text="Logout"
+                android:textSize="8sp"
+                tools:ignore="MissingConstraints"
+                tools:layout_editor_absoluteX="251dp"
+                tools:layout_editor_absoluteY="25dp" />
+
+            <ImageButton
+                android:id="@+id/search"
+                android:layout_width="wrap_content"
+                android:layout_height="32dp"
+                app:srcCompat="@android:drawable/ic_menu_search" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Categories"
+            tools:layout_editor_absoluteX="83dp"
+            tools:layout_editor_absoluteY="62dp" />
+
+        <TextView
+            android:id="@+id/result"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Results: " />
+
+        <ViewFlipper
+            android:id="@+id/flipper1"
+            android:layout_width="match_parent"
+            android:layout_height="132dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/category1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="category1" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/category2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="category2" />
+
+            </LinearLayout>
+
+
+        </ViewFlipper>
+
+        <ViewFlipper
+            android:id="@+id/flipper2"
+            android:layout_width="426dp"
+            android:layout_height="309dp">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/title2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="title2" />
+
+
+                <TextView
+                    android:id="@+id/sinopsis2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="sinopsis2" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/title1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="title1" />
+
+
+                <TextView
+                    android:id="@+id/sinopsis1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="sinopsis1" />
+
+            </LinearLayout>
+
+
+        </ViewFlipper>
+
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/enlaceContenido"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:text="Show content"
+        android:visibility="visible"
+        tools:ignore="MissingConstraints"
+        tools:layout_editor_absoluteX="115dp"
+        tools:layout_editor_absoluteY="522dp" />
+
+</android.support.constraint.ConstraintLayout>
