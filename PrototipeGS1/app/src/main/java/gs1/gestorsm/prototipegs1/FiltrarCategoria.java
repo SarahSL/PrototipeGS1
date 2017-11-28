@@ -1,11 +1,13 @@
 package gs1.gestorsm.prototipegs1;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.ViewFlipper;
 
@@ -24,7 +26,7 @@ public class FiltrarCategoria extends AppCompatActivity implements ConnectRespon
     String[] category = {"Thriller","Romantic","Action","Horror","Scyfi", "Western","Anime","Comedy","Drama","Suspense","Documentary"};
     String cod_Contenido="1";   //getCod_Contenido()
     int punteroglobal=0,punteroglobal2=0;
-
+MySession g = MySession.getInstance();
     private ViewFlipper mViewFlipper, mViewFlipper2;
     private Context mContext;
     private float initialX,initialY;
@@ -33,6 +35,7 @@ public class FiltrarCategoria extends AppCompatActivity implements ConnectRespon
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_categoria_filtrar);
+
         mContext = this;
         mViewFlipper = findViewById(R.id.flipper1);
         mViewFlipper2 = findViewById(R.id.flipper2);
@@ -54,6 +57,30 @@ public class FiltrarCategoria extends AppCompatActivity implements ConnectRespon
             @Override
             public void onClick(View v) {
 
+            }
+        });
+        //PARTE DE ARRIBA
+        TextView username = findViewById(R.id.username_text);
+        username.setText(g.getUsernameLoged());
+
+        ImageButton search = findViewById(R.id.search);
+        search.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(v.getContext(),SearchContent.class);
+                startActivity(intent);
+            }
+        });
+
+        Button logout = findViewById(R.id.logout_button);
+        logout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                g.setId(null);
+                g.setUsernameLoged("");
+                System.out.println(g.getId());
+                Intent intent = new Intent(v.getContext(), Login.class);
+                startActivity(intent);
             }
         });
 
