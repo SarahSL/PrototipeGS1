@@ -42,7 +42,7 @@ public class Connect extends AsyncTask<String, Void, String> {
                     for (int i = 1; i <= rsmd.getColumnCount(); i++) {
                         field.add(rs.getString(i));
                     }
-                    data.add(field);
+                    data.add(new ArrayList<String>(field));
                 }
             } else {
                 st.executeUpdate(sql);

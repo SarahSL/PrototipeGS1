@@ -16,11 +16,9 @@
             android:id="@+id/nameFriend"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_above="@+id/verEstadisticas"
-            android:layout_alignStart="@+id/borrarContacto"
-            android:layout_marginBottom="123dp"
-            android:layout_marginStart="44dp"
-            android:text="hol"
+            android:layout_below="@+id/imagen"
+            android:layout_centerHorizontal="true"
+            android:text="NOMBRE"
             android:textSize="24sp"
             tools:layout_editor_absoluteX="164dp"
             tools:layout_editor_absoluteY="51dp" />
@@ -30,8 +28,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_above="@+id/borrarContacto"
-            android:layout_alignEnd="@+id/nameFriend"
-            android:layout_marginBottom="63dp"
+            android:layout_alignEnd="@+id/textView2"
+            android:layout_marginBottom="43dp"
+            android:layout_marginEnd="14dp"
             android:text="Ver Estadísticas" />
 
         <Button
@@ -57,20 +56,11 @@
             android:id="@+id/name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
+            android:layout_above="@+id/verEstadisticas"
+            android:layout_alignEnd="@+id/nameFriend"
+            android:layout_marginBottom="38dp"
             android:layout_marginEnd="21dp"
-            android:layout_toStartOf="@+id/borrarContacto"
-            android:text="nombre"
-            android:textSize="18sp" />
-
-        <TextView
-            android:id="@+id/birth"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignStart="@+id/name"
-            android:layout_below="@+id/name"
-            android:layout_marginTop="10dp"
-            android:text="cumple"
+            android:text="NOMBRE Y APELLIDO"
             android:textSize="18sp" />
 
         <ImageView
@@ -78,9 +68,18 @@
             android:layout_width="200dp"
             android:layout_height="200dp"
             android:layout_alignParentTop="true"
-            android:layout_marginTop="23dp"
-            android:layout_toEndOf="@+id/birth"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="40dp"
             app:srcCompat="@mipmap/ic_launcher_round" />
+
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/name"
+            android:layout_alignStart="@+id/name"
+            android:layout_marginBottom="8dp"
+            android:text="Nombre del contacto:" />
     </RelativeLayout>
 
 </android.support.constraint.ConstraintLayout>
