@@ -39,6 +39,7 @@ import java.util.ArrayList;
 
 import gs1.gestorsm.prototipegs1.Connect;
 import gs1.gestorsm.prototipegs1.ConnectResponse;
+import gs1.gestorsm.prototipegs1.ImageManager;
 import gs1.gestorsm.prototipegs1.Login;
 import gs1.gestorsm.prototipegs1.MySession;
 import gs1.gestorsm.prototipegs1.R;
@@ -139,6 +140,9 @@ public class ShowPageContent extends AppCompatActivity implements ConnectRespons
             nameP.setText(contentDatas.get(2));
             TextView linkP = findViewById(R.id.link_for_platform);
             linkP.setText(contentDatas.get(3));
+            ImageView banner = findViewById(R.id.imageView_contentPage);
+            ImageManager img = new ImageManager();
+            img.setStringImgtoImageView(banner,contentDatas.get(1));
 
         } else if (paso == 1) {
             setDataForAdd();

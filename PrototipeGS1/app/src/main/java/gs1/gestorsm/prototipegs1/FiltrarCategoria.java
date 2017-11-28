@@ -61,6 +61,7 @@ MySession g = MySession.getInstance();
             public void onClick(View v) {
                 Intent intent = new Intent(v.getContext(),ShowPageContent.class);
                 intent.putExtra("aux",aux);
+                startActivity(intent);
             }
         });
         //PARTE DE ARRIBA
