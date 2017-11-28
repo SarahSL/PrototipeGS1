@@ -1,11 +1,105 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:layout_gravity="center"
+    android:gravity="center"
+    android:orientation="vertical"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context="gs1.gestorsm.prototipegs1.NavigationDrawer"
     tools:showIn="@layout/app_bar_navigation_drawer">
 
-</android.support.constraint.ConstraintLayout>
+    <ImageView
+        android:id="@+id/imageView2"
+        android:layout_width="match_parent"
+        android:layout_height="169dp"
+        app:srcCompat="@mipmap/ic_launcher_round" />
+
+    <TextView
+        android:id="@+id/textView11"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="60dp"
+        android:text="Gestor .tv"
+        android:textSize="24sp"
+        tools:layout_editor_absoluteX="159dp"
+        tools:layout_editor_absoluteY="292dp" />
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Prototipo GS1"
+        android:textSize="24sp"
+        tools:layout_editor_absoluteX="159dp"
+        tools:layout_editor_absoluteY="292dp" />
+
+    <TextView
+        android:id="@+id/textView10"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="2017/2018"
+        android:textSize="24sp"
+        tools:layout_editor_absoluteX="159dp"
+        tools:layout_editor_absoluteY="292dp" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="192dp"
+        android:gravity="bottom|right|center_horizontal"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/textView9"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="10dp"
+            android:text="Cynthia J. Afonso García"
+            android:textSize="18sp"
+            tools:layout_editor_absoluteX="159dp"
+            tools:layout_editor_absoluteY="292dp" />
+
+        <TextView
+            android:id="@+id/textView8"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="10dp"
+            android:text="Jorge Fernández Molines"
+            android:textSize="18sp"
+            tools:layout_editor_absoluteX="159dp"
+            tools:layout_editor_absoluteY="292dp" />
+
+        <TextView
+            android:id="@+id/textView7"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="10dp"
+            android:text="Tomás Pérez Márquez"
+            android:textSize="18sp"
+            tools:layout_editor_absoluteX="159dp"
+            tools:layout_editor_absoluteY="292dp" />
+
+        <TextView
+            android:id="@+id/textView6"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="10dp"
+            android:text="Geraldo Rodrigues Veloso"
+            android:textSize="18sp"
+            tools:layout_editor_absoluteX="159dp"
+            tools:layout_editor_absoluteY="292dp" />
+
+        <TextView
+            android:id="@+id/textView5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="10dp"
+            android:text="Sarah Sánchez León"
+            android:textSize="18sp"
+            tools:layout_editor_absoluteX="159dp"
+            tools:layout_editor_absoluteY="292dp" />
+    </LinearLayout>
+
+</LinearLayout>
