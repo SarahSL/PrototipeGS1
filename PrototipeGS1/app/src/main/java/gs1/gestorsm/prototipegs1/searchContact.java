@@ -1,14 +1,22 @@
 package gs1.gestorsm.prototipegs1;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.BaseAdapter;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 /**
  * Created by Cynthia on 21/11/2017.
@@ -16,34 +24,95 @@ import java.util.ArrayList;
 
 public class searchContact  extends AppCompatActivity {
     Button buscar;
-    TextView titulo;
-    ListView lista;
+    EditText cuadro;
+    String[] ListElements = new String[]{
+            "Cynthia",
+            "Sarah"
+    };
 
-   @Override
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.contact_search);
         buscar = (Button) findViewById(R.id.botonBuscar);
-        titulo = (TextView) findViewById(R.id.tituloBuscar);
+        final ListView lista = (ListView) findViewById(R.id.listaBuscar);
+
+        //Click elemento lista
+       // lista.setOnItemClickListener((AdapterView.OnItemClickListener) this);
+
+
+        //Click boton buscar
         buscar.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View view) {
-               prueba();
-            }
+        @Override
+        public void onClick(View v) {
+            //POner en la otra clase :D
+
+            CustomAdapter adapter = new CustomAdapter();
+            lista.setAdapter(adapter);
+           /* Crear lista simple
+           ArrayAdapter<String> adapter = new ArrayAdapter<String>(getApplicationContext(), android.R.layout.simple_list_item_1, ListElements);
+            lista.setAdapter(adapter);
+            */
+        }
         });
 
-
-
     }
-    private void prueba(){
 
+    class CustomAdapter extends BaseAdapter {
 
-        ArrayList<String>  elemento = new ArrayList<>();
-        String [] prueba = {"Cynthia", "Sarah"};
-        elemento.add(prueba[0]);
-        elemento.add(prueba[1]);
-        ArrayAdapter<String> adaptador;
-        adaptador = new ArrayAdapter<String>(this,R.layout.contact_search,R.id.tituloBuscar);
-        lista = (ListView)findViewById(R.id.listaBuscar);
-        lista.setAdapter(adaptador);
+        @Override
+        public int getCount() {
+            return ListElements.length;
+        }
+
+        @Override
+        public Object getItem(int i) {
+            return null;
+        }
+
+        @Override
+        public long getItemId(int i) {
+            return 0;
+        }
+
+        @Override
+        public View getView(final int i, View view, ViewGroup viewGroup) {
+            view = getLayoutInflater().inflate(R.layout.contact_searched,null);
+            TextView texto = (TextView) view.findViewById(R.id.nombreContact);
+            Button agregar = (Button) view.findViewById(R.id.agregarContact);
+
+            texto.setText(ListElements[i]);
+
+            agregar.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+
+                    Toast.makeText(getApplicationContext(), ListElements[i], Toast.LENGTH_SHORT).show();
+                    ListElements = new String[]{
+                            "Sarah"};
+                    notifyDataSetChanged();
+
+                }
+            });
+
+            return view;
+        }
     }
+
+
+    /*
+    Este añadiendo: implements AdapterView.OnItemClickListener hago que al hacer click en un elemento
+    vaya a un activity
+    @Override
+    public void onItemClick (AdapterView < ?> parent, View view,int position, long id){
+        //segundo: texto a mostrar
+        //Toast.makeText(getApplicationContext(), "holi", Toast.LENGTH_SHORT).show();
+        // esta clase (la actual), la clase a la que queremos ir
+
+
+        // IR A UN ACTIVITY, HAY QUE AÑADIR LA ACTIVITY EN EL MANIFEST
+        Intent i = new Intent(view.getContext(), searchedContact.class);
+        startActivity(i);
+    }
+    */
 }
