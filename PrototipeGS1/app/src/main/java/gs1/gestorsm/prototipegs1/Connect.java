@@ -35,7 +35,10 @@ public class Connect extends AsyncTask<String, Void, String> {
             //UPDATE Y DELETE executeUpdate.
             //SELECT executequery.
             if (mode == 0) {
+
+
                 ResultSet rs = st.executeQuery(sql);
+                        System.out.println("moto");
                 ResultSetMetaData rsmd = rs.getMetaData();
                 while (rs.next()) {
                     field.clear();
@@ -48,6 +51,7 @@ public class Connect extends AsyncTask<String, Void, String> {
                 st.executeUpdate(sql);
             }
         } catch (Exception e) {
+            System.out.println("Bici " + e.getMessage() );
             e.printStackTrace();
         }
         return response;

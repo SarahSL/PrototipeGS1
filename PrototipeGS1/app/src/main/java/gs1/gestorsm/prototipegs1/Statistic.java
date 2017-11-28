@@ -7,6 +7,7 @@ import java.sql.Statement;
 import java.util.*;
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.util.concurrent.ExecutionException;
 
 
 /**
@@ -18,8 +19,7 @@ public class Statistic implements ConnectResponse {
     int flag;
     private int viewedMovies;
 
-    private int seriesCompleted = 2;
-
+    private final  int idUser;
     private int viewedChapters = 4;
 
     private float hoursViewed = 5.4f;
@@ -32,102 +32,125 @@ public class Statistic implements ConnectResponse {
 
     private float averageMonthlyMovies=100f;
 
-    public Statistic()  {
-
+    public Statistic(int idUser) {
+        this.idUser = idUser;
     }
+
     @Override
     public void processFinish(String output, ArrayList<ArrayList<String>> datos) {
         this.datos = datos;
+
         switch (flag) {
             case 0:
-            viewedMovies = Integer.parseInt(datos.get(0).get(0));
-            flag=1;
+                System.out.println("bicleta " + datos.get(0));
+                System.out.println("coche + " + flag + " dayos " + datos.get(0).get(0));
+                viewedMovies = Integer.parseInt(datos.get(0).get(0));
+                System.out.println(viewedMovies);
+                flag=1;
                 setViewedChapters();
+                break;
 
             case 1:
-                viewedChapters = Integer.parseInt(datos.get(0).get(0));
-                setHoursViewed();
-                flag=2;
-            case 2:
-                float duration = 0;
-                for (ArrayList<String> j :
-                        datos) {
-                    for (String string :
-                            j) {
-                        duration += Float.parseFloat(string);
-                    }
+
+                if(datos.size() == 0 || datos.get(0).size() == 0)  {
+                    viewedChapters = 0;
+                } else {
+                    System.out.println("coche + " + flag + " dayos " + datos.get(0).get(0));
+                    viewedChapters = Integer.parseInt(datos.get(0).get(0));
                 }
-                hoursViewed = duration/60f;
+                flag=2;
+                setHoursViewed();
+            break;
+
+            case 2:
+                if(datos.size() == 0 || datos.get(0).size() == 0)  {
+                    hoursViewed = 0;
+                } else {
+                    System.out.println("coche + " + flag + " dayos " + datos.get(0).get(0));
+                    float duration = 0;
+                    for (ArrayList<String> j :
+                            datos) {
+                        for (String string :
+                                j) {
+                            duration += Float.parseFloat(string);
+                        }
+                    }
+                    hoursViewed = duration / 60f;
+                }
                 flag = 3;
                 setRecommendations();
             case 3:
-                recommendations = Integer.parseInt(datos.get(0).get(0));
-                setContentAverageScore();
-                flag = 4;
-            case 4:
-                float score = 0;
-                float i = 0;
-                for (ArrayList<String> j :
-                        datos) {
-                    for (String string :
-                            j) {
-                        score = Float.parseFloat(string);
-                        i++;
-                    }
-                }
-                if (score!= 0){
-                    contentAverageScore = score/i;
+                if(datos.size() == 0 || datos.get(0).size() == 0)  {
+                    recommendations = 0;
                 } else {
+                    System.out.println("coche + " + flag + " dayos " + datos.get(0).get(0));
+                    recommendations = Integer.parseInt(datos.get(0).get(0));
+                }
+                flag = 4;
+                setContentAverageScore();
+            case 4:
+                if(datos.size() == 0 || datos.get(0).size() == 0) {
                     contentAverageScore = 0;
+                }else {
+                    System.out.println("coche + " + flag + " dayos " + datos.get(0).get(0));
+                    float score = 0;
+                    float i = 0;
+                    for (ArrayList<String> j :
+                            datos) {
+                        for (String string :
+                                j) {
+                            score = Float.parseFloat(string);
+                            i++;
+                        }
+                    }
+                    if (score != 0) {
+                        contentAverageScore = score / i;
+                    } else {
+                        contentAverageScore = 0;
+                    }
                 }
         }
     }
 
 
-    public void setViewedMovies() {
+    private void setViewedMovies() {
 
-        con.setSql("select count(*) from viewlist where cod_user = 1 and cod_movie <> null",0);
+        con.setSql("select count(*) from viewList where cod_user = " + idUser + " and cod_movie is not null",0);
         con.delegate = this;
         con.Connect();
 
-    }
-
-    public void setSeriesCompleted() {
-
-        this.seriesCompleted = seriesCompleted;
     }
 
     public void setViewedChapters()  {
-        con.setSql("select duration from chapter inner join viewlist where id_chapter = cod_chapter",0);
+        con = new Connect();
+        con.setSql("select duration from chapter inner join viewList where  cod_user = "+ idUser+" and id_chapter = cod_chapter",0);
         con.delegate = this;
         con.Connect();
 
-        this.viewedChapters = viewedChapters;
+
     }
 
     public void setHoursViewed() {
-        con.setSql("select count(*) from viewlist where cod_chapter <> null",0);
+        con = new Connect();
+        con.setSql("select count(*) from viewList where cod_user = "+idUser+" cod_chapter <> null",0);
         con.delegate = this;
         con.Connect();
 
-        this.hoursViewed = hoursViewed;
+
     }
 
     public void setRecommendations() {
-        con.setSql("select count(*) from recomendation where cod_user=1",0);
+        con = new Connect();
+        con.setSql("select count(*) from recomendation where cod_user=" + idUser,0);
         con.delegate = this;
         con.Connect();
-
-        this.recommendations = recommendations;
     }
 
     public void setContentAverageScore() {
-
-        con.setSql("select score from evaluation where cod_user = 1",0);
+        con = new Connect();
+        con.setSql("select score from evaluation where cod_user = " + idUser,0);
         con.delegate = this;
         con.Connect();
-
-        this.contentAverageScore = contentAverageScore;
     }
 
     public void setAverageMonthlySeries(float averageMonthlySeries){
@@ -142,9 +165,6 @@ public class Statistic implements ConnectResponse {
         return viewedMovies;
     }
 
-    public int getSeriesCompleted() {
-        return seriesCompleted;
-    }
 
     public int getViewedChapters() {
         return viewedChapters;
@@ -171,8 +191,9 @@ public class Statistic implements ConnectResponse {
     }
 
 
-    public void calculateStat() {
+    public void calculateStat() throws ExecutionException, InterruptedException {
         flag = 0;
         setViewedMovies();
+        con.get();
     }
 }

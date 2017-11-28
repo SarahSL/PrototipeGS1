@@ -32,10 +32,10 @@ public class TabContactStats extends Fragment implements ConnectResponse{
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         rootView = inflater.inflate(R.layout.contactstats_tab, container, false);
-       //getContact();
-        doSpinner();
+       getContact();
+       // doSpinner();
         //getIdContact();
-        setActionSpinner();
+        //setActionSpinner();
 
         return rootView;
     }
@@ -43,19 +43,19 @@ public class TabContactStats extends Fragment implements ConnectResponse{
     private void setActionSpinner() {
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
-            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+            public void onItemSelected(AdapterView<?> adapterView, View view, int pos, long l) {
                // int k = map.get(spinner.getAdapter().getItem(i));
-                Statistic statistic = new Statistic();
+                Statistic statistic = new Statistic(2);
                 //statistic.calculateStat();
                 ArrayList<String> arrayList = new ArrayList<>();
-                arrayList.add((String) spinner.getAdapter().getItem(i));
+                arrayList.add((String) spinner.getAdapter().getItem(pos));
                 arrayList.add("Recommendation: " + statistic.getRecommendations());
                 arrayList.add("Viewed Movies: " + statistic.getViewedMovies());
                 arrayList.add("Viewed Series: " + statistic.getViewedChapters());
-                arrayList.add("Monthly Movies: " + statistic.getAverageMonthlyMovies());
                 arrayList.add("Hours Viewed: " + statistic.getHoursViewed());
                 arrayList.add("Content Score: " + statistic.getContentAverageScore());
-                arrayList.add("Series Completed: " + statistic.getSeriesCompleted());
+                arrayList.add("Monthly Series: " + statistic.getAverageMonthlySeries());
+                arrayList.add("Monthly Movies: " + statistic.getAverageMonthlyMovies());
                 ArrayAdapter<String> adapter;
                 adapter = new ArrayAdapter<String>(getActivity(),R.layout.list_item_contact_stat,R.id.text_view_contact_stat,arrayList);
                 ListView listView = rootView.findViewById(R.id.list_view_contact_stats);
@@ -78,7 +78,9 @@ public class TabContactStats extends Fragment implements ConnectResponse{
             case 0:
                 doSpinner();
                 setActionSpinner();
+                flag=1;
 
+            break;
             case 1:
                 doMap();
         }
@@ -101,13 +103,13 @@ public class TabContactStats extends Fragment implements ConnectResponse{
     private void doSpinner() {
          spinner = rootView.findViewById(R.id.contact_spinner);
         arrayList = new ArrayList<>();
-        /*for (ArrayList<String> j:
+        for (ArrayList<String> j:
         datos){
             for (String string :
                     j) {
                 arrayList.add(string);
             }
-        }*/
+        }
         arrayList.add("alo");
         arrayList.add("aloha");
         ArrayAdapter<String>adapter= new ArrayAdapter<String>(getActivity(),R.layout.list_item_name_contact_stat,R.id.text_view_name_contact_stat,arrayList);
