@@ -1,12 +1,11 @@
 package gs1.gestorsm.prototipegs1;
 
-import java.sql.DatabaseMetaData;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import android.support.v4.app.FragmentActivity;
+import android.view.View;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
+
 import java.util.*;
-import java.sql.Connection;
-import java.sql.DriverManager;
 
 
 /**
@@ -19,6 +18,13 @@ public class Statistic implements ConnectResponse {
     private int viewedMovies;
 
     private final  int idUser;
+
+    private final int typeUser;
+
+    private final View rootView;
+
+    private final FragmentActivity activity;
+
     private int viewedChapters = 4;
 
     private float hoursViewed = 5.4f;
@@ -31,8 +37,11 @@ public class Statistic implements ConnectResponse {
 
     private float averageMonthlyMovies=100f;
 
-    public Statistic(int idUser) {
+    public Statistic(int idUser, int typeUser, View rootView, FragmentActivity activity) {
         this.idUser = idUser;
+        this.typeUser = typeUser;
+        this.rootView = rootView;
+        this.activity = activity;
     }
 
     @Override
@@ -78,6 +87,7 @@ public class Statistic implements ConnectResponse {
                 }
                 flag = 3;
                 setRecommendations();
+                break;
             case 3:
                 if(datos.size() == 0 || datos.get(0).size() == 0)  {
                     recommendations = 0;
@@ -87,6 +97,7 @@ public class Statistic implements ConnectResponse {
                 }
                 flag = 4;
                 setContentAverageScore();
+                break;
             case 4:
                 if(datos.size() == 0 || datos.get(0).size() == 0) {
                     contentAverageScore = 0;
@@ -108,8 +119,41 @@ public class Statistic implements ConnectResponse {
                         contentAverageScore = 0;
                     }
                 }
+                generateListView();
+
         }
     }
+
+    private void generateListView() {
+        ArrayAdapter<String> adapter;
+        ListView listView;
+        if(typeUser == 1){
+            adapter = new ArrayAdapter<String>(activity,R.layout.list_item_my_stat,R.id.text_view_my_stat,createArray());
+            listView = rootView.findViewById(R.id.list_view_my_stats);
+
+        } else {
+            adapter = new ArrayAdapter<String>(activity,R.layout.list_item_contact_stat,R.id.text_view_contact_stat,createArray());
+            listView = rootView.findViewById(R.id.list_view_contact_stats);
+
+        }
+        listView.setAdapter(adapter);
+
+    }
+
+    private ArrayList createArray() {
+
+        ArrayList<String> arrayList = new ArrayList<>();
+        arrayList.add("Recommendation: " + getRecommendations());
+        arrayList.add("Viewed Movies: " + getViewedMovies());
+        arrayList.add("Viewed Series: " + getViewedChapters());
+        arrayList.add("Hours Viewed: " + getHoursViewed());
+        arrayList.add("Content Score: " + getContentAverageScore());
+        arrayList.add("Monthly Series: " + getAverageMonthlySeries());
+        arrayList.add("Monthly Movies: " + getAverageMonthlyMovies());
+        return arrayList;
+
+    }
+
 
 
     private void setViewedMovies() {
@@ -117,7 +161,6 @@ public class Statistic implements ConnectResponse {
         con.setSql("select count(*) from viewList where cod_user = " + idUser + " and cod_movie is not null",0);
         con.delegate = this;
         con.Connect();
-
     }
 
     public void setViewedChapters()  {
@@ -193,6 +236,6 @@ public class Statistic implements ConnectResponse {
     public void calculateStat() {
         flag = 0;
         setViewedMovies();
-        
+
     }
 }
