@@ -14,6 +14,7 @@ import android.widget.BaseAdapter;
 import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -35,9 +36,9 @@ public class CurrentlyWatchingFragment extends Fragment implements ConnectRespon
     View view;
     String idUser;
     ListView listView;
-   // ArrayAdapter<String> adapter;
+    ArrayList<String> idLista = new ArrayList<>();
     MySession g = MySession.getInstance();
-
+    CustomAdapter adapter;
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -55,7 +56,7 @@ public class CurrentlyWatchingFragment extends Fragment implements ConnectRespon
         this.datos = datos;
         AddObjets();
         listView = view.findViewById(R.id.currently_watching_list);
-        CustomAdapter adapter = new CustomAdapter();
+        adapter = new CustomAdapter();
         listView.setAdapter(adapter);
 
     }
@@ -70,7 +71,7 @@ public class CurrentlyWatchingFragment extends Fragment implements ConnectRespon
         con = new Connect();
         con.setSql("SELECT content.title,contentType.name,content.id_content,watchingList.id_watchingList " +
                 "FROM content,contentType,watchingList " +
-                "INNER JOIN movie  " +
+                "INNER JOIN movie " +
                 "WHERE content.id_content = movie.cod_content " +
                 "AND watchingList.cod_movie = movie.id_movie " +
                 "AND watchingList.cod_user =" + idUser +
@@ -99,6 +100,7 @@ public class CurrentlyWatchingFragment extends Fragment implements ConnectRespon
         for (int i = 0; i < datos.size(); i++) {
             currentlyWatchingElements.add(datos.get(i).get(0) + "\t\t" + datos.get(i).get(1));
             idContentWatchingElements.add(datos.get(i).get(2));
+            idLista.add(datos.get(i).get(3));
         }
 
     }
@@ -141,8 +143,9 @@ public class CurrentlyWatchingFragment extends Fragment implements ConnectRespon
             delete.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                  // borrarContenido(currentlyWatchingElements.get(i));
-                    System.out.println("MAGOPERRETO-"+datos.get(i).get(3));
+                    if(!idLista.isEmpty())borrarContenido(idLista.get(i));
+                    
+
                 }
             });
             return view;
@@ -151,11 +154,11 @@ public class CurrentlyWatchingFragment extends Fragment implements ConnectRespon
 
         @Override
         public void processFinish(String output, ArrayList<ArrayList<String>> datos) {
-
+            Toast.makeText(getContext(),"Element was deleted from the list", Toast.LENGTH_LONG);
         }
         public void borrarContenido(String typeContent){
             con = new Connect();
-            con.setSql("Delete from watchingList where cod_user="+idUser+" and", 1);
+            con.setSql("Delete from watchingList where cod_user="+idUser+" and id_watchingList="+typeContent, 1);
             con.delegate = this;
             con.Connect();
         }
