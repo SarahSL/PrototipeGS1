@@ -22,47 +22,96 @@ import java.util.List;
  * Created by Cynthia on 21/11/2017.
  */
 
-public class searchContact  extends AppCompatActivity {
+public class searchContact  extends AppCompatActivity implements ConnectResponse {
     Button buscar;
     EditText cuadro;
-    String[] ListElements = new String[]{
-            "Cynthia",
-            "Sarah"
-    };
+
+    String filtrado;
+    //Supongo que el USUARIO CONECTADO ES 2 (porque Sarah no tiene amigos :D)
+    final int idUser=2;
+    Connect con;
+    ArrayList<ArrayList<String>>datos = new ArrayList<>();
+
+    ArrayList<String> misDatos;
+    ArrayList<String> idDatos;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.contact_search);
+
         buscar = (Button) findViewById(R.id.botonBuscar);
-        final ListView lista = (ListView) findViewById(R.id.listaBuscar);
-
-        //Click elemento lista
-       // lista.setOnItemClickListener((AdapterView.OnItemClickListener) this);
-
+        cuadro= (EditText) findViewById(R.id.cuadroBuscar);
 
         //Click boton buscar
         buscar.setOnClickListener(new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            //POner en la otra clase :D
+            filtrado= cuadro.getText().toString().trim();
+            if(filtrado.length()<=0){
+                Toast toast1 =
+                        Toast.makeText(getApplicationContext(),
+                                "No se ha escrito ningun nombre de usuario", Toast.LENGTH_SHORT);
 
-            CustomAdapter adapter = new CustomAdapter();
-            lista.setAdapter(adapter);
-           /* Crear lista simple
-           ArrayAdapter<String> adapter = new ArrayAdapter<String>(getApplicationContext(), android.R.layout.simple_list_item_1, ListElements);
-            lista.setAdapter(adapter);
-            */
+                toast1.show();
+            }else{
+                 conexion();
+
+            }
+
         }
         });
 
+    }
+
+    public void conexion(){
+
+        con = new Connect();
+        //USO AQUI EL ID DEL USUARIO
+        con.setSql("SELECT user.userName, user.id_user FROM user WHERE id_user NOT IN (SELECT cod_contact from contact where cod_user="+idUser+") and id_user<>"+idUser+" and user.userName='"+filtrado+"'", 0 );
+        con.delegate=this;
+        con.Connect();
+    }
+    @Override
+    public void processFinish(String str, ArrayList<ArrayList<String>> datos) {
+        this.datos = datos;
+        actualizarAmigos();
+        ListView lista = (ListView) findViewById(R.id.listaBuscar);
+        CustomAdapter adapter = new CustomAdapter();
+        lista.setAdapter(adapter);
+    }
+
+    public void actualizarAmigos(){
+        misDatos= new ArrayList<>();
+        idDatos= new ArrayList<>();
+        for (int i = 0; i < datos.size(); i++) {
+            misDatos.add(datos.get(i).get(0));
+            idDatos.add(datos.get(i).get(1));
+        }
+        if(misDatos.size()<=0){
+            Toast toast1 =
+                    Toast.makeText(getApplicationContext(),
+                            "No hay usuarios para mostrar", Toast.LENGTH_SHORT);
+
+            toast1.show();
+        }
+    }
+
+    public void conexion2(int i){
+        con = new Connect();
+        //USO AQUI EL ID DEL USUARIO
+        con.setSql("insert into contact (cod_user, cod_contact) values('" + idUser+ "', '"+ idDatos.get(i) + "')", 1 );
+        con.delegate=this;
+        con.Connect();
     }
 
     class CustomAdapter extends BaseAdapter {
 
         @Override
         public int getCount() {
-            return ListElements.length;
+            return misDatos.size();
         }
 
         @Override
@@ -77,19 +126,19 @@ public class searchContact  extends AppCompatActivity {
 
         @Override
         public View getView(final int i, View view, ViewGroup viewGroup) {
-            view = getLayoutInflater().inflate(R.layout.contact_searched,null);
+            view = getLayoutInflater().inflate(R.layout.contact_searched, null);
             TextView texto = (TextView) view.findViewById(R.id.nombreContact);
             Button agregar = (Button) view.findViewById(R.id.agregarContact);
 
-            texto.setText(ListElements[i]);
+            //nombre del usuario
+            texto.setText(misDatos.get(i).toString());
 
             agregar.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
 
-                    Toast.makeText(getApplicationContext(), ListElements[i], Toast.LENGTH_SHORT).show();
-                    ListElements = new String[]{
-                            "Sarah"};
+                    Toast.makeText(getApplicationContext(), misDatos.get(i), Toast.LENGTH_SHORT).show();
+                    conexion2(i);
                     notifyDataSetChanged();
 
                 }
@@ -98,21 +147,4 @@ public class searchContact  extends AppCompatActivity {
             return view;
         }
     }
-
-
-    /*
-    Este añadiendo: implements AdapterView.OnItemClickListener hago que al hacer click en un elemento
-    vaya a un activity
-    @Override
-    public void onItemClick (AdapterView < ?> parent, View view,int position, long id){
-        //segundo: texto a mostrar
-        //Toast.makeText(getApplicationContext(), "holi", Toast.LENGTH_SHORT).show();
-        // esta clase (la actual), la clase a la que queremos ir
-
-
-        // IR A UN ACTIVITY, HAY QUE AÑADIR LA ACTIVITY EN EL MANIFEST
-        Intent i = new Intent(view.getContext(), searchedContact.class);
-        startActivity(i);
-    }
-    */
 }
