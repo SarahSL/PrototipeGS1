@@ -154,10 +154,10 @@ public class ShowPageContent extends AppCompatActivity implements ConnectRespons
             if (addToList.get(0).equals("serie")) {
                 if (datos.size() == 0) {
                     paso = 6;
-                    Toast.makeText(this, "Añadiendo en la lista", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(this, "Adding to the list", Toast.LENGTH_SHORT).show();
                     insertarEnListSerie();
                 } else {
-                    Toast.makeText(this, "YA ESTA EN LA LISTA", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(this, "It's already in the list", Toast.LENGTH_SHORT).show();
                 }
             } else {
                 paso = 3;
@@ -166,11 +166,11 @@ public class ShowPageContent extends AppCompatActivity implements ConnectRespons
             }
         } else if (paso == 3) {
             if (datos.size() == 0) {
-                Toast.makeText(this, "Añadiendo en la lista", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, "Adding to the list", Toast.LENGTH_SHORT).show();
                 paso = 5;
                 insertarEnListMovie();
             } else {
-                Toast.makeText(this, "YA ESTA EN LA LISTA", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, "It's already in the list", Toast.LENGTH_SHORT).show();
             }
         }
 

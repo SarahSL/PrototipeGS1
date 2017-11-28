@@ -47,11 +47,9 @@ public class CurrentlyWatchingFragment extends Fragment implements ConnectRespon
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_watching_currently, container, false);
-
         idUser = g.getId();
         movieConsult();
         serieConsult();
-
         return view;
 
     }
