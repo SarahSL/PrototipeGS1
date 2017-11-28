@@ -91,7 +91,6 @@ public class ShowPageContent extends AppCompatActivity implements ConnectRespons
 
     private void setupViewPager(ViewPager viewPager) {
         SectionsPageAdapter adapter = new SectionsPageAdapter(getSupportFragmentManager());
-
         adapter.addFragment(new SinopsisFragment(), "Sinopsis");
         adapter.addFragment(new EpisodesFragment(), "Episodes");
         adapter.addFragment(new SocialFragment(), "Social");
@@ -114,35 +113,89 @@ public class ShowPageContent extends AppCompatActivity implements ConnectRespons
         } else if (paso == 1) {
             setDataForAdd();
             if (addToList.get(0).equals("serie")) {
-                System.out.println("COMPUREBO SI ESTA LA SERIE_ AAAA");
                 paso = 2;
                 ifEstaYserie();
             } else {
-                ifEStaYMovie();
+                paso = 2;
+                whatMovieIam();
             }
         } else if (paso == 2) {
             System.out.println(datos.size());
-            if (datos.size()==0) {
-                if (addToList.get(0).equals("serie")) {
-                    paso =3;
+            if (addToList.get(0).equals("serie")) {
+                if (datos.size() == 0) {
+                    paso = 6;
+                    Toast.makeText(this, "Añadiendo en la lista", Toast.LENGTH_SHORT).show();
                     insertarEnListSerie();
                 } else {
-                    insertarEnListMovie();
+                    Toast.makeText(this, "YA ESTA EN LA LISTA", Toast.LENGTH_SHORT).show();
                 }
+            } else {
+                paso = 3;
+                setDataForAdd();
+                ifEStaYMovie();
+            }
+        } else if (paso == 3) {
+            if (datos.size() == 0) {
+                Toast.makeText(this, "Añadiendo en la lista", Toast.LENGTH_SHORT).show();
+                paso = 5;
+                insertarEnListMovie();
             } else {
                 Toast.makeText(this, "YA ESTA EN LA LISTA", Toast.LENGTH_SHORT).show();
             }
         }
+
+    }
+
+    private void whatMovieIam() {
+        if (idContent != null) {
+            con = new Connect();
+            con.setSql("Select movie.id_movie from movie where movie.cod_content=" + idContent, 0);
+            con.delegate = this;
+            con.Connect();
+        }
     }
 
     private void insertarEnListMovie() {
+        switch (lista) {
+            case 1:
+                if (idContent != null) {
+                    con = new Connect();
+                    con.setSql("INSERT INTO watchingList(cod_user,cod_movie,cod_chapter) Values(" + idUser +","+ addToList.get(1) + ",null)", 1);
+                    con.delegate = this;
+                    con.Connect();
+                }
+                break;
+            case 2:
+                if (idContent != null) {
+                    con = new Connect();
+                    con.setSql("INSERT INTO desiredList(cod_user,cod_movie,cod_chapter) Values(" + idUser +","+ addToList.get(1) + ",null)", 1);
+                    con.delegate = this;
+                    con.Connect();
+                }
+                break;
+            case 3:
+                if (idContent != null) {
+                    con = new Connect();
+                    con.setSql("INSERT INTO viewList(cod_user,cod_movie,cod_chapter) Values(" + idUser +","+ addToList.get(1) + ",null)", 1);
+                    con.delegate = this;
+                    con.Connect();
+                }
+                break;
+            case 4:
+                if (idContent != null) {
+                    con = new Connect();
+                    con.setSql("INSERT INTO waitingList(cod_user,cod_movie,cod_chapter) Values(" + idUser +","+ addToList.get(1) + ",null)", 1);
+                    con.delegate = this;
+                    con.Connect();
+                }
+                break;
 
+        }
     }
 
     private void insertarEnListSerie() {
         switch (lista) {
             case 1:
-                System.out.println("AAAAAAA" + "--inserto en lista");
                 if (idContent != null) {
                     con = new Connect();
                     con.setSql("INSERT INTO watchingList(cod_user,cod_movie,cod_chapter) Values(" + idUser + ",null," + idCap + ")", 1);
@@ -151,8 +204,29 @@ public class ShowPageContent extends AppCompatActivity implements ConnectRespons
                 }
                 break;
             case 2:
+                if (idContent != null) {
+                    con = new Connect();
+                    con.setSql("INSERT INTO desiredList(cod_user,cod_movie,cod_chapter) Values(" + idUser + ",null," + idCap + ")", 1);
+                    con.delegate = this;
+                    con.Connect();
+                }
+                break;
             case 3:
+                if (idContent != null) {
+                    con = new Connect();
+                    con.setSql("INSERT INTO wiewList(cod_user,cod_movie,cod_chapter) Values(" + idUser + ",null," + idCap + ")", 1);
+                    con.delegate = this;
+                    con.Connect();
+                }
+                break;
             case 4:
+                if (idContent != null) {
+                    con = new Connect();
+                    con.setSql("INSERT INTO waitingList(cod_user,cod_movie,cod_chapter) Values(" + idUser + ",null," + idCap + ")", 1);
+                    con.delegate = this;
+                    con.Connect();
+                }
+                break;
 
         }
     }
@@ -160,7 +234,6 @@ public class ShowPageContent extends AppCompatActivity implements ConnectRespons
     private void ifEstaYserie() {
         switch (lista) {
             case 1:
-                System.out.println("AAAAAAA -- esta y es serie?" + idCap + idContent + idUser);
                 if (idContent != null) {
                     con = new Connect();
                     con.setSql("Select watchingList.id_watchingList from watchingList " +
@@ -177,8 +250,53 @@ public class ShowPageContent extends AppCompatActivity implements ConnectRespons
                 }
                 break;
             case 2:
+                if (idContent != null) {
+                    con = new Connect();
+                    con.setSql("Select desiredList.id_desiredList from desiredList " +
+                            "inner join chapter,user,serie,season,content " +
+                            "where content.id_content=" + idContent +
+                            " and content.id_content = serie.cod_content " +
+                            "and serie.id_serie = season.cod_serie " +
+                            "and season.id_season = chapter.cod_season " +
+                            "and chapter.id_chapter =" + idCap +
+                            " and chapter.id_chapter = desiredList.cod_chapter " +
+                            "and desiredList.cod_user = user.id_user and user.id_user =" + idUser, 0);
+                    con.delegate = this;
+                    con.Connect();
+                }
+                break;
             case 3:
+                if (idContent != null) {
+                    con = new Connect();
+                    con.setSql("Select viewList.id_viewList from viewList " +
+                            "inner join chapter,user,serie,season,content " +
+                            "where content.id_content=" + idContent +
+                            " and content.id_content = serie.cod_content " +
+                            "and serie.id_serie = season.cod_serie " +
+                            "and season.id_season = chapter.cod_season " +
+                            "and chapter.id_chapter =" + idCap +
+                            " and chapter.id_chapter = viewList.cod_chapter " +
+                            "and viewList.cod_user = user.id_user and user.id_user =" + idUser, 0);
+                    con.delegate = this;
+                    con.Connect();
+                }
+                break;
             case 4:
+                if (idContent != null) {
+                    con = new Connect();
+                    con.setSql("Select waitingList.id_waitingList from waitingList " +
+                            "inner join chapter,user,serie,season,content " +
+                            "where content.id_content=" + idContent +
+                            " and content.id_content = serie.cod_content " +
+                            "and serie.id_serie = season.cod_serie " +
+                            "and season.id_season = chapter.cod_season " +
+                            "and chapter.id_chapter =" + idCap +
+                            " and chapter.id_chapter = waitingList.cod_chapter " +
+                            "and waitingList.cod_user = user.id_user and user.id_user =" + idUser, 0);
+                    con.delegate = this;
+                    con.Connect();
+                }
+                break;
 
         }
     }
@@ -188,13 +306,55 @@ public class ShowPageContent extends AppCompatActivity implements ConnectRespons
             case 1:
                 if (idContent != null) {
                     con = new Connect();
-                    con.setSql("", 0);
+                    con.setSql("Select watchingList.cod_movie from watchingList inner join user,movie,content "+
+                            "where user.id_user = watchingList.cod_user "+
+                            "and user.id_user="+idUser+
+                            " and content.id_content ="+idContent+
+                            " and movie.id_movie=" + addToList.get(1) +
+                            " and watchingList.cod_movie = movie.id_movie", 0);
                     con.delegate = this;
                     con.Connect();
                 }
-            case 2:
-            case 3:
-            case 4:
+                break;
+            case 2: //PTW
+                if (idContent != null) {
+                    con = new Connect();
+                    con.setSql("Select desiredList.cod_movie from desiredList inner join user,movie,content "+
+                            "where user.id_user = desiredList.cod_user "+
+                            "and user.id_user="+idUser+
+                            " and content.id_content ="+idContent+
+                            " and movie.id_movie=" + addToList.get(1) +
+                            " and desiredList.cod_movie = movie.id_movie", 0);
+                    con.delegate = this;
+                    con.Connect();
+                }
+                break;
+            case 3: //completed
+                if (idContent != null) {
+                    con = new Connect();
+                    con.setSql("Select viewList.cod_movie from viewList inner join user,movie,content "+
+                            "where user.id_user = viewList.cod_user "+
+                            "and user.id_user="+idUser+
+                            " and content.id_content ="+idContent+
+                            " and movie.id_movie=" + addToList.get(1) +
+                            " and viewList.cod_movie = movie.id_movie", 0);
+                    con.delegate = this;
+                    con.Connect();
+                }
+                break;
+            case 4: //OH
+                if (idContent != null) {
+                    con = new Connect();
+                    con.setSql("Select waitingList.cod_movie from waitingList inner join user,movie,content "+
+                            "where user.id_user = waitingList.cod_user "+
+                            "and user.id_user="+idUser+
+                            " and content.id_content ="+idContent+
+                            " and movie.id_movie=" + addToList.get(1) +
+                            " and waitingList.cod_movie = movie.id_movie", 0);
+                    con.delegate = this;
+                    con.Connect();
+                }
+                break;
         }
 
     }
@@ -237,24 +397,27 @@ public class ShowPageContent extends AppCompatActivity implements ConnectRespons
     //SPINNER ACTIVITYS
     @Override
     public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+        EditText editText = findViewById(R.id.number_chapter);
+        idCap = editText.getText().toString();
         switch (i) {
             case 1: //CW
                 lista = 1;
-                EditText editText = findViewById(R.id.number_chapter);
-                idCap = editText.getText().toString();
                 paso = 1;
                 getType();
                 break;
             case 2: //PTW
                 lista = 2;
+                paso = 1;
                 getType();
                 break;
             case 3: //C
                 lista = 3;
+                paso = 1;
                 getType();
                 break;
             case 4:  //OH
                 lista = 4;
+                paso = 1;
                 getType();
                 break;
         }

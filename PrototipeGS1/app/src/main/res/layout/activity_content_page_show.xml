@@ -94,7 +94,8 @@
         android:id="@+id/link_for_platform"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:contextClickable="true"
+        android:autoLink="web"
+        android:contextClickable="false"
         android:linksClickable="true" />
 
 
