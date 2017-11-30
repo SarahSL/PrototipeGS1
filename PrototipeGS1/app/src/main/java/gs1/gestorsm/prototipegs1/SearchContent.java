@@ -86,7 +86,9 @@ public class SearchContent extends AppCompatActivity implements ConnectResponse 
 
     private void llamada() {
         con = new Connect();
-        con.setSql("SELECT content.title FROM content WHERE content.title LIKE '%" + texto.getText() + "%'", 0);
+        //con.setSql("SELECT content.title FROM content WHERE content.title LIKE '%" + texto.getText() + "%'", 0);
+
+        con.setSql("SELECT content.title FROM content WHERE content.title ='" + texto.getText().toString().trim()+"'", 0);
         con.delegate = this;
         con.Connect();
     }
