@@ -83,7 +83,6 @@ MySession g = MySession.getInstance();
             public void onClick(View v) {
                 g.setId(null);
                 g.setUsernameLoged("");
-                System.out.println(g.getId());
                 Intent intent = new Intent(v.getContext(), Login.class);
                 startActivity(intent);
             }

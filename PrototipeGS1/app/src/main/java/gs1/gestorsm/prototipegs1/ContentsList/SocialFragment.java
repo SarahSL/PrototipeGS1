@@ -80,7 +80,7 @@ public class SocialFragment extends Fragment implements ConnectResponse {
 
     public void comment(String usuario, String contenido, String comentario) {
         con = new Connect();
-        con.setSql("INSERT INTO comment (cod_user, cod_content, comment) values(" + usuario + ", " + contenido + ", " + comentario + ")", 1);
+        con.setSql("INSERT INTO comment (cod_user, cod_content, comment) values(" + usuario + ", " + contenido + ", '" + comentario + "')", 1);
         con.delegate = this;
         con.Connect();
         System.out.println(editText.getText());

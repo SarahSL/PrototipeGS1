@@ -2,9 +2,11 @@
 <android.support.constraint.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
     android:layout_height="match_parent">
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:gravity="center_horizontal"
         android:orientation="vertical">
 
         <TextView
@@ -28,15 +30,9 @@
 
         <Button
             android:id="@+id/commentButton"
-            android:layout_width="match_parent"
+            android:layout_width="250dp"
             android:layout_height="wrap_content"
             android:text="comment" />
-
-        <Button
-            android:id="@+id/buttonBack"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="GO BACK" />
 
     </LinearLayout>
 

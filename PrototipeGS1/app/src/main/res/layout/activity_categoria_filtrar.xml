@@ -48,6 +48,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Categories"
+            android:textAlignment="center"
+            android:textSize="18sp"
+            android:textStyle="bold"
             tools:layout_editor_absoluteX="83dp"
             tools:layout_editor_absoluteY="62dp" />
 
@@ -55,7 +58,8 @@
             android:id="@+id/result"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Results: " />
+            android:text="Results: "
+            android:textSize="18sp" />
 
         <ViewFlipper
             android:id="@+id/flipper1"
@@ -71,7 +75,8 @@
                     android:id="@+id/category1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="category1" />
+                    android:text="category1"
+                    android:textSize="18sp" />
 
             </LinearLayout>
 
@@ -84,7 +89,8 @@
                     android:id="@+id/category2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="category2" />
+                    android:text="category2"
+                    android:textSize="18sp" />
 
             </LinearLayout>
 
@@ -97,22 +103,26 @@
             android:layout_height="309dp">
 
             <LinearLayout
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
 
                 <TextView
                     android:id="@+id/title2"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="title2" />
+                    android:text="title2"
+                    android:textAlignment="center"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
 
 
                 <TextView
                     android:id="@+id/sinopsis2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="sinopsis2" />
+                    android:text="sinopsis2"
+                    android:textSize="18sp" />
 
             </LinearLayout>
 
@@ -123,16 +133,20 @@
 
                 <TextView
                     android:id="@+id/title1"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="title1" />
+                    android:text="title1"
+                    android:textAlignment="center"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
 
 
                 <TextView
                     android:id="@+id/sinopsis1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="sinopsis1" />
+                    android:text="sinopsis1"
+                    android:textSize="18sp" />
 
             </LinearLayout>
 
@@ -148,7 +162,7 @@
         android:text="Show content"
         android:visibility="visible"
         tools:ignore="MissingConstraints"
-        tools:layout_editor_absoluteX="115dp"
-        tools:layout_editor_absoluteY="522dp" />
+        tools:layout_editor_absoluteX="139dp"
+        tools:layout_editor_absoluteY="547dp" />
 
 </android.support.constraint.ConstraintLayout>
