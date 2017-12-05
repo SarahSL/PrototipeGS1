@@ -41,6 +41,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingTop="10dp"
+        android:textAlignment="center"
+        android:textSize="18sp"
+        android:textStyle="bold"
         tools:layout_editor_absoluteX="169dp"
         tools:layout_editor_absoluteY="93dp" />
 
@@ -58,12 +61,6 @@
         android:layout_height="wrap_content"
         android:gravity="right|end"
         android:orientation="vertical">
-
-        <TextView
-            android:id="@+id/AddTolist"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Add to the list" />
 
         <Spinner
             android:id="@+id/spinner_ContentPage"
@@ -116,7 +113,9 @@
     <TextView
         android:id="@+id/name_of_platform"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:textSize="18sp"
+        android:textStyle="bold" />
 
     <TextView
         android:id="@+id/link_for_platform"

@@ -33,7 +33,7 @@ public class Comment extends AppCompatActivity implements ConnectResponse {
 
         editText = findViewById(R.id.editText);
         comenta = findViewById(R.id.commentButton);
-        back = findViewById(R.id.buttonBack);
+        //back = findViewById(R.id.buttonBack);
 
         comenta.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -1,7 +1,7 @@
 Equipo formado por :
 
-Sarah Sanchez León
-Tomás Perez Marquez
+Sarah Sánchez León
+Tomás Pérez Márquez
 Jorge Fernández Molines
-Cynthia J. Afonso Garcia
+Cynthia J. Afonso García
 Geraldo Rodrigues Veloso
