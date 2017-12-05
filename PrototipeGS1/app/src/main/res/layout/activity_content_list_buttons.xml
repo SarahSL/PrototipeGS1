@@ -18,6 +18,7 @@
             android:layout_marginStart="27dp"
             android:layout_marginTop="29dp"
             android:text="sdasdasd"
+            android:textSize="14sp"
             tools:ignore="MissingConstraints"
             tools:layout_editor_absoluteX="27dp"
             tools:layout_editor_absoluteY="49dp" />
