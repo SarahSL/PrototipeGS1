@@ -24,6 +24,7 @@
         android:id="@+id/button_donation"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:onClick="donation"
         android:text="@string/text_button_donation" />
 
 </LinearLayout>

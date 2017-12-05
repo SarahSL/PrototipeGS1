@@ -47,17 +47,15 @@ public class SearchContent extends AppCompatActivity implements ConnectResponse 
 
         results.setAdapter(adaptador);
 
-
         search.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 llamada();
-                adaptador.addAll(result);
-                results.setAdapter(adaptador);
                 adaptador.clear();
                 result.clear();
             }
         });
+
         results.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
@@ -112,10 +110,10 @@ public class SearchContent extends AppCompatActivity implements ConnectResponse 
     private void copy() {
         for (ArrayList<String> list : datos) {
             for (String num : list) {
-                result.add(num);
+                adaptador.add(num);
             }
         }
-
+        results.setAdapter(adaptador);
     }
 
 }
